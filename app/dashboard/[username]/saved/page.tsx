@@ -27,27 +27,27 @@ export default function SavedPost(){
   return <PostsGrid posts={posts} />;
 }
 
-function SavedPosts() {
-  const params = useParams<{ username: string }>();
-  const username = params.username;
-  const [posts, setPosts] = useState<any[] | null>(null);
+// function SavedPosts() {
+//   const params = useParams<{ username: string }>();
+//   const username = params.username;
+//   const [posts, setPosts] = useState<any[] | null>(null);
 
-  useEffect(() => {
-    async function loadSavedPosts() {
-      const savedPosts = await fetchSavedPostsByUsername(username);
-      const fetchedPosts = savedPosts?.map((savedPost) => savedPost.post);
-      setPosts(fetchedPosts);
-    }
+//   useEffect(() => {
+//     async function loadSavedPosts() {
+//       const savedPosts = await fetchSavedPostsByUsername(username);
+//       const fetchedPosts = savedPosts?.map((savedPost) => savedPost.post);
+//       setPosts(fetchedPosts);
+//     }
 
-    loadSavedPosts();
-  }, [username]);
+//     loadSavedPosts();
+//   }, [username]);
 
-  if (!posts) {
-    return <div>Loading...</div>; // Or a loading indicator component
-  }
+//   if (!posts) {
+//     return <div>Loading...</div>; // Or a loading indicator component
+//   }
 
-  return <PostsGrid posts={posts} />;
-}
+//   return <PostsGrid posts={posts} />;
+// }
 
 // import PostsGrid from "@/components/PostsGrid";
 // import { fetchSavedPostsByUsername } from "@/lib/data";
