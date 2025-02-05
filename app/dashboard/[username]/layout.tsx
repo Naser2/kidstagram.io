@@ -10,7 +10,6 @@ import { MoreHorizontal, Settings } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { noStore } from 'next/cache';
 
 type Props = {
   params: {

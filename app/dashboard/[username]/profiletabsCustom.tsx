@@ -6,26 +6,35 @@ import ProfileTabs from "@/components/ProfileTabs";
 import UserAvatar from "@/components/UserAvatar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { fetchProfile } from "@/lib/data";
-import { MoreHorizontal, Settings, User } from "lucide-react";
+import { PostWithExtras, UserWithExtras } from "@/lib/definitions";
+import { MoreHorizontal, Settings } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
-import { User } from "next-auth";
+
+interface Props {
+  username: string | null | undefined;
+  children: React.ReactNode;
+  profile: UserWithExtras;
+  session: { user: { id: string } };
+}
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import User from User
-type Props = {
-   username: string;
-   children: React.ReactNode;
-   profile: User,
-   session: Object
-};
+
+// type Props = {
+//    username: string | null | undefined;
+//    children: React.ReactNode;
+//    profile: UserWithExtras,
+//    session: { user: { id: string } }
+//    user: User
+// };
 
 export async function generateMetadata(
   { username }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const userName = username;
-
-
+  if (!username) {
+    notFound();
+  }
+  const profile = await fetchProfile(username);
 
   return {
     title: `${profile?.name} (@${profile?.username})`,
@@ -35,7 +44,7 @@ export async function generateMetadata(
 async function ProfileLayout({ children, profile, session, username  }: Props) {
 //   const profile = await fetchProfile(username);
 //   const session = await auth();
-  const isCurrentUser = session?.user.id === profile?.id;
+  const isCurrentUser = session.user.id === profile?.id;
   //   the followerId here is the id of the user who is following the profile
   const isFollowing = profile?.followedBy.some(
     (user) => user.followerId === session?.user.id
@@ -46,7 +55,7 @@ async function ProfileLayout({ children, profile, session, username  }: Props) {
   }
   return (
     <>
-      <ProfileHeader username={profile.username} />
+      <ProfileHeader username={profile.username ?? null} />
       <div className="max-w-4xl mx-auto">
         <div className="flex gap-x-5 md:gap-x-10 px-4">
           <ProfileAvatar user={profile}>
