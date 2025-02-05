@@ -1,32 +1,32 @@
-"use client";
+
 
 import { SinglePostSkeleton } from "@/components/Skeletons";
 import { Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 import SinglePost from "@/components/SinglePost";
 import MorePosts from "@/components/MorePosts";
-import { useParams } from 'next/navigation'; // Import useParams
+// import { useParams } from 'next/navigation'; // Import useParams
 
-function PostPage() {
-  const params = useParams(); // Access params using useParams()
-  const id = Array.isArray(params.id) ? params.id[0] : params.id || ""; // Ensure id is a string
+export default async function PostPage({ params }: { params: { postId: string } }) {
+  const postId = params.postId;
+  //  Array.isArray(params.id) ? params.id[0] : params.id || ""; // Ensure id is a string
 
   return (
     <div>
       <Suspense fallback={<SinglePostSkeleton />}>
-        <SinglePost id={id} />
+        <SinglePost id={postId} />
       </Suspense>
 
       <Separator className="my-12 max-w-3xl lg:max-w-4xl mx-auto" />
 
       <Suspense>
-        <MorePosts postId={id} />
+        <MorePosts postId={postId} />
       </Suspense>
     </div>
   );
 }
 
-export default PostPage;
+// export default PostPage;
 
 // import { SinglePostSkeleton } from "@/components/Skeletons";
 // import { Suspense } from "react";
