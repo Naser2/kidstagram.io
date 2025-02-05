@@ -1,16 +1,60 @@
+import { Metadata, ResolvingMetadata } from "next"; // Import necessary types
 import PostsGrid from "@/components/PostsGrid";
-import { fetchPostsByUsername } from "@/lib/data";
+import { fetchPostsByUsername, fetchProfile } from "@/lib/data";
 
-export default async function ProfilePage({
-  params,
-}: {
+type Props = {
   params: Promise<{ username: string }>;
-}) {
-  const { username } = await params; // Await the params to extract `username`
+};
+
+// **Metadata generation function**
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { username } = await params; // Await params to extract `username`
+
+  try {
+    const profile = await fetchProfile(username);
+
+    if (!profile) {
+      return {
+        title: "User not found", // Default title for non-existent users
+      };
+    }
+
+    return {
+      title: `${profile.name} (@${profile.username})`, // Profile-based title
+    };
+  } catch (error) {
+    console.error("Error in generateMetadata:", error);
+    return {
+      title: "Error loading profile", // Fallback error title
+    };
+  }
+}
+
+// **Main ProfilePage Component**
+export default async function ProfilePage({ params }: Props) {
+  const { username } = await params; // Await params to extract `username`
   const posts = await fetchPostsByUsername(username);
 
   return <PostsGrid posts={posts} />;
 }
+
+
+// import PostsGrid from "@/components/PostsGrid";
+// import { fetchPostsByUsername } from "@/lib/data";
+
+// export default async function ProfilePage({
+//   params,
+// }: {
+//   params: Promise<{ username: string }>;
+// }) {
+//   const { username } = await params; // Await the params to extract `username`
+//   const posts = await fetchPostsByUsername(username);
+
+//   return <PostsGrid posts={posts} />;
+// }
 
 // import PostsGrid from "@/components/PostsGrid";
 // import { fetchPostsByUsername } from "@/lib/data";
