@@ -1,3 +1,5 @@
+"use client"
+
 import SideNav from "@/components/SideNav";
 
 export default function DashboardLayout({
