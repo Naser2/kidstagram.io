@@ -3,12 +3,11 @@ import EditPost from "@/components/EditPost";
 import { notFound } from "next/navigation";
 
 type Props = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>; // ✅ Fix `params` type to be a Promise
 };
 
-async function EditPostPage({ params: { id } }: Props) {
+export default async function EditPostPage({ params }: Props) {
+  const { id } = await params; // ✅ Await params before extracting `id`
   const post = await fetchPostById(id);
 
   if (!post) {
@@ -18,4 +17,25 @@ async function EditPostPage({ params: { id } }: Props) {
   return <EditPost id={id} post={post} />;
 }
 
-export default EditPostPage;
+
+// import { fetchPostById } from "@/lib/data";
+// import EditPost from "@/components/EditPost";
+// import { notFound } from "next/navigation";
+
+// type Props = {
+//   params: {
+//     id: string;
+//   };
+// };
+
+// async function EditPostPage({ params: { id } }: Props) {
+//   const post = await fetchPostById(id);
+
+//   if (!post) {
+//     notFound();
+//   }
+
+//   return <EditPost id={id} post={post} />;
+// }
+
+// export default EditPostPage;
