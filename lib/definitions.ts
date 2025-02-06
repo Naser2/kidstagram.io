@@ -7,6 +7,8 @@ import type {
   User,
 } from "@prisma/client";
 
+
+
 export type CommentWithExtras = Comment & { user: User };
 export type LikeWithExtras = Like & { user: User };
 
