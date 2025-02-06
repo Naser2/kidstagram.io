@@ -52,26 +52,24 @@ export default function Login() {
     setIsMounted(true); // Ensure the component is mounted
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
-
-
+  
     if (res?.error) {
       setError("Invalid email or password");
     } else {
-      
       if (isMounted) {
-       
         router.push("/dashboard");
       }
-     
     }
   };
+
+    
 
   return (
     <div className="container">
