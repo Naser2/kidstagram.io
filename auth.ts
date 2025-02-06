@@ -5,6 +5,9 @@ import CredentialsProvider from "next-auth/providers/credentials"; // Import cre
 import NextAuth, { getServerSession, type NextAuthOptions } from "next-auth";
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
+
+console.log("AUTH_1_GOOGLE_CLIENT_ID", process.env.GOOGLE_CLIENT_ID);
+console.log("AUTH_2_GOOGLE_CLIENT_ID", process.env.GOOGLE_CLIENT_SECRET);
 export const config = {
   pages: {
     signIn: "/login", // Custom login page
@@ -21,22 +24,28 @@ export const config = {
         email: { label: "Email", type: "email", placeholder: "your-email@example.com" },
         password: { label: "Password", type: "password" },
       },
+    
       async authorize(credentials) {
         const user = await prisma.user.findUnique({
           where: {
             email: credentials?.email,
           },
         });
+        console.log("AUTH_3_credentials", credentials)
+        console.log("AUTH_4_PRISMA_AWAITED_RES", credentials)
         // --------- To ensure `user.password` is a string before calling `bcrypt.compare()`
         if (user && typeof user.password === "string" && credentials?.password) {
           const isValid = await bcrypt.compare(credentials.password, user.password);
+          console.log("AUTH_4_isValid", isValid)
           if (isValid) {
             return user;
           }
         }
+
         // --------- Add "string" && credentials?.password for bCruypt to Compare Password in case not null is passed above
         if (user && typeof user.password === "string" && credentials?.password) {
           const isValid = await bcrypt.compare(credentials.password, user.password);
+          console.log("AUTH_5_isValid", isValid)
           if (isValid) {
             return user;
           }
@@ -48,8 +57,11 @@ export const config = {
   session: {
     strategy: "jwt",
   },
+  
   callbacks: {
     async session({ session, token }) {
+      console.log("AUTH_6_session", session);
+      console.log("AUTH_7_session", token);
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;
@@ -57,7 +69,7 @@ export const config = {
         session.user.image = token.picture;
         session.user.username = token.username;
       }
-
+        console.log("session", session);
       return session;
     },
     async jwt({ token, user }: { token: any, user?: any }) {
@@ -65,6 +77,7 @@ export const config = {
         token.id = user.id;
         return token;
       }
+      console.log("jwt", token);
       const prismaUser = await prisma.user.findFirst({
         where: {
           email: token.email,
