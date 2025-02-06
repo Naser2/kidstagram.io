@@ -27,11 +27,18 @@ export const config = {
             email: credentials?.email,
           },
         });
-
-        if (user && credentials?.password) {
+        // --------- To ensure `user.password` is a string before calling `bcrypt.compare()`
+        if (user && typeof user.password === "string" && credentials?.password) {
           const isValid = await bcrypt.compare(credentials.password, user.password);
           if (isValid) {
-            return user; 
+            return user;
+          }
+        }
+        // --------- Add "string" && credentials?.password for bCruypt to Compare Password in case not null is passed above
+        if (user && typeof user.password === "string" && credentials?.password) {
+          const isValid = await bcrypt.compare(credentials.password, user.password);
+          if (isValid) {
+            return user;
           }
         }
         return null;
@@ -53,7 +60,7 @@ export const config = {
 
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any, user?: any }) {
       if (user) {
         token.id = user.id;
         return token;
