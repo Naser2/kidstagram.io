@@ -44,30 +44,57 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isMounted, setIsMounted] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
-  useEffect(() => {
-    setIsMounted(true); // Ensure the component is mounted
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    console.log("LOGIN Failed", formData.get("email"), formData.get("password"));
     const res = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
-  
+   
     if (res?.error) {
+      console.log("LOGIN Failed", res.error);
       setError("Invalid email or password");
-    } else {
-      if (isMounted) {
-        router.push("/dashboard");
-      }
+    } 
+    else {
+      router.push("/dashboard"); // No need for `isMounted`
     }
   };
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [isMounted, setIsMounted] = useState(false);
+  // const [error, setError] = useState("");
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   setIsMounted(true); // Ensure the component is mounted
+  // }, []);
+
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.target as HTMLFormElement);
+  //   console.log("LOGIN Failed", formData.get("email"), formData.get("password"));
+  //   const res = await signIn("credentials", {
+  //     redirect: false,
+  //     email,
+  //     password,
+  //   });
+
+  //   if (res?.error) {
+  //     console.log("LOGIN Failed", res.error);
+  //     setError("Invalid email or password");
+  //   } else {
+  //     if (isMounted) {
+  //       router.push("/dashboard");
+  //     }
+  //   }
+  // };
 
     
 
@@ -103,10 +130,10 @@ export default function Login() {
           Sign in with Google
         </button>
       </div>
-
+      {/* // display: flex; */}
       <style jsx>{`
         .container {
-          display: flex;
+    
           justify-content: center;
           align-items: center;
           height: 100vh;
@@ -118,7 +145,8 @@ export default function Login() {
           border-radius: 8px;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           max-width: 1000px;
-          width: 500px;
+          min-width: 230px;
+          max-width: 360px;
           text-align: center;
         }
         h1 {
