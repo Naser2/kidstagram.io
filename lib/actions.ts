@@ -364,7 +364,8 @@ export async function updateProfile(values: z.infer<typeof UpdateUser>) {
   }
 }
 
-export async function followUser(formData: FormData) {
+
+export async function followUser(formData: FormData): Promise<void> {
   const userId = await getUserId();
 
   const { id } = FollowUser.parse({
@@ -372,57 +373,90 @@ export async function followUser(formData: FormData) {
   });
 
   const user = await prisma.user.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
-  if (!user) {
-    throw new Error("User not found");
-  }
+  if (!user) throw new Error("User not found");
 
   const follows = await prisma.follows.findUnique({
     where: {
-      followerId_followingId: {
-        // followerId is of the person who wants to follow
-        followerId: userId,
-        // followingId is of the person who is being followed
-        followingId: id,
-      },
+      followerId_followingId: { followerId: userId, followingId: id },
     },
   });
 
   if (follows) {
-    try {
-      await prisma.follows.delete({
-        where: {
-          followerId_followingId: {
-            followerId: userId,
-            followingId: id,
-          },
-        },
-      });
-      revalidatePath("/dashboard");
-      return { message: "Unfollowed User." };
-    } catch (error) {
-      return {
-        message: "Database Error: Failed to Unfollow User.",
-      };
-    }
+    await prisma.follows.delete({
+      where: { followerId_followingId: { followerId: userId, followingId: id } },
+    });
+  } else {
+    await prisma.follows.create({
+      data: { followerId: userId, followingId: id },
+    });
   }
 
-  try {
-    await prisma.follows.create({
-      data: {
-        followerId: userId,
-        followingId: id,
-      },
-    });
-    revalidatePath("/dashboard");
-    return { message: "Followed User." };
-  } catch (error) {
-    return {
-      message: "Database Error: Failed to Follow User.",
-    };
-  }
+  revalidatePath("/dashboard");
 }
+
+
+// export async function followUser(formData: FormData) {
+//   const userId = await getUserId();
+
+//   const { id } = FollowUser.parse({
+//     id: formData.get("id"),
+//   });
+
+//   const user = await prisma.user.findUnique({
+//     where: {
+//       id,
+//     },
+//   });
+
+//   if (!user) {
+//     throw new Error("User not found");
+//   }
+
+//   const follows = await prisma.follows.findUnique({
+//     where: {
+//       followerId_followingId: {
+//         // followerId is of the person who wants to follow
+//         followerId: userId,
+//         // followingId is of the person who is being followed
+//         followingId: id,
+//       },
+//     },
+//   });
+
+//   if (follows) {
+//     try {
+//       await prisma.follows.delete({
+//         where: {
+//           followerId_followingId: {
+//             followerId: userId,
+//             followingId: id,
+//           },
+//         },
+//       });
+//       revalidatePath("/dashboard");
+//       return { message: "Unfollowed User." };
+//     } catch (error) {
+//       return {
+//         message: "Database Error: Failed to Unfollow User.",
+//       };
+//     }
+//   }
+
+//   try {
+//     await prisma.follows.create({
+//       data: {
+//         followerId: userId,
+//         followingId: id,
+//       },
+//     });
+//     revalidatePath("/dashboard");
+//     return { message: "Followed User." };
+//   } catch (error) {
+//     return {
+//       message: "Database Error: Failed to Follow User.",
+//     };
+//   }
+// }
