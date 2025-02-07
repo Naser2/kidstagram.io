@@ -8,7 +8,7 @@ type Props = Partial<AvatarProps> & {
 };
 
 function UserAvatar({ user, ...avatarProps }: Props) {
-
+console.log("USER_AVATAR", user)
   const avatarUrl = user?.image
     ? user.image
     : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${encodeURIComponent(user?.name || "User")}`;

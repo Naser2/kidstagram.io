@@ -22,7 +22,7 @@ function FollowersModal({
   const mount = useMount();
   const pathname = usePathname();
   const router = useRouter();
-  const isFollowersPage = pathname === `/dashboard/${username}/followers`;
+  const isFollowersPage = pathname === `/user/${username}/followers`;
 
   if (!mount) return null;
 
@@ -32,6 +32,7 @@ function FollowersModal({
       onOpenChange={(isOpen) => !isOpen && router.back()}
     >
       <DialogContent className="dialogContent">
+      <DialogTitle className="hidden">Followers Modal</DialogTitle>
         <DialogHeader className="border-b border-zinc-300 dark:border-neutral-700 py-2 w-full">
           <DialogTitle className="mx-auto font-bold text-base">
             Followers

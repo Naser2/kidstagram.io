@@ -10,6 +10,7 @@ import PostOptions from "./PostOptions";
 import PostActions from "./PostActions";
 
 async function Post({ post }: { post: PostWithExtras }) {
+  console.log("Post", post);
   const session = await auth();
   const userId = session?.user?.id;
   const username = post.user.username;

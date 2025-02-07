@@ -4,7 +4,7 @@ import CommentForm from "@/components/CommentForm";
 import PostActions from "@/components/PostActions";
 import UserAvatar from "@/components/UserAvatar";
 import ViewPost from "@/components/ViewPost";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useMount from "@/hooks/useMount";
 import { PostWithExtras } from "@/lib/definitions";
@@ -19,12 +19,14 @@ import Comment from "./Comment";
 
 function PostView({ id, post }: { id: string; post: PostWithExtras }) {
   const pathname = usePathname();
-  const isPostModal = pathname === `/dashboard/p/${id}`;
+  const isPostModal = pathname === `/dashboard/post/${id}`;
   const router = useRouter();
   const { data: session, status } = useSession();
   const user = session?.user;
   const inputRef = useRef<HTMLInputElement>(null);
   const username = post.user.username;
+  console.log("POST_USER_" + user);
+  console.log("USERNAME_" + username);
   const href = `/dashboard/${username}`;
   const mount = useMount();
 
@@ -33,17 +35,21 @@ function PostView({ id, post }: { id: string; post: PostWithExtras }) {
   return (
     <Dialog open={isPostModal} onOpenChange={(open) => !open && router.back()}>
       <DialogContent className="flex gap-0 flex-col md:flex-row items-start p-0 md:max-w-3xl lg:max-w-5xl xl:max-w-6xl h-full max-h-[500px] lg:max-h-[700px] xl:max-h-[800px]">
+      <DialogTitle className="hidden">Post View</DialogTitle>
         <div className="flex flex-col justify-between md:h-full md:order-2 w-full max-w-md">
           <DialogHeader className="flex border-b space-y-0 space-x-2.5 flex-row items-center py-4 pl-3.5 pr-6">
-            <Link href={href}>
+           { post.user && <>
+           <Link href={href}>
               <UserAvatar user={post.user} />
             </Link>
             <Link href={href} className="font-semibold text-sm">
               {username}
             </Link>
+            </>
+            }
           </DialogHeader>
 
-          <ScrollArea className="hidden md:inline border-b flex-1 py-1.5">
+          {post.comments && <ScrollArea className="hidden md:inline border-b flex-1 py-1.5">
             <MiniPost post={post} />
             {post.comments.length > 0 && (
               <>
@@ -58,11 +64,11 @@ function PostView({ id, post }: { id: string; post: PostWithExtras }) {
                 })}
               </>
             )}
-          </ScrollArea>
+          </ScrollArea>}
 
           <ViewPost className="hidden md:flex border-b" />
 
-          <div className="px-2 hidden md:block mt-auto border-b p-2.5">
+        {  <div className="px-2 hidden md:block mt-auto border-b p-2.5">
             <PostActions post={post} userId={user?.id} />
             <time className="text-[11px]  uppercase text-zinc-500 font-medium">
               {new Date(post.createdAt).toLocaleDateString("en-US", {
@@ -70,7 +76,7 @@ function PostView({ id, post }: { id: string; post: PostWithExtras }) {
                 day: "numeric",
               })}
             </time>
-          </div>
+          </div>}
           <CommentForm
             postId={id}
             className="hidden md:inline-flex"

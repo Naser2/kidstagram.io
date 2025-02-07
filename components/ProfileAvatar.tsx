@@ -8,20 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import useMount from "@/hooks/useMount";
+import { FormControl, FormField, FormItem } from "@/components/ui/form";
 import { updateProfile } from "@/lib/actions";
 import { UserWithExtras } from "@/lib/definitions";
 import { UpdateUser } from "@/lib/schemas";
 import { UploadButton } from "@/lib/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -31,51 +25,64 @@ import { Form } from "./ui/form";
 
 function ProfileAvatar({
   user,
-  children,
 }: {
   user: UserWithExtras;
-  children: React.ReactNode;
 }) {
+  console.log("PROFILE AVATAR MOUNTED", user);
+
   const { data: session } = useSession();
-  const isCurrentUser = session?.user.id === user.id;
+  const isCurrentUser = session?.user?.id === user?.id;
   const form = useForm<z.infer<typeof UpdateUser>>({
     resolver: zodResolver(UpdateUser),
     defaultValues: {
       id: user.id,
-      image:user.image
-      ? user.image
-      : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${user.name}`,
+      image: user.image
+        ? user.image
+        : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${user.name}`,
       name: user.name || "",
       username: user.username || "",
     },
   });
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
-  const mount = useMount();
+  const [mounted, setMounted] = useState(false);
 
-  if (!mount || !session) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  if (!isCurrentUser)
-    return <UserAvatar user={user} className="w-20 h-20 md:w-36 md:h-36" />;
+  if (!mounted || !session) return null;
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <>
+      <button
+        className="cursor-pointer"
+        onClick={() => {
+          if (isCurrentUser) {
+            setOpen(true);
+          }
+        }}
+      >
+        <UserAvatar
+          user={user}
+          className="w-20 h-20 md:w-36 md:h-36"
+        />
+      </button>
 
-      <DialogContent className="dialogContent">
-        <DialogHeader>
-          <DialogTitle className="mx-auto font-medium text-xl py-5">
-            Change Profile Photo
-          </DialogTitle>
-        </DialogHeader>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="dialogContent">
+          <DialogHeader>
+            <DialogTitle className="mx-auto font-medium text-xl py-5">
+              Change Profile Photo
+            </DialogTitle>
+          </DialogHeader>
 
-        {isCurrentUser && (
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(async (values) => {
+                console.log("UPDATING PROFILE WITH:", values);
                 const { message } = await updateProfile(values);
                 toast(message);
-
                 setOpen(false);
               })}
             >
@@ -90,13 +97,10 @@ function ProfileAvatar({
                         endpoint="imageUploader"
                         onClientUploadComplete={(res) => {
                           form.setValue("image", res[0].url);
-
-                          if (inputRef.current) {
-                            inputRef.current.click();
-                          }
+                          inputRef.current?.click();
                         }}
                         onUploadError={(error: Error) => {
-                          console.error(error);
+                          console.error("Upload error:", error);
                           toast.error("Upload failed");
                         }}
                       />
@@ -110,9 +114,7 @@ function ProfileAvatar({
                   className="text-red-500 border-b border-zinc-300 dark:border-neutral-700 font-bold disabled:cursor-not-allowed w-full text-sm p-3"
                   onClick={() => {
                     form.setValue("image", "");
-                    if (inputRef.current) {
-                      inputRef.current.click();
-                    }
+                    inputRef.current?.click();
                   }}
                   disabled={form.formState.isSubmitting}
                 >
@@ -123,13 +125,13 @@ function ProfileAvatar({
               <input type="submit" hidden ref={inputRef} />
             </form>
           </Form>
-        )}
 
-        <DialogClose className="postOption border-0 w-full p-3">
-          Cancel
-        </DialogClose>
-      </DialogContent>
-    </Dialog>
+          <DialogClose className="postOption border-0 w-full p-3">
+            Cancel
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

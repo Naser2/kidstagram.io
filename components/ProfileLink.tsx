@@ -10,7 +10,7 @@ import UserAvatar from "./UserAvatar";
 function ProfileLink({ user }: { user: User }) {
   const pathname = usePathname();
 
-  const href = `/dashboard/${user.username}`;
+  const href = `/profile/${user.username}`;
   const isActive = pathname === href;
 
   return (
@@ -29,7 +29,7 @@ function ProfileLink({ user }: { user: User }) {
 
       <p
         className={`${cn("hidden lg:block", {
-          "font-extrabold": isActive,
+          "font-extrabold primary-text-color": isActive,
         })}`}
       >
         Profile

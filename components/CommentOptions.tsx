@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import SubmitButton from "@/components/SubmitButton";
@@ -23,6 +24,7 @@ function CommentOptions({ comment }: Props) {
         <MoreHorizontal className="h-5 w-5 hidden group-hover:inline cursor-pointer dark:text-neutral-400" />
       </DialogTrigger>
       <DialogContent className="dialogContent">
+      <DialogTitle className="hiddemn">Comment Option</DialogTitle>
         <form
           action={async (formData) => {
             const { message } = await deleteComment(formData);

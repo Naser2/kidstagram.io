@@ -53,7 +53,7 @@ function Comments({
       {commentsCount > 1 && (
         <Link
           scroll={false}
-          href={`/dashboard/p/${postId}`}
+          href={`/dashboard/post${postId}`}
           className="text-sm font-medium text-neutral-500"
         >
           View all {commentsCount} comments

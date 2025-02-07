@@ -32,7 +32,7 @@ import { Post } from "@prisma/client";
 function EditPost({ id, post }: { id: string; post: Post }) {
   const mount = useMount();
   const pathname = usePathname();
-  const isEditPage = pathname === `/dashboard/p/${id}/edit`;
+  const isEditPage = pathname === `/dashboard/post/${id}/edit`;
   const router = useRouter();
   const form = useForm<z.infer<typeof UpdatePost>>({
     resolver: zodResolver(UpdatePost),

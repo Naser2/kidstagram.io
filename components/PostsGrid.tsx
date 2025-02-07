@@ -7,7 +7,7 @@ function PostsGrid({ posts }: { posts: PostWithExtras[] | undefined }) {
   if (posts?.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center space-y-3 max-w-3xl lg:max-w-4xl mx-auto pb-20">
-        <p className="font-semibold text-sm text-neutral-400">No more posts.</p>
+        <p className="font-semibold text-sm text-neutral-400">No more posts in La.</p>
       </div>
     );
   }
@@ -16,7 +16,7 @@ function PostsGrid({ posts }: { posts: PostWithExtras[] | undefined }) {
     <div className="grid grid-cols-3 gap-0.5">
       {posts?.map((post) => (
         <Link
-          href={`/dashboard/p/${post.id}`}
+          href={`/dashboard/post/${post.id}`}
           key={post.id}
           className="relative flex items-center justify-center h-44 md:h-64 lg:h-80 group col-span-1"
         >

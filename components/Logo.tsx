@@ -9,7 +9,7 @@ function Logo() {
       href={"/dashboard"}
       className={buttonVariants({
         className:
-          "hidden md:flex navLink !mb-10 lg:hover:bg-transparent lg:!p-0",
+          "hidden md:flex navLink !mb-12 lg:hover:bg-transparent lg:!p-2",
         variant: "ghost",
         size: "lg",
       })}
@@ -18,7 +18,7 @@ function Logo() {
       <p
         className={`font-semibold text-xl hidden lg:block ${calSans.className}`}
       >
-        Pixelgram
+        Kidstagram
       </p>
     </Link>
   );

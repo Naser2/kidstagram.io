@@ -3,7 +3,7 @@
 import { deletePost } from "@/lib/actions";
 import { PostWithExtras } from "@/lib/definitions";
 import { cn } from "@/lib/utils";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import SubmitButton from "@/components/SubmitButton";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -29,6 +29,7 @@ function PostOptions({ post, userId, className }: Props) {
         />
       </DialogTrigger>
       <DialogContent className="dialogContent">
+      <DialogTitle className="hidden">Post Option Modal</DialogTitle>
         {isPostMine && (
           <form
             action={async (formData) => {
@@ -47,7 +48,7 @@ function PostOptions({ post, userId, className }: Props) {
         {isPostMine && (
           <Link
             scroll={false}
-            href={`/dashboard/p/${post.id}/edit`}
+            href={`/dashboard/post/${post.id}/edit`}
             className="postOption p-3"
           >
             Edit
@@ -57,6 +58,11 @@ function PostOptions({ post, userId, className }: Props) {
         <form action="" className="postOption border-0">
           <button className="w-full p-3">Hide like count</button>
         </form>
+        {!isPostMine &&
+         <form action="" className="postOption border-0">
+          <button className="w-full p-3">Report as inappropriate</button>
+        </form>
+        }
       </DialogContent>
     </Dialog>
   );

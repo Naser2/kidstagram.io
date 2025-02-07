@@ -12,7 +12,7 @@ async function Posts() {
   }
 
   if (!posts || posts.length === 0) {
-    return <div>No posts found.</div>; 
+    return <div className="justify-center min-h-screen py-[40vh] text-center text-xl">No posts found.</div>; 
   }
 
   return (

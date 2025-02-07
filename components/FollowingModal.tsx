@@ -33,6 +33,7 @@ function FollowingModal({
       onOpenChange={(isOpen) => !isOpen && router.back()}
     >
       <DialogContent className="dialogContent">
+      <DialogTitle className="hidden">Following Modal</DialogTitle>
         <DialogHeader className="border-b border-zinc-300 dark:border-neutral-700 py-2 w-full">
           <DialogTitle className="mx-auto font-bold text-base">
             Following

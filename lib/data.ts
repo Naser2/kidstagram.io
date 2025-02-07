@@ -30,9 +30,10 @@ export async function fetchPosts() {
     });
 
     if (!data) {
+      console.error("Post not found");
       return { error: "Post not found", posts: [] };
     }
-
+    console.log("fetchPosts -> data", data);
     return { posts: data };
   } catch (error) {
     return { error: "Failed to fetch post", post: null };
@@ -41,6 +42,7 @@ export async function fetchPosts() {
 
 export async function fetchPostById(id: string) {
   noStore();
+  console.log("fetchPostById -> id", id);
 
   try {
     const data = await prisma.post.findUnique({
@@ -65,10 +67,11 @@ export async function fetchPostById(id: string) {
         user: true,
       },
     });
-
+    console.log("fetchPostById -> data", data);
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch post");
+    console.error("Failed to fetch post");
+    // throw new Error("Failed to fetch post");
   }
 }
 
@@ -106,9 +109,10 @@ export async function fetchPostsByUsername(username: string, postId?: string) {
         createdAt: "desc",
       },
     });
-
+console.log("fetchPostsByUsername -> data", data);
     return data;
   } catch (error) {
+    console.log("Database -> data", error);
     console.error("Database Error:", error);
     throw new Error("Failed to fetch posts");
   }
@@ -155,7 +159,7 @@ export async function fetchProfile(username: string) {
         },
       },
     });
-
+  console.log("fetchProfile-->", data);
     return data;
   } catch (error) {
     console.error("Database Error:", error);
@@ -198,7 +202,7 @@ export async function fetchSavedPostsByUsername(username: string) {
         createdAt: "desc",
       },
     });
-
+    console.log("fetchSavedPostsByUsername -> data", data);
     return data;
   } catch (error) {
     console.error("Database Error:", error);
