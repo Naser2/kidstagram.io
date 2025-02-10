@@ -30,9 +30,10 @@ import { z } from "zod";
 import { Post } from "@prisma/client";
 
 function EditPost({ id, post }: { id: string; post: Post }) {
-  const mount = useMount();
+  // const mount = useMount();
   const pathname = usePathname();
-  const isEditPage = pathname === `/dashboard/post/${id}/edit`;
+  // const isEditPage = pathname === `/posts/${id}/edit`;
+  const isEditPage = pathname ===   `/postModal/${id}/edit`
   const router = useRouter();
   const form = useForm<z.infer<typeof UpdatePost>>({
     resolver: zodResolver(UpdatePost),
@@ -44,7 +45,7 @@ function EditPost({ id, post }: { id: string; post: Post }) {
   });
   const fileUrl = form.watch("fileUrl");
 
-  if (!mount) return null;
+  // if (!mount) return null;
 
   return (
     <Dialog open={isEditPage} onOpenChange={(open) => !open && router.back()}>

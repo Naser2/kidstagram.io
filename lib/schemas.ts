@@ -35,6 +35,8 @@ export const UserSchema = z.object({
   image: z.string().optional(),
   bio: z.string().max(150).optional(),
   website: z.string().optional(),
+  passion: z.string().optional(),
+  additionalDetails: z.string().optional(),
   gender: z.string().optional(),
 });
 

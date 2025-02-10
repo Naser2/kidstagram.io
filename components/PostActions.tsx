@@ -17,7 +17,7 @@ function PostActions({ post, userId, className }: Props) {
   return (
     <div className={cn("relative flex items-start w-full gap-x-2", className)}>
       <LikeButton post={post} userId={userId} />
-      <Link href={`/dashboard/post/${post.id}`}>
+      <Link href={`/${post.id}`}>
         <ActionIcon>
           <MessageCircle className={"h-6 w-6"} />
         </ActionIcon>

@@ -13,7 +13,7 @@ export default async function LandingPage() {
   const session = await auth();
 
   if (session?.user) {
-    redirect("/dashboard"); // Redirect if logged in
+    redirect("/"); // Redirect if logged in
   }
 
   return (

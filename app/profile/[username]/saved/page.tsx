@@ -5,28 +5,26 @@ import { fetchSavedPostsByUsername } from "@/lib/data";
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-export default function SavedPost(){
+export default function SavedPost() {
   const params = useParams<{ username: string }>();
   const [posts, setPosts] = useState<any[] | null>(null);
-  const [userName, setUsername] = useState<string | null>(null);
-
 
   useEffect(() => {
     async function loadSavedPosts() {
-      const username = await params.username;
-      setUsername(username);
- 
-      const savedPosts = await fetchSavedPostsByUsername(username);
-      const fetchedPosts = savedPosts?.map((savedPost) => savedPost.post);
-      setPosts(fetchedPosts);
+      try {
+        const response = await fetch(`/api/saved-posts/${params.username}`);
+        const data = await response.json();
+        const fetchedPosts = data.savedPosts?.map((savedPost) => savedPost.post);
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Error fetching saved posts", error);
+      }
     }
 
     loadSavedPosts();
   }, [params]);
 
-  if (!posts) {
-    return <div>Loading...</div>; // Or a loading indicator component
-  }
+  if (!posts) return <div>Loading...</div>;
 
   return <PostsGrid posts={posts} />;
 }

@@ -8,7 +8,9 @@ type Props = {
 
 export default async function EditPostPage({ params }: Props) {
   const { id } = await params; // ✅ Await params before extracting `id`
+  console.log(`EditPostPage id: ${id}`);
   const post = await fetchPostById(id);
+  console.log(`Post:`, post);
 
   if (!post) {
     notFound();

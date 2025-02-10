@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
 import { updateProfile } from "@/lib/actions";
-import { UserWithExtras } from "@/lib/definitions";
 import { UpdateUser } from "@/lib/schemas";
 import { UploadButton } from "@/lib/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,12 +21,11 @@ import { z } from "zod";
 import SubmitButton from "./SubmitButton";
 import UserAvatar from "./UserAvatar";
 import { Form } from "./ui/form";
+import { Profile, UserWithExtras } from "@/lib/definitions";
 
-function ProfileAvatar({
-  user,
-}: {
-  user: UserWithExtras;
-}) {
+
+function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: React.ReactNode }) {
+
   console.log("PROFILE AVATAR MOUNTED", user);
 
   const { data: session } = useSession();
@@ -65,7 +63,7 @@ function ProfileAvatar({
       >
         <UserAvatar
           user={user}
-          className="w-20 h-20 md:w-36 md:h-36"
+          className="w-20 h-20  profile-avatar"
         />
       </button>
 

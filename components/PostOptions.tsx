@@ -48,7 +48,7 @@ function PostOptions({ post, userId, className }: Props) {
         {isPostMine && (
           <Link
             scroll={false}
-            href={`/dashboard/post/${post.id}/edit`}
+            href={`/postModal/${post.id}/edit`}
             className="postOption p-3"
           >
             Edit

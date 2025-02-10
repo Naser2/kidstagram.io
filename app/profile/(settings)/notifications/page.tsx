@@ -1,30 +1,28 @@
 import { auth } from "@/auth";
-import LoadingComments from "@/components/LoadingComments";
 import ProfileForm from "@/components/ProfileForm";
 import { fetchProfile } from "@/lib/data";
+import { Profile } from "@/lib/definitions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Notifications Settings",
-  description: "Edit your notifications settings",
+  description: "Notifications Settings Page",
 };
 
-async function EditProfile() {
-  const session = await auth();
-  // const profile = await fetchProfile(session?.user.username!);
+async function NotificationsSettinsPage(profile: Profile) {
 
-  // if (!profile) {
-  //   notFound();
-  // }
+  if (!profile) {
+    notFound();
+  }
 
   return (
     <div className="px-12">
-      <h1 className="text-2xl font-medium lg:ml-12 xl:ml-20">Notifications Settings</h1>
-      <LoadingComments />
-      {/* <ProfileForm profile={profile} /> */}
+      <h1 className="text-2xl font-medium lg:ml-12 xl:ml-20">Notifications Settings </h1>
+
+      <ProfileForm profile={profile} />
     </div>
   );
 }
 
-export default EditProfile;
+export default NotificationsSettinsPage;

@@ -126,7 +126,9 @@ function MoreDropdown() {
                   checked={theme === "dark"}
                   onCheckedChange={(checked) => {
                     setTheme(checked ? "dark" : "light");
+                    document.documentElement.setAttribute("data-theme", checked ? "dark" : "light");
                   }}
+                  
                 />
               </DropdownMenuItem>
             </Label>

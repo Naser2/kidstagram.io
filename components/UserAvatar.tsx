@@ -14,9 +14,10 @@ console.log("USER_AVATAR", user)
     : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${encodeURIComponent(user?.name || "User")}`;
   return (
     <Avatar className="relative h-8 w-8" {...avatarProps}>
-      <Image
+      <img
         src={avatarUrl}
-        fill
+       
+        sizes="32px"
         alt={`${user?.name}'s profile picture`}
         className="rounded-full object-cover"
       />

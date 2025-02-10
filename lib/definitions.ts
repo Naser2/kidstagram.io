@@ -33,3 +33,65 @@ export type UserWithExtras = User & {
   followedBy: FollowerWithExtras[];
   following: FollowingWithExtras[];
 };
+
+
+
+export interface Profile extends UserWithExtras {
+  id: string;
+  username: string;
+  name: string;
+  email: string;
+  bio: string | null;
+  website: string | null;
+  image: string | null;
+  passion: string | null;
+  gender: string | null;
+  additionalDetails: string | null;
+  posts: {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    caption: string;
+    fileUrl: string;
+    userId: string;
+  }[];
+  saved: {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    postId: string;
+    userId: string;
+  }[];
+  followedBy: {
+    id: string;
+    followerId: string;
+    followingId: string;
+    follower: {
+      id: string;
+      username: string;
+      name: string | null;
+      website: string | null;
+      passion: string | null;
+      gender: string | null;
+      additionalDetails: string | null;
+      password: string | null;
+      image: string | null;
+      createdAt: Date;
+      updatedAt: Date;
+      email: string;
+      emailVerified: Date | null;
+      bio: string | null;
+      following: {
+        id: string;
+        followerId: string;
+        followingId: string;
+      }[];
+      followedBy: {
+        id: string;
+        followerId: string;
+        followingId: string;
+      }[];
+    };
+  }[];
+  following: FollowingWithExtras[];
+}

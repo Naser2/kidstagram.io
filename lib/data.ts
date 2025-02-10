@@ -157,7 +157,7 @@ export async function fetchProfile(username: string) {
             },
           },
         },
-      },
+      }
     });
   console.log("fetchProfile-->", data);
     return data;
