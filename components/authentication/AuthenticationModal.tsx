@@ -26,6 +26,7 @@ interface SignInOptions {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [error, setError] = useState("");
+    const [newUser, setNewUser] = useState(false); // ✅ Track if the user is new
     const router = useRouter();
     const [fieldsSatisfied, setFieldsSatisfied] = useState(false);
    
@@ -38,31 +39,36 @@ interface SignInOptions {
     }, [email, password, firstName, lastName, isSignUp]);
   
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-    const action = isSignUp ? "signUp" : "signIn";
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //       e.preventDefault()
+  //   const action = isSignUp ? "signUp" : "signIn";
 
-    try {
-        const response = await signIn("credentials", {
-            redirect: false,
-            email,
-            password,
-            ...(isSignUp && { firstName, lastName }) 
-            // as SignInOptions,
-        } );
+  //   try {
+  //       const response = await signIn("credentials", {
+  //           redirect: false,
+  //           email,
+  //           password,
+  //           ...(isSignUp && { firstName, lastName }) 
+  //           // as SignInOptions,
+  //       } );
 
-        if (response?.error) {
-            console.log("AUTH_ERROR", response.error);
-            setError(response.error);
-        } else {
-            router.push("/user");
-        }
+  //       if (response?.error) {
+  //           console.log("AUTH_ERROR", response.error);
+  //           setError(response.error);
+  //       } else {
+  //           router.push("/user");
+  //       }
 
-    } catch (error) {
-      console.error("Authentication error:", error);
-      setError("An unexpected error occurred.");
-    }
-  };
+  //   } catch (error) {
+  //     console.error("Authentication error:", error);
+  //     setError("An unexpected error occurred.");
+  //   }
+  // };
+    // Function to handle successful signup
+    const handleSignupSuccess = () => {
+      setNewUser(true);  // ✅ Mark user as new
+      setIsSignUp(false); // ✅ Switch to Login form
+    };
  const onClose = () => {
     setIsOpen(false)
  }
@@ -152,7 +158,7 @@ interface SignInOptions {
                   exit={{ y: 50, opacity: 0 }}
                   onClick={(e) => e.stopPropagation()}>
                    <div className="billing-form-grid">  
-                    <SignUpForm  />
+                    <SignUpForm onSignupSuccess={handleSignupSuccess} />
                    </div>
                 </motion.div>
                 ): (
@@ -162,7 +168,7 @@ interface SignInOptions {
                     exit={{ y: 50, opacity: 0 }}
                     onClick={(e) => e.stopPropagation()}>
                   <div className="billing-form-grid">
-                    <Login />
+                    <Login newUser={newUser}/>
                     </div>
                   </motion.div>
                 )}

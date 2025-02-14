@@ -2,6 +2,7 @@ import type {
   Comment,
   Follows,
   Like,
+  Shares,
   Post,
   SavedPost,
   User,
@@ -11,11 +12,12 @@ import type {
 
 export type CommentWithExtras = Comment & { user: User };
 export type LikeWithExtras = Like & { user: User };
-
+export type ShareWithExtras = Shares & { user: User; post: Post }; // ✅ Add ShareWithExtras
 export type PostWithExtras = Post & {
   comments: CommentWithExtras[];
   likes: LikeWithExtras[];
   savedBy: SavedPost[];
+  shares: ShareWithExtras[]; // ✅ Add shares array
   user: User;
 };
 

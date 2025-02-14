@@ -1,8 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prisma";
-
 export async function fetchPosts() {
-  // equivalent to doing fetch, cache: no-store
   noStore();
 
   try {
@@ -23,6 +21,11 @@ export async function fetchPosts() {
         },
         savedBy: true,
         user: true,
+        shares: {  // ✅ Added shares
+          include: {
+            user: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -33,16 +36,18 @@ export async function fetchPosts() {
       console.error("Post not found");
       return { error: "Post not found", posts: [] };
     }
+
     console.log("fetchPosts -> data", data);
     return { posts: data };
   } catch (error) {
-    return { error: "Failed to fetch post", post: null };
+    console.error("fetchPosts -> Prisma error:", error);
+    return { error: "Failed to fetch posts", posts: [] };
   }
 }
 
 export async function fetchPostById(id: string) {
   noStore();
-  console.log("fetchPostById -> id", id);
+  console.log("fetchPostById_Action -> id", id);
 
   try {
     const data = await prisma.post.findUnique({
@@ -65,13 +70,19 @@ export async function fetchPostById(id: string) {
         },
         savedBy: true,
         user: true,
+        shares: {  // ✅ Added shares
+          include: {
+            user: true,
+          },
+        },
       },
     });
+
     console.log("fetchPostById -> data", data);
     return data;
   } catch (error) {
-    console.error("Failed to fetch post");
-    // throw new Error("Failed to fetch post");
+    console.error("fetchPostById -> Prisma error:", error);
+    return null;
   }
 }
 
@@ -84,9 +95,7 @@ export async function fetchPostsByUsername(username: string, postId?: string) {
         user: {
           username,
         },
-        NOT: {
-          id: postId,
-        },
+        NOT: postId ? { id: postId } : undefined,
       },
       include: {
         comments: {
@@ -104,19 +113,141 @@ export async function fetchPostsByUsername(username: string, postId?: string) {
         },
         savedBy: true,
         user: true,
+        shares: {  // ✅ Added shares
+          include: {
+            user: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
       },
     });
-console.log("fetchPostsByUsername -> data", data);
+
+    console.log("fetchPostsByUsername -> data", data);
     return data;
   } catch (error) {
-    console.log("Database -> data", error);
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch posts");
+    console.error("fetchPostsByUsername -> Prisma error:", error);
+    return [];
   }
 }
+// export async function fetchPosts() {
+//   // equivalent to doing fetch, cache: no-store
+//   noStore();
+
+//   try {
+//     const data = await prisma.post.findMany({
+//       include: {
+//         comments: {
+//           include: {
+//             user: true,
+//           },
+//           orderBy: {
+//             createdAt: "desc",
+//           },
+//         },
+//         likes: {
+//           include: {
+//             user: true,
+//           },
+//         },
+//         savedBy: true,
+//         user: true,
+//       },
+      
+//       orderBy: {
+//         createdAt: "desc",
+//       },
+//     });
+
+//     if (!data) {
+//       console.error("Post not found");
+//       return { error: "Post not found", posts: [] };
+//     }
+//     console.log("fetchPosts -> data", data);
+//     return { posts: data };
+//   } catch (error) {
+//     return { error: "Failed to fetch post", post: null };
+//   }
+// }
+
+// export async function fetchPostById(id: string) {
+//   noStore();
+//   console.log("fetchPostById_Action -> id", id);
+
+//   try {
+//     const data = await prisma.post.findUnique({
+//       where: {
+//         id,
+//       },
+//       include: {
+//         comments: {
+//           include: {
+//             user: true,
+//           },
+//           orderBy: {
+//             createdAt: "desc",
+//           },
+//         },
+//         likes: {
+//           include: {
+//             user: true,
+//           },
+//         },
+//         savedBy: true,
+//         user: true,
+//       },
+//     });
+//     console.log("fetchPostById -> data", data);
+//     return data;
+//   } catch (error) {
+//     console.error("Failed to fetch post");
+//     // throw new Error("Failed to fetch post");
+//   }
+// }
+
+// export async function fetchPostsByUsername(username: string, postId?: string) {
+//   noStore();
+
+//   try {
+//     const data = await prisma.post.findMany({
+//       where: {
+//         user: {
+//           username,
+//         },
+//         NOT: {
+//           id: postId,
+//         },
+//       },
+//       include: {
+//         comments: {
+//           include: {
+//             user: true,
+//           },
+//           orderBy: {
+//             createdAt: "desc",
+//           },
+//         },
+//         likes: {
+//           include: {
+//             user: true,
+//           },
+//         },
+//         savedBy: true,
+//         user: true,
+//       },
+//       orderBy: {
+//         createdAt: "desc",
+//       },
+//     });
+// console.log("fetchPostsByUsername -> data", data);
+//     return data;
+//   } catch (error) {
+//     console.log("Database -> data", error);
+//     console.error("Database Error:", error);
+//     throw new Error("Failed to fetch posts");
+//   }
+// }
 
 export async function fetchProfile(username: string) {
   noStore();

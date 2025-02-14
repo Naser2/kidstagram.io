@@ -10,7 +10,7 @@ import bcrypt from "bcryptjs";
 // console.log("AUTH_2_GOOGLE_CLIENT_ID", process.env.GOOGLE_CLIENT_SECRET);
 export const config = {
   pages: {
-    signIn: "/login", // Custom login page
+    signIn: "/", // Custom login page
   },
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -62,52 +62,51 @@ export const config = {
     async session({ session, token }) {
       console.log("AUTH_6_session", session);
       console.log("AUTH_7_session", token);
+    
       if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
-        session.user.username = token.username;
+        session.user.id = token.id as string;
+        session.user.name = token.name as string;
+        session.user.email = token.email as string;
+        session.user.image = token.picture as string;
+        session.user.username = token.username as string;
       }
-        console.log("session", session);
+    
+      console.log("Final session:", session);
       return session;
     },
     async jwt({ token, user }: { token: any, user?: any }) {
       if (user) {
         token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.username = user.username;
+        token.picture = user.image || user.picture; // Ensure it gets set
         return token;
       }
-      console.log("jwt", token);
+    
+      console.log("jwt token before DB lookup:", token);
+    
+      // Fetch user from DB
       const prismaUser = await prisma.user.findFirst({
-        where: {
-          email: token.email,
-        },
+        where: { email: token.email },
+        select: { id: true, name: true, email: true, username: true, image: true }, // Ensure `image` is selected
       });
-
+    
+      console.log("prismaUser from DB:", prismaUser);
+    
       if (!prismaUser) {
-        token.id = user.id;
         return token;
       }
-
-      if (!prismaUser.username) {
-        await prisma.user.update({
-          where: {
-            id: prismaUser.id,
-          },
-          data: {
-            username: prismaUser.name?.split(" ").join("").toLowerCase(),
-          },
-        });
-      }
-
+    
       return {
         id: prismaUser.id,
         name: prismaUser.name,
         email: prismaUser.email,
         username: prismaUser.username,
-        picture: prismaUser.image,
+        picture: prismaUser.image || token.picture, // Keep stored image or use OAuth-provided picture
       };
-    },
+    }
+    
   },
 } satisfies NextAuthOptions;
 

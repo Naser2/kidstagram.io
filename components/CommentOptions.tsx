@@ -19,12 +19,12 @@ type Props = {
 
 function CommentOptions({ comment }: Props) {
   return (
-    <Dialog>
+    <Dialog >
       <DialogTrigger asChild>
-        <MoreHorizontal className="h-5 w-5 hidden group-hover:inline cursor-pointer dark:text-neutral-400" />
+        <MoreHorizontal className="h-5 w-5  group-hover:inline cursor-pointer dark:text-neutral-400" />
       </DialogTrigger>
-      <DialogContent className="dialogContent">
-      <DialogTitle className="hiddemn">Comment Option</DialogTitle>
+      <DialogContent className="dialogContent rounded-lg mx-4 min-h-[126px] max-w-[300px]">
+      <DialogTitle className="hidden">Comment Option</DialogTitle>
         <form
           action={async (formData) => {
             const { message } = await deleteComment(formData);

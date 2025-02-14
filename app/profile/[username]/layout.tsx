@@ -46,44 +46,14 @@ function ProfileStatsLinks({ profile }: { profile: any }) {
 
 async function ProfileLayout({children, params} :{children: React.ReactNode, params: Promise<{username: string}>, isSettingsRoute: boolean}){
   const {username} = await params
-
-  // Read `isSettingsRoute` from parent DOM attribute
-  const isSettingsRoute =
-    typeof window !== "undefined"
-      ? JSON.parse(
-          document.querySelector("div[data-is-settings-route]")?.getAttribute("data-is-settings-route") || "{}"
-        ).isSettingsRoute
-      : false;
-
-  console.log(" Route_Is_Settings:", isSettingsRoute);
-  // const profile = {}
   const profile = await fetchProfile(username); 
-  // Fetch profile data (only once)
-  console.log("ProfileLayout_Profile", profile)
   const session = await auth();
   const isCurrentUser = session?.user.id === profile?.id;
   const isFollowing = profile?.followedBy.some(
     (user) => user.followerId === session?.user.id
   );
 
-
-
-
-  // useEffect(() => {
-  //   async function loadSavedPosts() {
-  //     const username = await /dashboard/;
-  //     setUsername(username);
- 
-  //     const savedPosts = await fetchSavedPostsByUsername(username);
-  //     const fetchedPosts = savedPosts?.map((savedPost) => savedPost.post);
-  //     setPosts(fetchedPosts);
-  //   }
-
-  //   loadSavedPosts();
-  // }, [params]);
   if (!profile) {
-
-    // confirm('Profile not found');
     notFound();
   }
 

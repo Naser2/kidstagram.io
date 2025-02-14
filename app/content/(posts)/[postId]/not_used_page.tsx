@@ -1,49 +1,50 @@
-import { Metadata, ResolvingMetadata } from "next"; // Import necessary types
-import PostsGrid from "@/components/PostsGrid";
-import { fetchPostById, fetchPostsByUsername, fetchProfile } from "@/lib/data";
-import PostView from "@/components/PostView";
-import SinglePost from "@/components/SinglePost";
-import { Suspense } from "react";
-import { SinglePostSkeleton } from "@/components/Skeletons";
+// import { Metadata, ResolvingMetadata } from "next"; // Import necessary types
+// import PostsGrid from "@/components/PostsGrid";
+// import { fetchPostById, fetchPostsByUsername, fetchProfile } from "@/lib/data";
+// import PostView from "@/components/PostView";
+// import SinglePost from "@/components/SinglePost";
+// import { Suspense } from "react";
+// import { SinglePostSkeleton } from "@/components/Skeletons";
 
-// ✅ Ensure `params` is treated as a `Promise`
-export async function generateMetadata(
-  { params }: { params: Promise<{ postId: string }> },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const { postId } = await params; // ✅ Await params
+// // ✅ Ensure `params` is treated as a `Promise`
+// export async function generateMetadata(
+//   { params }: { params: Promise<{ postId: string }> },
+//   parent: ResolvingMetadata
+// ): Promise<Metadata> {
+//   const { postId } = await params; // ✅ Await params
 
-  try {
-    const post = await fetchPostById(postId);
+//   try {
+//     const post = await fetchPostById(postId);
 
-    if (!post) {
-      return { title: "User not found" };
-    }
+//     if (!post) {
+//       return { title: "User not found" };
+//     }
 
-    return { title: `${post.user.name} (@${post.user.username})` };
-  } catch (error) {
-    console.error("Error in generateMetadata:", error);
-    return { title: "Error loading profile" };
-  }
-}
+//     return { title: `${post.user.name} (@${post.user.username})` };
+//   } catch (error) {
+//     console.error("Error in generateMetadata:", error);
+//     return { title: "Error loading profile" };
+//   }
+// }
 
-// ✅ Fix `params` in `ProfilePage`
-export default async function ProfilePage({
-  params,
-}: { params: Promise<{ postId: string }> }) {
-  const { postId } = await params;
-  console.log("Post not found" + postId);
-  const post = await fetchPostById(postId);
+// // ✅ Fix `params` in `ProfilePage`
+// export default async function PostPage({
+//   params,
+// }: { params: Promise<{ postId: string }> }) {
+//   const { postId } = await params;
+//   console.log("Post not found" + postId);
+//   const post = await fetchPostById(postId);
 
-  if (!post) {
-    return <div>Post not found</div>;
-  }
+//   if (!post) {
+//     return <div>Post not found</div>;
+//   }
 
-  return    ( <Suspense fallback={<SinglePostSkeleton />}>
-                <SinglePost id={postId} />
-              </Suspense>)
+//   return    ( <Suspense fallback={<SinglePostSkeleton />}>
+//     <div>Post {postId}</div>;
+//                 <SinglePost id={postId} />
+//               </Suspense>)
 
-}
+// }
 
 // import { Metadata, ResolvingMetadata } from "next"; // Import necessary types
 // import PostsGrid from "@/components/PostsGrid";

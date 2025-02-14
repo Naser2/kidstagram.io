@@ -17,6 +17,7 @@ type Props = {
 
 function PostOptions({ post, userId, className }: Props) {
   const isPostMine = post.userId === userId;
+  console.log("PostOptions", "USER_ID", userId, "post.userId " , post.userId , isPostMine);
 
   return (
     <Dialog>
@@ -30,7 +31,7 @@ function PostOptions({ post, userId, className }: Props) {
       </DialogTrigger>
       <DialogContent className="dialogContent">
       <DialogTitle className="hidden">Post Option Modal</DialogTitle>
-        {isPostMine && (
+        {isPostMine ===true && (
           <form
             action={async (formData) => {
               const { message } = await deletePost(formData);
@@ -48,7 +49,7 @@ function PostOptions({ post, userId, className }: Props) {
         {isPostMine && (
           <Link
             scroll={false}
-            href={`/postModal/${post.id}/edit`}
+            href={`/content/postModal/${post.id}/edit`}
             className="postOption p-3"
           >
             Edit

@@ -6,6 +6,15 @@ export const PostSchema = z.object({
   caption: z.string().optional(),
 });
 
+
+export const ShareSchema = z.object({
+  postId: z.string(),
+});
+
+export const CreateShare = ShareSchema;
+export const DeleteShare = ShareSchema.pick({ postId: true });
+
+
 export const CreatePost = PostSchema.omit({ id: true });
 export const UpdatePost = PostSchema;
 export const DeletePost = PostSchema.pick({ id: true });

@@ -10,7 +10,6 @@ const CreateUser = z.object({
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
-// Function to create a user
 export async function createUser(values: z.infer<typeof CreateUser>) {
   // Validate input fields
   const validatedFields = CreateUser.safeParse(values);
@@ -24,36 +23,85 @@ export async function createUser(values: z.infer<typeof CreateUser>) {
 
   const { name, email, password } = validatedFields.data;
 
+  console.log("CREATING IUSER  VALUES", name, email, password);
   // Check for existing user
-  const existingUser = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  const existingUser = await prisma.user.findUnique({ where: { email } });
 
   if (existingUser) {
-    return {
-      message: "User already exists.",
-    };
+    return { message: "User already exists." };
   }
 
   // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  // Set default profile image for manually registered users
+  const defaultAvatar = `https://api.dicebear.com/9.x/pixel-art/svg?seed=${encodeURIComponent(name)}`;
+
   try {
     // Create new user in the database
-   const user = await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword, // Save the hashed password
-        username: name.split(" ").join("").toLowerCase(), // Generate username from the name
+        username: name.split(" ").join("").toLowerCase(), // Generate username from name
+        image: defaultAvatar, // Assign default avatar
       },
     });
-    
-    return { message: "User created successfully.", data:user};
+     console.log("CREATED_USER", user);
+    return { message: "User created successfully.", data: user };
   } catch (error) {
+    console.log("ERROR_CREATING_USER", error)
     console.error("Database Error: ", error);
     return { message: "Database Error: Failed to Create User.", error };
   }
 }
+
+// Function to create a user
+// export async function createUser(values: z.infer<typeof CreateUser>) {
+//   // Validate input fields
+//   const validatedFields = CreateUser.safeParse(values);
+
+//   if (!validatedFields.success) {
+//     return {
+//       errors: validatedFields.error.flatten().fieldErrors,
+//       message: "Missing Fields. Failed to Create User.",
+//     };
+//   }
+
+//   const { name, email, password } = validatedFields.data;
+
+//   // Check for existing user
+//   const existingUser = await prisma.user.findUnique({
+//     where: {
+//       email,
+//     },
+//   });
+
+//   if (existingUser) {
+//     return {
+//       message: "User already exists.",
+//     };
+//   }
+
+//   // Hash the password
+//   const hashedPassword = await bcrypt.hash(password, 10);
+
+//   try {
+//     // Create new user in the database
+//    const user = await prisma.user.create({
+//       data: {
+//         name,
+//         email,
+//         password: hashedPassword, // Save the hashed password
+//         username: name.split(" ").join("").toLowerCase(), // Generate username from the name
+//         image: `https://api.dicebear.com/9.x/pixel-art/svg?seed=${name}`, // Default profile image
+//       },
+//     });
+    
+//     return { message: "User created successfully.", data:user};
+//   } catch (error) {
+//     console.error("Database Error: ", error);
+//     return { message: "Database Error: Failed to Create User.", error };
+//   }
+// }

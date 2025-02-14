@@ -66,6 +66,7 @@ model User {
   posts             Post[]
   saved             SavedPost[]
   likes             Like[]
+  shares            Shares[]
   comments          Comment[]
   followedBy        Follows[]   @relation("following")
   following         Follows[]   @relation("follower")
@@ -94,6 +95,7 @@ model Post {
   fileUrl   String      @unique
   userId    String      @map("user_id")
   likes     Like[]
+  shares    Shares[] // ✅ Add relation field for Shares
   savedBy   SavedPost[]
   comments  Comment[]
   user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -140,3 +142,14 @@ model Comment {
   @@index([postId])
   @@index([userId])
 }
+model Shares {
+  id        String   @id @default(uuid())  // ✅ Every share has a unique ID
+  postId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+

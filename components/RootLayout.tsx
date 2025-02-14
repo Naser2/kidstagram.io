@@ -38,11 +38,11 @@ export default function RootLayout({
   }
 
   return (
-    <div className="flex h-screen overflow-x-hidden relative flex-col md:flex-row md:overflow-hidden !max-w-screen">
+    <div className="flex h-screen overflow-x-hidden relative flex-col md:flex-row md:overflow-hidden !max-w-screen bg-primary">
       <div className="w-20 flex-none lg:w-64 md:border-r sideNavigation">
         <SideNav user={session?.user} />
       </div>
-      <div className="flex-grow  x19sv2k2  px-4 lg:px-20 md:mt-12 md:mt-0 flex-1 w-full md:overflow-y-auto sm:p-6 md:p-12 max-w-7xl mx-auto">
+      <div className="flex-grow x19sv2k2  px-4 lg:px-20 mt-12 md:mt-0 flex-1 w-full md:overflow-y-auto sm:p-6 md:p-12 max-w-7xl mx-auto">
          <Header />
         {children}
       </div>

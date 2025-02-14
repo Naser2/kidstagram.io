@@ -1025,6 +1025,7 @@ body {
   --card-background: #242526;
   --card-background-flat: #323436;
   --comment-background: #3a3b3c;
+  --comment-background-main:#3a3b3c0a;
   --comment-footer-background: #4e4f50;
   --dataviz-primary-1: #00ae8f;
   --disabled-button-background: rgba(255, 255, 255, .2);
@@ -1922,6 +1923,28 @@ div {
 .x1gjpkn9 {
   background-color: rgb(var(--ig-secondary-button-background));
 }
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  height: 0.5px; /* Make the scrollbar very thin */
+  width: 0.5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Optional: Hide track background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555; /* Change color if needed */
+  border-radius: 3px; /* Make it rounded */
+}
+* {
+  scrollbar-width: none;
+}
+
+#passwordSection .textInput .fieldWrapper:hover,.textInput .fieldWrapper:active {
+  transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  border: 0.0625rem solid #0070E0;
+}
 body button, body input, body textarea {
   color: rgb(var(--ig-primary-text));
   font-family: var(--font-family-system);
@@ -2400,8 +2423,83 @@ body button, body input, body textarea {
 		    border-bottom-color: rgb(var(--ig-stroke));
 }
 
+._aad7 {
+  display: inline !important;
+  margin: 0 !important;
+}
+
+._aacx {
+  color: rgb(var(--ig-primary-text));
+}
+._aacw {
+  font-weight: var(--font-weight-system-semibold);
+}
+
+/* --- Seeecomment likes time seem more  */
+.seemore{
+  ----base-line-clamp-line-height: 18px;
+  --lineHeight: 18px;
+}
+.text_secondary{
+    color: rgb(var(--ig-secondary-text));
+}
+
+.text_primary{
+  color: rgb(var(--ig-primary-text));
+}
+.text_stats_time {
+   margin-bottom: 0 !important;
+    overflow-x: visible;
+    max-width: 100%;
+    font-size: var(--system-14-font-size);
+    font-weight: 400;
+    text-align: start;
+    margin-right: 0 !important;
+    word-wrap: break-word;
+    min-width: 0;
+    font-family: var(--font-family-system);
+}
+
+.comment_user_avatar{
+    background-color: rgb(var(--ig-secondary-background));
+    border-radius: 50%;
+    height: 43px;
+    width: 43px;
+}
+.comment_user_name {
+  font-weight: var(--font-weight-system-semibold);
+  font-size: var(--system-14-font-size);
+  line-height: var(--system-14-line-height);
+  margin: -3px 3px 4px 4px;
+  font-family: var(--font-family-system);
+
+}
 
 
+.comment_heart {
+  animation-timing-function: ease-in-out;
+    transform: scale(1); 
+     animation-duration: .45s;
+     cursor: pointer;
+     align-self: auto;
+     flex-grow: 0;
+}
+
+.comment_heart_svg {
+  position: relative;
+  color: rgb(var(--ig-secondary-icon));
+  display: block;
+  fill: currentcolor;
+  height: 12;
+  width: 12;
+}
+
+
+
+
+
+
+/* --- Seeecomment likes time seem more  */
 @media(max-width: 420px) and (orientation: portrait), (max-height: 560px){
   .action-button,[dir='rtl'] .action-button, .action-button.small-link,.nav-wrapper .secondary-button{
 

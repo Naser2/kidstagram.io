@@ -8,16 +8,16 @@ type Props = Partial<AvatarProps> & {
 };
 
 function UserAvatar({ user, ...avatarProps }: Props) {
-console.log("USER_AVATAR", user)
+// console.log("USER_AVATAR", user)
   const avatarUrl = user?.image
     ? user.image
     : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${encodeURIComponent(user?.name || "User")}`;
   return (
-    <Avatar className="relative h-8 w-8" {...avatarProps}>
+    <Avatar className="relative h-9 w-9" {...avatarProps}>
       <img
         src={avatarUrl}
        
-        sizes="32px"
+        sizes="30px"
         alt={`${user?.name}'s profile picture`}
         className="rounded-full object-cover"
       />

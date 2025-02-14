@@ -31,9 +31,9 @@ export default async function LandingPage() {
    <>
     <main className="flex w-full flex-grow">
      {/* {Children} */}
-      {session.user &&  <div className="flex flex-col flex-1 gap-y-8 max-w-lg mx-auto pb-20">
+      {session.user &&  <div className="relative flex flex-col flex-1 gap-y-8 max-w-lg mx-auto pb-20">
         <Suspense fallback={<PostsSkeleton />}>
-          <Posts />
+          <Posts userSession={session}/>
         </Suspense>
       </div> 
       }

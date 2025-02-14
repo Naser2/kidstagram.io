@@ -1,5 +1,7 @@
-import { auth } from "@/auth";
-import Comment from "@/components/Comment";
+"use client"
+
+
+import Comment from "@/components/NewComment";
 import CommentForm from "@/components/CommentForm";
 import Post from "@/components/Post";
 import PostActions from "@/components/PostActions";
@@ -17,21 +19,45 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Card } from "./ui/card";
 import MiniPost from "./MiniPost";
+// import CommentModal from "./ui/Modal/NewCommentModal";
+import { useEffect, useState } from "react";
+import { Session } from "next-auth";
+import { User } from "next-auth";
+import ContentManager from "./post/ContentManager";
+import Caption from "./Caption";
+import NewComment from "@/components/post/ui/Comment";
+import { CommentWithExtras } from "@/lib/definitions";
 
-async function SinglePost({ id }: { id: string }) {
-  const post = await fetchPostById(id);
-  const session = await auth();
-  const postUsername = post?.user.username;
-  const userId = session?.user.id;
+function SinglePost({ post , userSession}: { post: any, userSession: any }) {
+  console.log("userSession_SinglePost  ", userSession)
+  const [allComments, setAllComments] = useState(post.comments || []);
+  const postUsername = post?.user?.username;
+  const [session, setSession] = useState<{ user?: any } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const [userId, setUserId] = useState<string | undefined>(undefined);
+
+   console.log("SinglePost_post" , post, "SinglePost_postUsername", postUsername, "SinglePost_userId: " + userSession.user.id);
+
+
+  if (!post) {
+    notFound();
+  }
+
+
+  const handleNewComment = (newComment: { body: string; tempId: string; status: "pending" | "failed" | "success" }) => {
+    setAllComments((prev: Array<{ body: string; tempId: string; status: "pending" | "failed" | "success" }>) => [newComment, ...prev]);
+  };
+
 
   if (!post) {
     notFound();
   }
 
   return (
-    <>
-      <Card className="max-w-3xl lg:max-w-4xl hidden md:flex mx-auto z-50">
-        <div className="relative overflow-hidden h-[450px] max-w-sm lg:max-w-lg w-full">
+    <div className="">
+      <Card className="max-w-3xl lg:max-w-[66rem] hidden md:flex mx-auto z-50">
+        <div className="relative overflow-hidden h-[450px] max-w-xl w-full">
           <Image
             src={post.fileUrl}
             alt="Post preview"
@@ -40,29 +66,33 @@ async function SinglePost({ id }: { id: string }) {
           />
         </div>
 
-        <div className="flex max-w-sm flex-col flex-1">
+        <div className="flex max-w-xl  flex-col flex-1">
           <div className="flex items-center justify-between border-b px-5 py-3">
             <HoverCard>
               <HoverCardTrigger asChild>
                 <Link
-                  className="font-semibold text-sm"
-                  href={`/dashboard/${postUsername}`}
+                  className="font-semibold text-sm inline-flex  space-x-3"
+                  href={`/profile/${postUsername}`}
                 >
-                  {postUsername}
+                  {postUsername}  
+                  <span className="pl-2 justify-center mt-1"><svg aria-label="Verified"
+                        className="x1lliihq x1n2onr6" fill="rgb(0, 149, 246)" height="12" role="img" viewBox="0 0 40 40" width="12"><title>Verified</title><path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z" fillRule="evenodd"></path></svg></span>
+                       <Caption caption={post.caption} />
                 </Link>
               </HoverCardTrigger>
               <HoverCardContent>
-                <div className="flex items-center space-x-2">
+                {/* <div className="flex items-center space-x-2">
                   <UserAvatar user={post.user} className="h-14 w-14" />
                   <div>
                     <p className="font-bold">{postUsername}</p>
                     <p className="text-sm font-medium dark:text-neutral-400">
-                      {post.user.name}
+                      {post.user.name}   
                     </p>
                   </div>
-                </div>
+                </div> */}
               </HoverCardContent>
             </HoverCard>
+     
 
             <PostOptions post={post} userId={userId} />
           </div>
@@ -75,18 +105,22 @@ async function SinglePost({ id }: { id: string }) {
               <p className="text-sm font-medium">Start the conversation.</p>
             </div>
           )}
-
+          <ContentManager
+            post={post} 
+            userSession={userSession}
+            />  
           {post.comments.length > 0 && (
-            <ScrollArea className="hidden md:inline py-1.5 flex-1">
+            <ScrollArea className="hidden md:inline py-1.5 flex-1 !max-h-[290px]">
               <MiniPost post={post} />
-              {post.comments.map((comment) => (
-                <Comment key={comment.id} comment={comment} />
+              {post.comments.map((comment:CommentWithExtras) => (
+                <NewComment key={comment.id} comment={comment} userSession={userSession} postId={post.id} />
               ))}
             </ScrollArea>
           )}
 
           <div className="px-2 hidden md:block mt-auto border-y p-2.5">
-            <PostActions post={post} userId={userId} />
+         
+        
             <time className="text-[11px] uppercase text-zinc-500 font-medium">
               {new Date(post.createdAt).toLocaleDateString("en-US", {
                 month: "long",
@@ -94,13 +128,13 @@ async function SinglePost({ id }: { id: string }) {
               })}
             </time>
           </div>
-          <CommentForm postId={id} className="hidden md:inline-flex" />
+       
         </div>
       </Card>
       <div className="md:hidden">
-        <Post post={post} />
+        <Post post={post} postUsername={postUsername} postUserId={userSession.user.id} userSession={userSession}/>
       </div>
-    </>
+    </div>
   );
 }
 

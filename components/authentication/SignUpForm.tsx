@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/user";
 
-export default function SignupForm() {
+export default function SignupForm({onSignupSuccess}:{onSignupSuccess:()=>void}) {
 //   const [name, setName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -21,23 +21,65 @@ export default function SignupForm() {
         setFieldsSatisfied(!!email && !!password && !!firstName && !!lastName);
     }, [email, password, firstName, lastName]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
 
-    const name = `${firstName} ${lastName}`;
-    const res = await createUser({ name, email, password });
-    console.log("SIGNUP_RES", res);
-     const data = await res.data;
-     console.log("SIGNUP_RES_DATA", data);
-    if (data) {
-      router.push("/");
-    } else {
-        console.log("SIGNUP RES", res.message);
-      setError(res.message || "Signup failed. Please try again.");
-    }
-  };
-
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setError("");
+      
+        const name = `${firstName} ${lastName}`;
+      
+        try {
+          const res = await fetch("/api/users/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password }),
+          });
+      
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+      
+          const data = await res.json();
+          console.log("SIGNUP_RES_DATA", data);
+      
+          if (data?.message === "User created successfully.") {
+            onSignupSuccess(); // 
+          } else {
+            setError(data.message);
+          }
+        } catch (error) {
+          console.error("Signup error:", error);
+          setError("Signup failed. Please try again.");
+        }
+      };
+      
+    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     setError("");
+      
+    //     const name = `${firstName} ${lastName}`;
+    //     const res = await createUser({ name, email, password });
+      
+    //     console.log("SIGNUP_RES", res); // Check if res is undefined
+    //     if (!res) {
+    //       setError("Unexpected error: No response from server.");
+    //       return;
+    //     }
+      
+    //     const data = res;
+    //     console.log("SIGNUP_RES_DATA", data);
+        
+    //     if (data?.message) {
+    //       if (data.message === "User created successfully.") {
+    //         router.push("/"); // Redirect to a welcome screen
+    //       } else {
+    //         setError(data.message);
+    //       }
+    //     } else {
+    //       setError("Signup failed. Please try again.");
+    //     }
+    //   };
+      
   return (<>
     <form onSubmit={handleSubmit} className="login-form ">
         <div className="billing-form-grid">
@@ -64,7 +106,7 @@ export default function SignupForm() {
             placeholder="Email"
             />
 
-            <input onChange={(e) => setPassword(e.target.value)}
+            <input id="passwordSection" onChange={(e) => setPassword(e.target.value)}
             className="text-input text-input-sm text-input-full"
             type="password" 
                 name="password" 

@@ -5,6 +5,7 @@ type Props = Partial<ButtonProps> & {
 };
 
 function ActionIcon({ children, ...buttonProps }: Props) {
+  console.log("CLICKED");
   return (
     <Button
       type="submit"

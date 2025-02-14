@@ -127,7 +127,7 @@ export async function likePost(value: FormDataEntryValue | null) {
           },
         },
       });
-      revalidatePath("/dashboard");
+      // revalidatePath("/dashboard");
       return { message: "Unliked Post." };
     } catch (error) {
       return { message: "Database Error: Failed to Unlike Post." };
@@ -141,7 +141,7 @@ export async function likePost(value: FormDataEntryValue | null) {
         userId,
       },
     });
-    revalidatePath("/dashboard");
+    // revalidatePath("/dashboard");
     return { message: "Liked Post." };
   } catch (error) {
     return { message: "Database Error: Failed to Like Post." };
@@ -191,7 +191,7 @@ export async function bookmarkPost(value: FormDataEntryValue | null) {
           },
         },
       });
-      revalidatePath("/dashboard");
+      // revalidatePath("/dashboard");
       return { message: "Unbookmarked Post." };
     } catch (error) {
       return {
@@ -207,7 +207,7 @@ export async function bookmarkPost(value: FormDataEntryValue | null) {
         userId,
       },
     });
-    revalidatePath("/dashboard");
+    // revalidatePath("/dashboard");
     return { message: "Bookmarked Post." };
   } catch (error) {
     return {
@@ -248,8 +248,9 @@ export async function createComment(values: z.infer<typeof CreateComment>) {
         userId,
       },
     });
-    revalidatePath("/dashboard");
-    return { message: "Created Comment." };
+    console.log("post created");
+    // revalidatePath("/dashboard");
+    return Response
   } catch (error) {
     return { message: "Database Error: Failed to Create Comment." };
   }

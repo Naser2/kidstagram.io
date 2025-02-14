@@ -21,11 +21,11 @@ import { z } from "zod";
 function Comments({
   postId,
   comments,
-  user,
+  userSession,
 }: {
   postId: string;
   comments: CommentWithExtras[];
-  user?: User | null;
+  userSession: any ;
 }) {
   const form = useForm<z.infer<typeof CreateComment>>({
     resolver: zodResolver(CreateComment),
@@ -41,41 +41,60 @@ function Comments({
     comments,
     // @ts-ignore
     (state: Comment[], newComment: string) => [
-      { body: newComment, userId: user?.id, postId, user },
+      { body: newComment, userId: userSession.user?.id, postId, userSession},
       ...state,
     ]
   );
   const body = form.watch("body");
   const commentsCount = optimisticComments.length;
-
+   console.log("COMMENT_COMP", userSession.user)
   return (
     <div className="space-y-0.5 px-3 sm:px-0">
-      {commentsCount > 1 && (
+     
+      {optimisticComments.slice(0, 10).map((comment, i) => {
+        const username = comment.user?.username;
+        const commentor_avatar = userSession.user.picture
+        return (
+          <div key={i} className="p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)]">
+          {/* Avatar */}
+          <img 
+            alt={username ?? "no username for alt"} 
+            className="comment_user_avatar mr-2 shrink-0" 
+            draggable="false" 
+            src={commentor_avatar}
+          />
+        
+          {/* Text Container (username + comment) */}
+          <div className="flex-1">
+            <Link href={`/profile/${username}`} className="font-semibold mr-1 whitespace-nowrap text-[rgb(var(--ig-link))] comment_user_name">
+              {username}
+            </Link>
+            <span className="text_secondary break-words">
+              {comment.body}
+            </span>
+          </div>
+        </div>
+        );
+      })}
+     
+    </div>
+  );
+}
+
+export default Comments;
+
+
+ {/* {commentsCount > 1 && (
         <Link
           scroll={false}
-          href={`/${postId}`}
-          className="text-sm font-medium text-neutral-500"
+          href={`/content/${postId}`}
+          className="text-neutral-500 text-sm text_stats_time text_secondary"
         >
           View  {commentsCount} comments
         </Link>
-      )}
+      )} */}
 
-      {optimisticComments.slice(0, 3).map((comment, i) => {
-        const username = comment.user?.username;
-
-        return (
-          <div
-            key={i}
-            className="text-sm flex items-center space-x-2 font-medium"
-          >
-            <Link href={`/dashboard/${username}`} className="font-semibold">
-              {username}
-            </Link>
-            <p>{comment.body}</p>
-          </div>
-        );
-      })}
-      <Form {...form}>
+ {/* <Form {...form}>
         <form
           onSubmit={form.handleSubmit(async (values) => {
             const valuesCopy = { ...values };
@@ -115,9 +134,4 @@ function Comments({
             </button>
           )}
         </form>
-      </Form>
-    </div>
-  );
-}
-
-export default Comments;
+      </Form> */}

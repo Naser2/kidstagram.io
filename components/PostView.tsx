@@ -14,7 +14,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef } from "react";
 import MiniPost from "./MiniPost";
-import Comment from "./Comment";
+import Comment from "./NewComment";
 // import MiniPost from "./MiniPost";
 
 type PostViewProps = {

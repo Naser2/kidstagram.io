@@ -33,7 +33,8 @@ function EditPost({ id, post }: { id: string; post: Post }) {
   // const mount = useMount();
   const pathname = usePathname();
   // const isEditPage = pathname === `/posts/${id}/edit`;
-  const isEditPage = pathname ===   `/postModal/${id}/edit`
+  // const isEditPage = pathname ===   `/content/postModal/${id}/edit`
+    const isEditPage = true
   const router = useRouter();
   const form = useForm<z.infer<typeof UpdatePost>>({
     resolver: zodResolver(UpdatePost),

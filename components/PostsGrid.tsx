@@ -1,9 +1,10 @@
 import { PostWithExtras } from "@/lib/definitions";
+import { Post } from "@prisma/client";
 import { HeartIcon, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-function PostsGrid({ posts }: { posts: PostWithExtras[] | undefined }) {
+function PostsGrid({ posts }: { posts: Post[] }) {
   if (posts?.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center space-y-3 max-w-3xl lg:max-w-4xl mx-auto pb-20">
@@ -16,7 +17,7 @@ function PostsGrid({ posts }: { posts: PostWithExtras[] | undefined }) {
     <div className="grid grid-cols-3 gap-2">
       {posts?.map((post) => (
         <Link
-          href={`/${post.id}`}
+          href={`/content/${post.id}`}
           key={post.id}
           className="relative flex items-center justify-center h-[9.2rem]  md:h-[20rem] lg:h-80 group col-span-1"
         >

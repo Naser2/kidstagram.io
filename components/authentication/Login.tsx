@@ -41,7 +41,7 @@ import { signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Login() {
+export default function Login({newUser}:{newUser:boolean}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -67,7 +67,8 @@ export default function Login() {
       setError("Invalid email or password");
     } 
     else {
-      router.push("/user"); // No need for `isMounted`
+      newUser && router.push("/onboarding"); // No need for `isMounted`
+      router.push("/"); // No need for `isMounted`
     }
   };
 
@@ -86,7 +87,7 @@ export default function Login() {
               placeholder="Email"
               />
 
-                <input onChange={(e) => setPassword(e.target.value)}
+                <input id="passwordSection"  onChange={(e) => setPassword(e.target.value)}
                        className="text-input text-input-sm text-input-full"
                        type="password" 
                         name="password" 
