@@ -49,18 +49,18 @@ interface NewCommentSectionProps {
               </Link>
          ) :  visibleComments && visibleComments.slice(0, 10).map((comment, index) => (
                 //  <Comment key={comment.id} comment={comment} />
-           <div key={index} className="md:hidden ">
-            <div className="md:hidden inline">
+           <div key={index} className="">
+            <div className="">
                 <NewComment  
                   key={comment.id}
                   postId={postId}
                   comment={comment}
                   userSession={userSession} /> 
 
-            </div>
+               </div>
            
-                <div className="hidden md:inline "> {post.comments.length > 0 && (
-                    <ScrollArea className="hidden md:inline py-1.5 flex-1 ">
+                {/* <div className="hidden md:inline"> {post.comments.length > 0 && (
+                    <ScrollArea className=" py-1.5 flex-1 ">
                       <MiniPost post={post} />
                       {post.comments.map((comment) => (
                         <NewComment  
@@ -72,7 +72,7 @@ interface NewCommentSectionProps {
                       ))}
                     </ScrollArea>
                   )}
-                </div>
+                </div> */}
               </div> 
         
               // <div key={comment.id} className="p-2 border-b">

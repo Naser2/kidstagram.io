@@ -12,8 +12,12 @@ function UserAvatar({ user, ...avatarProps }: Props) {
   const avatarUrl = user?.image
     ? user.image
     : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${encodeURIComponent(user?.name || "User")}`;
-  return (
-    <Avatar className="relative h-9 w-9" {...avatarProps}>
+  return (<div className="relative flex items-center justify-center">
+    <div className="absolute h-11 w-11 rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-[2px] ">
+    <div className="h-full w-full rounded-full bg-black "></div>
+  </div>
+  
+  <Avatar className="relative h-9 w-9 p-[0.1rem]" {...avatarProps}>
       <img
         src={avatarUrl}
        
@@ -21,7 +25,7 @@ function UserAvatar({ user, ...avatarProps }: Props) {
         alt={`${user?.name}'s profile picture`}
         className="rounded-full object-cover"
       />
-    </Avatar>
+    </Avatar></div>
   );
 }
 

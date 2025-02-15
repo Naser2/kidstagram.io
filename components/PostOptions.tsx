@@ -25,7 +25,7 @@ function PostOptions({ post, isCurrentUserPost, className }: Props) {
       <DialogTrigger asChild>
         <MoreHorizontal
           className={cn(
-            "h-5 w-5 cursor-pointer dark:text-neutral-400",
+            "h-5 w-5 cursor-pointer icon_svg",
             className
           )}
         />

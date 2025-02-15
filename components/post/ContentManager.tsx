@@ -20,6 +20,7 @@ const ContentManager = ({ post, userSession }: { post: PostWithExtras; userSessi
 
   return (
     <div>
+      <div className="sm:hidden">
       <PostHeaderButtons 
         post={post}
         userSession={userSession}
@@ -37,6 +38,8 @@ const ContentManager = ({ post, userSession }: { post: PostWithExtras; userSessi
         //  commentsCount={commentsCount}
       />
 
+      </div>
+     
       <CommentSection 
         post={post}
         likes={likes}
@@ -45,6 +48,25 @@ const ContentManager = ({ post, userSession }: { post: PostWithExtras; userSessi
         handleNewComment={handleNewComment} // ✅ Also passed here
         userSession={userSession}  
       />
+      <div className="hidden sm:inline  sm:mt-42  w-full">
+      <PostHeaderButtons 
+        post={post}
+        userSession={userSession}
+        likes={likes}
+        shares={shares}
+        postId={post.id}
+        userId={post.user?.id}
+        handleLike={handleLikeToggle}
+        handleShare={handleShare}
+        handleBookmark={handleBookmark}
+        comments={comments}
+        handleNewComment={handleNewComment} 
+        // initialLikes={initialLikes}
+        // initialShares={initialShares}
+        //  commentsCount={commentsCount}
+      />
+
+      </div>
     </div>
   );
 };

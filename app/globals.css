@@ -1940,6 +1940,67 @@ div {
 * {
   scrollbar-width: none;
 }
+.icon_svg {
+  color: rgb(var(--ig-primary-text)) !important;
+  position: relative;
+  display: block;
+  forced-color-adjust: auto;
+  fill: rgb(var(--ig-primary-text)) !important;
+  stroke: rgb(var(--ig-primary-text)) !important;
+}
+
+.post_header_lg_avatar_container {
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: calc(100% - -232px);
+  padding: 4px 4px 4px 0px;
+  background-color: rgb(var(--ig-primary-background));
+  border-radius: 4px;
+}
+
+.wrapp {
+  align-items: flex-start;
+  display: flex
+;
+  flex-direction: row;
+  width: calc(100% - 28px);
+}
+.dot{
+    color: rgb(var(--ig-secondary-text));
+}
+.follow-text {
+    background: rgb(var(--ig-primary-background));
+    color: rgb(var(--ig-primary-button));
+    font-family: var(--font-family-system);
+    font-size: var(--system-14-font-size);
+    line-height: var(--system-14-line-height);
+    margin: 0;
+}
+/* .post_header_lg_avatar_container {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: calc(100% - 48px);
+  padding: 4px 4px 4px 0px;
+  background-color: rgb(var(--ig-primary-background));
+  margin-right: 0;
+  border-radius: 4px;
+} */
+/* .post_header_lg_avatar_container {
+  background-color: rgb(var(--ig-primary-background));
+  border-bottom: 1px solid rgb(var(--post-separator));
+  margin-right: 0;
+} */
+.post_row {
+  background-color: rgb(var(--ig-primary-background));
+  border-bottom: 1px solid rgb(var(--post-separator));
+  margin-right: 0;
+  border-bottom: 1px solid rgb(var(--post-separator));
+  border-radius: 4px;
+}
 
 #passwordSection .textInput .fieldWrapper:hover,.textInput .fieldWrapper:active {
   transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -2463,8 +2524,14 @@ body button, body input, body textarea {
 .comment_user_avatar{
     background-color: rgb(var(--ig-secondary-background));
     border-radius: 50%;
+    height: 37px;
+    width: 37px;
+}
+@media (min-width:  768px){
+  .comment_user_avatar{
     height: 43px;
     width: 43px;
+  }
 }
 .comment_user_name {
   font-weight: var(--font-weight-system-semibold);
