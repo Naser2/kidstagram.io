@@ -31,7 +31,8 @@ import { z } from "zod";
 import ProfileAvatar from "./ProfileAvatar";
 import UserAvatar from "./UserAvatar";
 
-function ProfileForm({ profile }: { profile: Profile }) {
+function ProfileForm({ profile }: { profile: UserWithExtras }) {
+  console.log("PROFILE_FORM-->", profile);
   // console.log("ProfileForm-->", profile);
   const form = useForm<z.infer<typeof UserSchema>>({
     resolver: zodResolver(UserSchema),
@@ -204,7 +205,7 @@ function ProfileForm({ profile }: { profile: Profile }) {
               </SelectContent>
             </Select>
             <FormDescription className="text-xs">
-              This won't be part of your public profile.
+              This won&apos;t be part of your public profile.
             </FormDescription>
             <FormMessage />
           </div>

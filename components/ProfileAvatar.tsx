@@ -26,7 +26,7 @@ import { Profile, UserWithExtras } from "@/lib/definitions";
 
 function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: React.ReactNode }) {
 
-  console.log("PROFILE AVATAR MOUNTED", user);
+  // console.log("PROFILE AVATAR MOUNTED", user);
 
   const { data: session } = useSession();
   const isCurrentUser = session?.user?.id === user?.id;

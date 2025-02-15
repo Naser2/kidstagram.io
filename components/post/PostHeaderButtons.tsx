@@ -30,7 +30,7 @@ function PostHeaderButtons({ postId, userSession, className, post, comments, lik
   if (!post) return null; // Ensures data is available before rendering
 
   return (
-    <div className={cn("relative ml-2 pt-2 flex items-center w-full gap-x-2 mb-4", className)}>
+    <div className={cn("relative ml-2 max-[500px]:pt-2 flex items-center w-full gap-x-2 max-[500px]:mb-4 mb-2", className)}>
         <div className="grid grid-cols-2 justify-between w-[90vw]">
             <div className="flex relative space-x-3 items-center">
               <LikeButton postId={post.id} post={post} userId={userSession?.user?.id} likes={likes} handleLike={() => handleLike(post.id)} />

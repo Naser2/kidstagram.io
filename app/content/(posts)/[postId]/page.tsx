@@ -7,6 +7,7 @@ import { fetchPostById } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { PostWithExtras } from "@/lib/definitions";
+import {PostByIDLoading} from "@/components/post/ui/laodings/PostByIDLoading";
 
 type Props = { params: Promise<{ postId: string }> , post:PostWithExtras};
 
@@ -28,7 +29,7 @@ export default function PostPage({ params }: Props) {
     fetchData();
   }, [params]); // Dependency: params (since it's a Promise)
 
-  if (status === "loading" || loading) return <div>Loading...</div>;
+  if (status === "loading" || loading) return <PostByIDLoading />;
   if (!session) return <div>No session</div>;
   return (
     <Suspense fallback={<SinglePostSkeleton />}>

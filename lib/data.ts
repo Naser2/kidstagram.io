@@ -253,7 +253,7 @@ export async function fetchPostsByUsername(username: string, postId?: string) {
 
 export async function fetchProfile(username: string) {
   noStore();
-
+    console.log("Fetching profile for", username);
   try {
     const data = await prisma.user.findUnique({
       where: {

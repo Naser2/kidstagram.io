@@ -24,11 +24,9 @@ import { CommentWithExtras } from "@/lib/definitions";
 
 function SinglePost({ post , userSession}: { post: any, userSession: any }) {
 
-  const [allComments, setAllComments] = useState(post.comments || []);
+
   const postUsername = post?.user?.username;
-  const [session, setSession] = useState<{ user?: any } | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState<string | undefined>(undefined);
+  const isCurrentUserPost = userSession?.user?.id === post.user.id;
 
   if (!post) {
     notFound();
@@ -74,7 +72,7 @@ function SinglePost({ post , userSession}: { post: any, userSession: any }) {
             </HoverCard>
      
 
-            <PostOptions post={post} userId={userId} />
+            <PostOptions post={post} userId={userSession.user.id} isCurrentUserPost={isCurrentUserPost}/>
           </div>
 
           {post.comments.length === 0 && (

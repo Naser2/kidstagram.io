@@ -1,6 +1,7 @@
 "use client"; // Important: Add "use client" directive
 
 import PostsGrid from "@/components/PostsGrid";
+import { PostsSkeleton } from "@/components/Skeletons";
 import { fetchSavedPostsByUsername } from "@/lib/data";
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -26,9 +27,8 @@ export default function SavedPost(){
     loadSavedPosts();
   }, [params]);
 
-  if (!posts) {
-    return <div>Loading...</div>; // Or a loading indicator component
-  }
+  if (!posts)   return <PostsSkeleton/> // Or a loading indicator component
+  
 
   return <PostsGrid posts={posts} />;
 }

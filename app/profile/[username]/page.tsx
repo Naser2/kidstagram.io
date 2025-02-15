@@ -1,6 +1,8 @@
 import { Metadata, ResolvingMetadata } from "next"; // Import necessary types
 import PostsGrid from "@/components/PostsGrid";
 import { fetchPostsByUsername, fetchProfile } from "@/lib/data";
+import { Suspense } from "react";
+import { PostsSkeleton } from "@/components/Skeletons";
 
 // ✅ Ensure `params` is treated as a `Promise`
 export async function generateMetadata(
@@ -23,7 +25,7 @@ export async function generateMetadata(
   }
 }
 
-// ✅ Fix `params` in `ProfilePage`
+
 export default async function ProfilePage({
   params,
 }: { params: Promise<{ username: string }> }) {
@@ -31,5 +33,8 @@ export default async function ProfilePage({
   console.log("USERNAME_" + username);
   const posts = await fetchPostsByUsername(username);
 
-  return <PostsGrid posts={posts} />;
+  return   <Suspense fallback={<PostsSkeleton/>}>
+             <PostsGrid posts={posts} />
+           </Suspense>
+
 }

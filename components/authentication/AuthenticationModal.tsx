@@ -110,7 +110,7 @@ interface SignInOptions {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={onClose}
+              // onClick={onClose}
             >
               <motion.div
                 className="modal-dialog"
@@ -210,7 +210,7 @@ interface SignInOptions {
               </div>
           </div>
           <button type="button" 
-                  onClick={onClose} 
+                  // onClick={onClose} 
                   className="btn group-hover:bg-black 
                           btn-md-default 
                           btn-minimal 

@@ -16,7 +16,7 @@ type Props = {
   isCurrentUserPost: boolean;
 };
 
-function PostOptions({ post, userId, isCurrentUserPost, className }: Props) {
+function PostOptions({ post, isCurrentUserPost, className }: Props) {
   // const isPostMine = post.userId === userId;
   // console.log("PostOptions", "USER_ID", userId, "post.userId " , post.userId , isCurrentUserPost);
 

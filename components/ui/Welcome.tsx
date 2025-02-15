@@ -8,7 +8,7 @@ export default function Welcome() {
     setTimeout(() => {
       router.push("/");
     }, 3000); // Redirect after 3 seconds
-  }, []);
+  }, [router]);
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">

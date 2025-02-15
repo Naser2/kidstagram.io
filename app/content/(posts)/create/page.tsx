@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -56,13 +57,15 @@ function CreatePage() {
     <div>
       <Dialog
         open={isCreatePage}
-        // onOpenChange={(open) => !open && router.back()}
+        onOpenChange={(open) => !open && router.back()}
       >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create new post</DialogTitle>
           </DialogHeader>
-
+          <DialogDescription className="sr-only">
+             Share your thoughts and upload media.
+            </DialogDescription> {/* ✅ Add this */}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(async (values) => {

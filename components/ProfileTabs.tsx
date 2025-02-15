@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "./ui/separator";
 import { Bookmark, Clapperboard, Contact, Grid3X3 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import React from "react";
 const getIcon = (icon: JSX.Element, size: number, color: string) => {
   return React.cloneElement(icon, {
@@ -80,11 +81,17 @@ const profileTabs = [
 
 function ProfileTabs({
   profile,
-  isCurrentUser,
+
 }: {
   profile: UserWithExtras;
-  isCurrentUser: boolean;
+
 }) {
+  
+  const { data: session } = useSession(); // Instant session access
+  const isCurrentUser = session?.user.id === profile.id;
+  const isFollowing = profile.followedBy.some(
+    (user) => user.followerId === session?.user.id
+  );
   const pathname = usePathname();
 
   return (

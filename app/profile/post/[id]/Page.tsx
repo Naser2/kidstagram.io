@@ -39,7 +39,7 @@ export default  function PostPage({ params }: PostPageProps) {
       };
       getPost();
       console.log("POST_ID_" + post.id);
-    }, [params]);
+    }, [params, post.id]);
 
 
   // Get user authentication

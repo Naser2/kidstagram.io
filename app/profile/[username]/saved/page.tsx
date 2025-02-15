@@ -1,21 +1,32 @@
 "use client"; // Important: Add "use client" directive
 
 import PostsGrid from "@/components/PostsGrid";
+import { PostsSkeleton } from "@/components/Skeletons";
+import { Skeleton } from "@/components/ui/skeleton";
 import { fetchSavedPostsByUsername } from "@/lib/data";
+import { Post } from "@prisma/client";
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+
+type SavedPost = {
+  post: Post;
+  
+};
 
 export default function SavedPost() {
   const params = useParams<{ username: string }>();
   const [posts, setPosts] = useState<any[] | null>(null);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    
     async function loadSavedPosts() {
+      setLoading(true); // Show loading indicator while fetching data
       try {
         const response = await fetch(`/api/saved-posts/${params.username}`);
         const data = await response.json();
-        const fetchedPosts = data.savedPosts?.map((savedPost) => savedPost.post);
+        const fetchedPosts: Post[] = data.savedPosts?.map((savedPost: SavedPost) => savedPost.post) || [];
         setPosts(fetchedPosts);
+        setLoading(false); // Hide loading indicator
       } catch (error) {
         console.error("Error fetching saved posts", error);
       }
@@ -23,46 +34,9 @@ export default function SavedPost() {
 
     loadSavedPosts();
   }, [params]);
+  if(loading) return <PostsSkeleton />
 
-  if (!posts) return <div>Loading...</div>;
+  if (!posts) return <Skeleton />; // Or a loading indicator component
 
   return <PostsGrid posts={posts} />;
 }
-
-// function SavedPosts() {
-//   const params = useParams<{ username: string }>();
-//   const username = params.username;
-//   const [posts, setPosts] = useState<any[] | null>(null);
-
-//   useEffect(() => {
-//     async function loadSavedPosts() {
-//       const savedPosts = await fetchSavedPostsByUsername(username);
-//       const fetchedPosts = savedPosts?.map((savedPost) => savedPost.post);
-//       setPosts(fetchedPosts);
-//     }
-
-//     loadSavedPosts();
-//   }, [username]);
-
-//   if (!posts) {
-//     return <div>Loading...</div>; // Or a loading indicator component
-//   }
-
-//   return <PostsGrid posts={posts} />;
-// }
-
-// import PostsGrid from "@/components/PostsGrid";
-// import { fetchSavedPostsByUsername } from "@/lib/data";
-
-// async function SavedPosts({
-//   params: { username },
-// }: {
-//   params: { username: string };
-// }) {
-//   const savedPosts = await fetchSavedPostsByUsername(username);
-//   const posts = savedPosts?.map((savedPost) => savedPost.post);
-
-//   return <PostsGrid posts={posts} />;
-// }
-
-// export default SavedPosts;
