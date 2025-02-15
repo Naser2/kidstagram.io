@@ -17,26 +17,22 @@ function Post({
   post, 
   postUsername, 
   userSession 
-}  : { post: PostWithExtras,
+}  : { 
+  post: PostWithExtras,
   userSession:any,  
   postUsername: string,
-   postUserId: string }) {
-    console.log("Post_userSession", userSession);
- const [commentsModalOpen, setCommentsModalOpen] = useState(false);
-const [allComments, setAllComments] = useState<Array<{ body: string; tempId: string; status: "pending" | "failed" | "success" }>>(post.comments || []);
+  postUserId: string }) {
+
+  // console.log("Post_userSession", userSession);
+  const [commentsModalOpen, setCommentsModalOpen] = useState(false);
+  const [allComments, setAllComments] = useState<Array<{ body: string; tempId: string; status: "pending" | "failed" | "success" }>>(post.comments || []);
    // const username = post.user.username;
-const postUserId = post.user.id;
- 
-  // console.log("Post_", post, "postUsername", postUsername,);
-  // const session = await auth();
-  // const userId = session?.user?.id;
-const toggleCommentsModal = (open: boolean) => {
-    console.log("Open_Comments_Modal", open);
-    setCommentsModalOpen(open);
-}
-const handleNewComment = (newComment: { body: string; tempId: string; status: "pending" | "failed" | "success" }) => {
-  setAllComments((prev: Array<{ body: string; tempId: string; status: "pending" | "failed" | "success" }>) => [newComment, ...prev]);
-};
+  const postUserId = post.user.id;
+  const userId= userSession.user.id
+  // console.log("Post_postUserId", postUserId);
+  // console.log("Post_userSession__id", userSession.user.id);
+  const isCurrentUserPost = userSession?.user?.id === postUserId;
+
 
   return (
     <div className="relativve flex flex-col space-y-2.5 mb-12">
@@ -61,7 +57,7 @@ const handleNewComment = (newComment: { body: string; tempId: string; status: "p
           </div>
         </div>
 
-        <PostOptions post={post} userId={postUserId} />
+        <PostOptions post={post} userId={userId} isCurrentUserPost={isCurrentUserPost} />
       </div>
 
       <Card className="relative h-full min-h-[340px] sm:h-[450px] w-full sm:overflow-hidden rounded-none sm:rounded-md">
@@ -87,34 +83,7 @@ const handleNewComment = (newComment: { body: string; tempId: string; status: "p
             post={post} 
             userSession={userSession}
         />  
-{/*      
-      <PostActions post={post}
-          userId={postUserId}
-          commentsModalOpen={commentsModalOpen} 
-          toggleCommentsModal={toggleCommentsModal}
-          className="px-3 sm:px-0" 
-          comments={post.comments}
-          userSession={userSession}
-          // user={userSession.user}
-          /> */}
 
-
-   
- {/* Comments Modal */}
-    {/* {commentsModalOpen && (
-      <CommentModal postId={post.id} onNewComment={handleNewComment} className="" open={true} setOpen={() => {}} />
-        // <div className="fixed inset-x-0 w-full top-[20vh] h-[80vh] bg-black bg-opacity-50 flex items-end justify-center z-50">
-        //   <div className="h-[80vh] min-w-[340px] max-w-[450px]  bg-white rounded-t-lg w-full max-w-lg p-4 shadow-lg">
-        //     <div className="flex justify-between items-center">
-        //       <h2 className="text-lg font-semibold">Comments</h2>
-        //       <button onClick={() => setCommentsModalOpen(false)} className="text-gray-600">✕</button>
-        //     </div>
-        //     <Comments postId={post.id} comments={post.comments} user={userSession} />
-        //   </div>
-        // </div>
-      )} */}
-      {/* <CommentSection postId={post.id} comments={post.comments} userSession={userSession}/> */}
-      {/* <Comments postId={post.id} comments={post.comments} user={userSession} /> */}
     </div>
   );
 }

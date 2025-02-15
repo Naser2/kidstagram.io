@@ -23,7 +23,7 @@ export async function createUser(values: z.infer<typeof CreateUser>) {
 
   const { name, email, password } = validatedFields.data;
 
-  console.log("CREATING IUSER  VALUES", name, email, password);
+  // console.log("CREATING IUSER  VALUES", name, email, password);
   // Check for existing user
   const existingUser = await prisma.user.findUnique({ where: { email } });
 
@@ -48,10 +48,10 @@ export async function createUser(values: z.infer<typeof CreateUser>) {
         image: defaultAvatar, // Assign default avatar
       },
     });
-     console.log("CREATED_USER", user);
+    //  console.log("CREATED_USER", user);
     return { message: "User created successfully.", data: user };
   } catch (error) {
-    console.log("ERROR_CREATING_USER", error)
+    // console.log("ERROR_CREATING_USER", error)
     console.error("Database Error: ", error);
     return { message: "Database Error: Failed to Create User.", error };
   }

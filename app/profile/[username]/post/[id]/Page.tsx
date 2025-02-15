@@ -77,7 +77,7 @@ export default  function PostPage({ params }: PostPageProps) {
 
     return (
       <div className="flex-1 overflow-hidden">
-       <PostView id={postId} post={post} />;
+       {/* <PostView id={postId} post={post} />; */}
       </div>
     );
   } catch (error) {

@@ -36,7 +36,7 @@ export const config = {
         // --------- To ensure `user.password` is a string before calling `bcrypt.compare()`
         if (user && typeof user.password === "string" && credentials?.password) {
           const isValid = await bcrypt.compare(credentials.password, user.password);
-          console.log("AUTH_4_isValid", isValid)
+          // console.log("AUTH_4_isValid", isValid)
           if (isValid) {
             return user;
           }
@@ -59,9 +59,9 @@ export const config = {
   },
   
   callbacks: {
-    async session({ session, token }) {
-      console.log("AUTH_6_session", session);
-      console.log("AUTH_7_session", token);
+     async session({ session, token }) {
+    //   console.log("AUTH_6_session", session);
+    //   console.log("AUTH_7_session", token);
     
       if (token) {
         session.user.id = token.id as string;
@@ -71,7 +71,7 @@ export const config = {
         session.user.username = token.username as string;
       }
     
-      console.log("Final session:", session);
+      // console.log("Final session:", session);
       return session;
     },
     async jwt({ token, user }: { token: any, user?: any }) {
@@ -84,7 +84,7 @@ export const config = {
         return token;
       }
     
-      console.log("jwt token before DB lookup:", token);
+      // console.log("jwt token before DB lookup:", token);
     
       // Fetch user from DB
       const prismaUser = await prisma.user.findFirst({
@@ -92,7 +92,7 @@ export const config = {
         select: { id: true, name: true, email: true, username: true, image: true }, // Ensure `image` is selected
       });
     
-      console.log("prismaUser from DB:", prismaUser);
+      // console.log("prismaUser from DB:", prismaUser);
     
       if (!prismaUser) {
         return token;

@@ -13,11 +13,12 @@ type Props = {
   post: PostWithExtras;
   userId?: string;
   className?: string;
+  isCurrentUserPost: boolean;
 };
 
-function PostOptions({ post, userId, className }: Props) {
-  const isPostMine = post.userId === userId;
-  console.log("PostOptions", "USER_ID", userId, "post.userId " , post.userId , isPostMine);
+function PostOptions({ post, userId, isCurrentUserPost, className }: Props) {
+  // const isPostMine = post.userId === userId;
+  // console.log("PostOptions", "USER_ID", userId, "post.userId " , post.userId , isCurrentUserPost);
 
   return (
     <Dialog>
@@ -31,7 +32,7 @@ function PostOptions({ post, userId, className }: Props) {
       </DialogTrigger>
       <DialogContent className="dialogContent">
       <DialogTitle className="hidden">Post Option Modal</DialogTitle>
-        {isPostMine ===true && (
+        {isCurrentUserPost ===true && (
           <form
             action={async (formData) => {
               const { message } = await deletePost(formData);
@@ -46,7 +47,7 @@ function PostOptions({ post, userId, className }: Props) {
           </form>
         )}
 
-        {isPostMine && (
+        {isCurrentUserPost && (
           <Link
             scroll={false}
             href={`/content/postModal/${post.id}/edit`}
@@ -59,7 +60,7 @@ function PostOptions({ post, userId, className }: Props) {
         <form action="" className="postOption border-0">
           <button className="w-full p-3">Hide like count</button>
         </form>
-        {!isPostMine &&
+        {!isCurrentUserPost &&
          <form action="" className="postOption border-0">
           <button className="w-full p-3">Report as inappropriate</button>
         </form>

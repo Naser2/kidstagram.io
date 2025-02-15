@@ -35,7 +35,7 @@ const post = await fetchPostById(postId);
 
   return (
     <div className="h-full">
-      <PostView post={post} alreadSeen={post.wiewers.find(userId)} />
+      {/* <PostView post={post} alreadSeen={post.wiewers.find(userId)} /> */}
       <main className="h-full lg:pt-[64px] pl-20 lg:pl-96">{children}</main>
     </div>
   );

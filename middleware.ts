@@ -4,6 +4,33 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 
+
+export default withAuth(
+  async (req: NextRequest) => { // Add this callback
+    const headers = new Headers(req.headers);
+    headers.set("x-current-path", req.nextUrl.pathname);
+    return NextResponse.next({ headers });
+  },
+  {
+    callbacks: {
+      authorized({ req, token }) {
+        const publicRoutes = ["/", "/login", "/signup"];
+        const pathname = req.nextUrl.pathname;
+
+        if (publicRoutes.includes(pathname)) {
+          return true;
+        }
+
+        return !!token;
+      },
+    },
+  }
+);
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
+
 // export default withAuth({
 //   callbacks: {
 //     authorized({ req, token }) {
@@ -72,31 +99,7 @@ import type { NextRequest } from "next/server";
 // import type { NextRequest } from "next/server";
 
 
-export default withAuth(
-  async (req: NextRequest) => { // Add this callback
-    const headers = new Headers(req.headers);
-    headers.set("x-current-path", req.nextUrl.pathname);
-    return NextResponse.next({ headers });
-  },
-  {
-    callbacks: {
-      authorized({ req, token }) {
-        const publicRoutes = ["/", "/login", "/signup"];
-        const pathname = req.nextUrl.pathname;
 
-        if (publicRoutes.includes(pathname)) {
-          return true;
-        }
-
-        return !!token;
-      },
-    },
-  }
-);
-
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-};
 
 // import { withAuth } from "next-auth/middleware";
 // import { NextResponse } from "next/server";

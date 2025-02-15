@@ -50,7 +50,7 @@ export default function Login({ fieldsSatisfied }: { fieldsSatisfied: boolean })
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    console.log("LOGIN Failed", formData.get("email"), formData.get("password"));
+    // console.log("LOGIN Failed", formData.get("email"), formData.get("password"));
     const res = await signIn("credentials", {
       redirect: false,
       email,
@@ -58,7 +58,7 @@ export default function Login({ fieldsSatisfied }: { fieldsSatisfied: boolean })
     });
    
     if (res?.error) {
-      console.log("LOGIN Failed", res.error);
+      // console.log("LOGIN Failed", res.error);
       setError("Invalid email or password");
     } 
     else {

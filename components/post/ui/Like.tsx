@@ -32,7 +32,7 @@ function LikeButton({ post, postId, userId, likes, handleLike }: LikeButtonProps
 
     try {
       const response = await handleLike(postId);
-      console.log("API_LIKE_Response:", response);
+      // console.log("API_LIKE_Response:", response);
 
       if (response?.likes !== undefined) {
         // **Ensure UI reflects actual server response**
@@ -41,7 +41,7 @@ function LikeButton({ post, postId, userId, likes, handleLike }: LikeButtonProps
         });
       }
     } catch (error) {
-      console.error("Like failed, rolling back.");
+      // console.error("Like failed, rolling back.");
 
       // **Rollback if request fails**
       startTransition(() => {
@@ -52,7 +52,7 @@ function LikeButton({ post, postId, userId, likes, handleLike }: LikeButtonProps
   };
 
   return (
-    <div className="flex flex-row items-center gap-x-1">
+    <div className="flex flex-row items-center gap-x-[0.9px]">
       <ActionIcon onClick={onLike}>
         <Heart
           className={cn("h-6 w-6 transition", {

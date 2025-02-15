@@ -34,7 +34,7 @@ function PostActions({
   handleBookmark
 }: Props) {
     
-    console.log("Post_ACTION", userSession);
+    // console.log("Post_ACTION", userSession);
   return (
     <div className={cn("relative flex items-start w-full gap-x-2", className)}>
       <LikeButton post={post} userId={userId} />

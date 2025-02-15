@@ -13,7 +13,7 @@ interface ShareButtonProps {
 }
 
 function ShareButton({ postId, shares, onShare }: ShareButtonProps) {
-  console.log("ShareButton_shares", shares);
+  // console.log("ShareButton_shares", shares);
   const handleShare = () => {
     navigator.clipboard.writeText(`${window.location.origin}/posts/${postId}`);
     onShare();
@@ -23,11 +23,11 @@ function ShareButton({ postId, shares, onShare }: ShareButtonProps) {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-x-[0.9px]">
       <ActionIcon onClick={handleShare}>
         <Send className="h-6 w-6 transition" />
       </ActionIcon>
-      <span className="text-[1rem] font-bold text-white/90 ml-1">{shares}</span>
+      <span className="text-[1rem] font-bold text-white/90">{shares}</span>
     </div>
   );
 }

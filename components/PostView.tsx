@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useMount from "@/hooks/useMount";
 import { PostWithExtras } from "@/lib/definitions";
-import { useSession, User } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -20,19 +20,20 @@ import Comment from "./NewComment";
 type PostViewProps = {
   id: string;
   post: PostWithExtras;
+  userSession: any;
   
 };
-function PostView({ id, post }: { id: string; post: PostWithExtras }) {
+function PostView({ id, post , userSession}: { id: string; post: PostWithExtras }) {
   const pathname = usePathname();
   const isPostModal = true
   // const isPostModal = pathname === `/posts/${id}`;
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const user = session?.user as User & { id: string };
+
+  const user = userSession?.user as User & { id: string };
   const inputRef = useRef<HTMLInputElement>(null);
   const username = post.user.username;
-  console.log("POST_USER_" + user);
-  console.log("USERNAME_" + username);
+  // console.log("POST_USER_" + user);
+  // console.log("USERNAME_" + username);
   const href = `/profile/${username}`;
   const mount = useMount();
 

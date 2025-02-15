@@ -11,11 +11,11 @@ interface CommentButtonProps {
 
 function CommentButton({ commentsCount, commentIconOnClick }: CommentButtonProps) {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-x-[0.9px]">
       <ActionIcon onClick={commentIconOnClick}>
         <MessageCircle className="h-6 w-6 transition" />
       </ActionIcon>
-      <span className="text-[1rem] font-bold text-white/90 ml-1">{commentsCount}</span>
+      <span className="text-[1rem] font-bold text-white/90">{commentsCount}</span>
     </div>
   );
 }

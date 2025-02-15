@@ -41,7 +41,6 @@ export default function Layout({
               routerConfig={extractRouterConfig(ourFileRouter)}
             />
             <RootLayout children={children}/>
-          
             <Toaster richColors />
           </AuthProvider>
         </ThemeProvider>

@@ -1,6 +1,8 @@
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prisma";
-export async function fetchPosts() {
+import { PostWithExtras } from "@/lib/definitions"; // Import the correct type
+
+export async function fetchPosts(): Promise<{ posts: PostWithExtras[]; error?: string }> {
   noStore();
 
   try {
@@ -33,21 +35,21 @@ export async function fetchPosts() {
     });
 
     if (!data) {
-      console.error("Post not found");
+      // console.error("Post not found");
       return { error: "Post not found", posts: [] };
     }
 
-    console.log("fetchPosts -> data", data);
+    // console.log("fetchPosts -> data", data);
     return { posts: data };
   } catch (error) {
-    console.error("fetchPosts -> Prisma error:", error);
+    // console.error("fetchPosts -> Prisma error:", error);
     return { error: "Failed to fetch posts", posts: [] };
   }
 }
 
 export async function fetchPostById(id: string) {
   noStore();
-  console.log("fetchPostById_Action -> id", id);
+  // console.log("fetchPostById_Action -> id", id);
 
   try {
     const data = await prisma.post.findUnique({
@@ -78,7 +80,7 @@ export async function fetchPostById(id: string) {
       },
     });
 
-    console.log("fetchPostById -> data", data);
+    // console.log("fetchPostById -> data", data);
     return data;
   } catch (error) {
     console.error("fetchPostById -> Prisma error:", error);
@@ -124,7 +126,7 @@ export async function fetchPostsByUsername(username: string, postId?: string) {
       },
     });
 
-    console.log("fetchPostsByUsername -> data", data);
+    // console.log("fetchPostsByUsername -> data", data);
     return data;
   } catch (error) {
     console.error("fetchPostsByUsername -> Prisma error:", error);
@@ -290,7 +292,7 @@ export async function fetchProfile(username: string) {
         },
       }
     });
-  console.log("fetchProfile-->", data);
+  // console.log("fetchProfile-->", data);
     return data;
   } catch (error) {
     console.error("Database Error:", error);
@@ -333,7 +335,8 @@ export async function fetchSavedPostsByUsername(username: string) {
         createdAt: "desc",
       },
     });
-    console.log("fetchSavedPostsByUsername -> data", data);
+    // console.log("fetchSavedPostsByUsername -> data", data);
+
     return data;
   } catch (error) {
     console.error("Database Error:", error);

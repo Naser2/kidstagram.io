@@ -32,7 +32,7 @@ import ProfileAvatar from "./ProfileAvatar";
 import UserAvatar from "./UserAvatar";
 
 function ProfileForm({ profile }: { profile: Profile }) {
-  console.log("ProfileForm-->", profile);
+  // console.log("ProfileForm-->", profile);
   const form = useForm<z.infer<typeof UserSchema>>({
     resolver: zodResolver(UserSchema),
     defaultValues: {
@@ -49,9 +49,9 @@ function ProfileForm({ profile }: { profile: Profile }) {
     },
   });
 
-  console.log("ProfileF-->", profile);
+  // console.log("ProfileF-->", profile);
   const { isDirty, isSubmitting, isValid } = form.formState;
-  console.log("ProfileFormisDirty", isDirty, "isSubmitting",isSubmitting, "isValid", isValid, "formState", form.formState);
+  // console.log("ProfileFormisDirty", isDirty, "isSubmitting",isSubmitting, "isValid", isValid, "formState", form.formState);
 
   return (
     <div className="space-y-8 py-10 lg:p-10 max-w-xl">

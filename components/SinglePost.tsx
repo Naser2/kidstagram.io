@@ -1,12 +1,7 @@
 "use client"
 
-
-import Comment from "@/components/NewComment";
-import CommentForm from "@/components/CommentForm";
 import Post from "@/components/Post";
-import PostActions from "@/components/PostActions";
 import PostOptions from "@/components/PostOptions";
-import UserAvatar from "@/components/UserAvatar";
 import {
   HoverCard,
   HoverCardContent,
@@ -19,36 +14,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Card } from "./ui/card";
 import MiniPost from "./MiniPost";
-// import CommentModal from "./ui/Modal/NewCommentModal";
-import { useEffect, useState } from "react";
-import { Session } from "next-auth";
-import { User } from "next-auth";
+
+import { useState } from "react";
+
 import ContentManager from "./post/ContentManager";
 import Caption from "./Caption";
 import NewComment from "@/components/post/ui/Comment";
 import { CommentWithExtras } from "@/lib/definitions";
 
 function SinglePost({ post , userSession}: { post: any, userSession: any }) {
-  console.log("userSession_SinglePost  ", userSession)
+
   const [allComments, setAllComments] = useState(post.comments || []);
   const postUsername = post?.user?.username;
   const [session, setSession] = useState<{ user?: any } | null>(null);
   const [loading, setLoading] = useState(true);
-
   const [userId, setUserId] = useState<string | undefined>(undefined);
-
-   console.log("SinglePost_post" , post, "SinglePost_postUsername", postUsername, "SinglePost_userId: " + userSession.user.id);
-
-
-  if (!post) {
-    notFound();
-  }
-
-
-  const handleNewComment = (newComment: { body: string; tempId: string; status: "pending" | "failed" | "success" }) => {
-    setAllComments((prev: Array<{ body: string; tempId: string; status: "pending" | "failed" | "success" }>) => [newComment, ...prev]);
-  };
-
 
   if (!post) {
     notFound();
@@ -57,7 +37,7 @@ function SinglePost({ post , userSession}: { post: any, userSession: any }) {
   return (
     <div className="">
       <Card className="max-w-3xl lg:max-w-[66rem] hidden md:flex mx-auto z-50">
-        <div className="relative overflow-hidden h-[450px] max-w-xl w-full">
+        <div className="relative overflow-x-hidden h-[450px] max-w-xl w-full">
           <Image
             src={post.fileUrl}
             alt="Post preview"
@@ -66,7 +46,7 @@ function SinglePost({ post , userSession}: { post: any, userSession: any }) {
           />
         </div>
 
-        <div className="flex max-w-xl  flex-col flex-1">
+        <div className="flex  max-w-[27rem] lg:[26rem] xl:max-w-[32rem]  flex-col flex-1">
           <div className="flex items-center justify-between border-b px-5 py-3">
             <HoverCard>
               <HoverCardTrigger asChild>

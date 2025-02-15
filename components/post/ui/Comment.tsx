@@ -15,7 +15,7 @@ type Props = {
 };
 
 function Comment({ comment, inputRef, userSession }: Props) {
-  const { data: session } = useSession();
+
   const username = comment.user.username;
   const href = `/profile/${username}`;
   

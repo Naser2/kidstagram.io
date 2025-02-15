@@ -5,8 +5,11 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { calSans } from "@/app/fonts";
 import { useRouter } from "next/navigation";
-
-function Header() {
+import { Session } from "next-auth";
+interface HeaderProps {
+  session?: Session  | null ;
+}
+function Header({ session }: HeaderProps) {
   const router = useRouter()
   return (
     <header className="fixed md:hidden bg-white top-0 flex items-center justify-between dark:bg-neutral-950 w-full z-50 border-b border-zinc-300 dark:border-neutral-700 px-3 py-2 sm:-ml-6">

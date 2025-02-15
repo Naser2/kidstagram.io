@@ -248,7 +248,7 @@ export async function createComment(values: z.infer<typeof CreateComment>) {
         userId,
       },
     });
-    console.log("post created");
+    // console.log("post created");
     // revalidatePath("/dashboard");
     return Response
   } catch (error) {
@@ -336,7 +336,7 @@ export async function updateProfile(values: z.infer<typeof UpdateUser>) {
   const validatedFields = UpdateUser.safeParse(values);
 
   if (!validatedFields.success) {
-    console.log("validatedFields", validatedFields);
+    // console.log("validatedFields", validatedFields);
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Profile.",
@@ -345,7 +345,7 @@ export async function updateProfile(values: z.infer<typeof UpdateUser>) {
 
   const { bio, gender, image, name, username, website, passion,
     additionalDetails } = validatedFields.data;
-  console.log("updated fields", validatedFields.data);
+  // console.log("updated fields", validatedFields.data);
   try {
     await prisma.user.update({
       where: {
@@ -366,7 +366,7 @@ export async function updateProfile(values: z.infer<typeof UpdateUser>) {
     revalidatePath(`/user/${username}`);
     return { message: "Updated Profile." };
   } catch (error) {
-    console.log("updateProfile", error);
+    // console.log("updateProfile", error);
     return { message: "Database Error: Failed to Update Profile." };
   }
 }

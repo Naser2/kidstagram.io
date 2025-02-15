@@ -1,19 +1,19 @@
-"use client";
+// "use client";
 
-import { useSelectedLayoutSegment } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
+// import { useSelectedLayoutSegment } from "next/navigation";
+import { ReactNode } from "react";
 
 export default function PostModalLayout({ children }: { children: ReactNode }) {
-  const routeName = useSelectedLayoutSegment();
+  // const routeName = useSelectedLayoutSegment();
 
-  const [isSettingsRoute, setIsSettingsRoute] = useState(false);
+  // const [isSettingsRoute, setIsSettingsRoute] = useState(false);
 
-  useEffect(() => {
-   console.log("POSTMODALLAYOUT:_loaded");
-    const isSettingsRoute = routeName?.includes("/account") ? true : false;
-    setIsSettingsRoute(true);
-    console.log("PostModalLayout Route:", isSettingsRoute);
-  }, []);
+  // useEffect(() => {
+  //  console.log("POSTMODALLAYOUT:_loaded");
+  //   const isSettingsRoute = routeName?.includes("/account") ? true : false;
+  //   setIsSettingsRoute(true);
+  //   console.log("PostModalLayout Route:", isSettingsRoute);
+  // }, []);
   // const routeName = useSelectedLayoutSegment();
   // const isSettingsRoute = routeName?.includes("account");
 
