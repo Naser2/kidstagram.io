@@ -13,6 +13,7 @@ import Caption from "./Caption";
 import CommentSection from "./CommentSection";
 import ContentManager from "./post/ContentManager";
 import PostHeader from "./post/ui/PostHeader";
+import { useContentManager } from "@/context/useContentManager";
 
 function Post({ 
   post, 
@@ -38,6 +39,20 @@ function Post({
   );
 
 
+  // const {
+  //     likes,
+  //     shares,
+  //     comments,
+  //     handleLikeToggle,
+  //     handleNewComment,
+  //     latestComment,
+  //     handleShare,
+  //     handleBookmark,
+  //     commentsModalOpen,
+  //      setCommentsModalOpen
+  
+  //     // initialLikes, initialShares, commentsCount
+  //   } = useContentManager({ post, userId: userSession.user.id, userSession});
   return (
     <div className="relativve flex flex-col space-y-2.5 mb-12">
       <div className="flex items-center justify-between px-3 sm:px-0">
@@ -64,30 +79,26 @@ function Post({
         <PostOptions post={post} userId={userId} isCurrentUserPost={isCurrentUserPost} />
       </div>
 
-      <Card className="relative h-full min-h-[340px] sm:h-[450px] lg:h-[550px] w-full sm:overflow-hidden rounded-none sm:rounded-md flex justify-center items-center">
+      <Card className="relative h-full min-h-[340px] sm:h-[350px] lg:max-h-[450px] xl:max-h-[550px]  w-full sm:overflow-hidden rounded-none sm:rounded-md flex justify-center items-center">
               <Image
                 src={post.fileUrl}
                 alt="Post Image"
                 fill
-                className="sm:rounded-md object-contain object-center"
+                className="sm:rounded-md object-cover object-center"
               />
             </Card>
 
-      {post.caption && (
-         <PostHeader isFollowing={isFollowing} isCurrentUserPost={isCurrentUserPost} 
-                      post={post} username={postUsername} userSession={userSession} 
+      {/* {post.caption && (
+         <PostHeader isFollowing={isFollowing} 
+                      isCurrentUserPost={isCurrentUserPost} 
+                      post={post} username={postUsername} 
+                      userSession={userSession} 
                       caption={post.caption} comment={post.comments[0]} 
-                      postId={post.id} createdAt={post.createdAt} />
-        // <div className="text-sm text_stats_time leading-none flex items-center space-x-2 font-medium px-3 sm:px-0">
-        //   <Link href={`/profile/${postUsername}`} className="font-bold _ap3a _aaco _aacw _aacx _aad7 _aade">
-        //     {postUsername}
-        //   </Link>
-        //   <span><svg aria-label="Verified"
-        //    className="x1lliihq x1n2onr6" fill="rgb(0, 149, 246)" height="12" role="img" viewBox="0 0 40 40" width="12"><title>Verified</title><path d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Zm7.415 11.225 2.254 2.287-11.43 11.5-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18Z" fillRule="evenodd"></path></svg></span>
-        //    <Caption caption={post.caption} />
-        //   {/* <span className="aacu truncate">{post.caption}</span> */}
-        // </div>
-      )}
+                      postId={post.id} createdAt={post.createdAt}
+                      
+                       />
+       
+      )} */}
       <ContentManager 
             post={post} 
             userSession={userSession}

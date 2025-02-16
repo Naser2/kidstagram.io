@@ -9,7 +9,11 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import PostOptions from "@/components/PostOptions";
-
+import CommentForm from "@/components/CommentForm";
+import { usePathname } from "next/navigation"; 
+import PostHeaderButtons from "../PostHeaderButtons";
+import { useContentManager } from "@/context/useContentManager";
+import { Session } from "next-auth";
 type Props = {
   comment: CommentWithExtras;
   inputRef?: React.RefObject<HTMLInputElement>;
@@ -28,8 +32,25 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const captionLimit = 100;
-
+  const pathname = usePathname(); // ✅ Get current path
+  const isPostPage = pathname.startsWith(`/content/${post.id}`);
   console.log("PostHeader_post", post);
+
+    const {
+      likes,
+      shares,
+      comments,
+      handleLikeToggle,
+      handleNewComment,
+      handleShare,
+      handleBookmark,
+      commentsModalOpen,
+      setCommentsModalOpen,
+      sayHelloMessage,
+      setSayHelloMessage
+  
+      // initialLikes, initialShares, commentsCount
+    } = useContentManager({ post, userId: userSession.user.id, userSession });
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -88,7 +109,7 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
   
   return (
     <div className="flex-col">
-        <div className="flex items-center justify-between border-b px-5 py-3 max-[640px]:bg-[#2196F3]">
+       {isPostPage &&  <div className="flex items-center justify-between border-b px-5 py-3 max-[640px]:bg-[#2196F3] max-[768px]:hidden">
             <HoverCard>
 
               <HoverCardTrigger asChild>
@@ -130,26 +151,53 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
             <PostOptions post={post} userId={userSession.user.id} isCurrentUserPost={isCurrentUserPost}/>
           </div>
        
+
+       }
  
-    <div className="group py-2 p-x0 sm:p-3 px-3.5  flex items-start space-x-2.5 sm:pl-4">
-      
-     <div className="space-y-0 w-full">
+    <div className={clsx(`flex-col group py-2 p-x-0 sm:py-3 px flex items-start sm:space-x-2.5 ${isPostPage && "sm:pl-4"} `)}>
+      {/* {isPostPage && */}
+       {/* <div className={clsx("flex", isPostPage && "min-[767px]:hidden")}>
+              <PostHeaderButtons
+                    sayHelloMessage={sayHelloMessage}
+                    setSayHelloMessage={setSayHelloMessage}
+                     setCommentsModalOpen={setCommentsModalOpen} 
+                      post={post}
+                      userSession={userSession}
+                      likes={likes}
+                      shares={shares}
+                      postId={post.id}
+                      userId={post.user?.id}
+                      handleLike={handleLikeToggle}
+                      handleShare={handleShare}
+                      handleBookmark={handleBookmark}
+                      comments={comments}
+                      handleNewComment={handleNewComment} 
+                     
+                  // initialLikes={initialLikes}
+                  // initialShares={initialShares}
+                  //  commentsCount={commentsCount}
+                />
+       </div> */}
+    
+       
+       {/* } */}
+     {/* <div className="space-y-0 w-full">
       <div className="groull p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
-      <Link href={href} className="max-[640px]:hidden">
+     { isPostPage && <Link href={href} className="max-[767px]:hidden">
         <UserAvatar user={post?.user} className="comment_user_avatar"/> 
       </Link>
-          {/* Text Container (username + comment) */}
+      }
+      
           <div className="flex-1 ml-2 p-1 min-w-[18rem]">
           <span className="inline-flex items-center">
-            {/* Username Link */}
+          
             <Link
               href={`/profile/${username}`}
               className="font-semibold text-[rgb(var(--ig-link))] comment_user_name inline-flex items-center space-x-1"
             >
-              {/* Username */}
-              <span className="whitespace-nowrap -ml-1">{username}</span>
               
-              {/* Verified Checkmark */}
+              <span className="whitespace-nowrap -ml-1">{username}</span>
+  
               <svg
                 aria-label="Verified"
                 className="h-[12px] w-[12px] fill-[#0095F6]" // Tailwind-compatible styling
@@ -179,24 +227,17 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
           </span>
             </span>
           </div>
-             <div className="comment_heart justify-center px-6 py-auto hidden group-hover:inline mt-2"  >
-              <div className="bg-[rgb(var(--ig-primary-button))]  font-[var(--font-weight-system-semibold)] py-2 px-4 rounded-lg "> Follow
+             <div className="comment_heart justify-center px-5 mt-[-0.3rem] py-auto hidden xl:group-hover:inline mt-2 px-3 py-2 bg-[rgb(var(--ig-primary-button))] rounded-lg"  >
+              <div className=" font-[var(--font-weight-system-semibold)] rounded-lg "> Follow
                 </div>
             </div>
         </div>
-        <div className="flex h-5 items-center space-x-2.5 ml-4">
+        <div className="relative flex h-5 items-center space-x-2.5 ml-4">
+
           <Timestamp createdAt={createdAt} />
-          {/* <button
-            className="text-xs font-semibold text-neutral-500"
-            onClick={() => inputRef?.current?.focus()}
-          >
-            Reply
-          </button> */}
-          {/* {comment.userId === userSession?.user.id && (
-            <CommentOptions comment={comment} />
-          )} */}
+         
         </div>
-      </div>
+      </div> */}
      
     </div>
     </div>

@@ -14,7 +14,7 @@ type Props = {
   postId:string;
 };
 
-function Comment({ comment, inputRef, userSession }: Props) {
+function CustomComment({ comment, inputRef, userSession }: Props) {
 
   const username = comment.user.username;
   const href = `/profile/${username}`;
@@ -58,4 +58,4 @@ function Comment({ comment, inputRef, userSession }: Props) {
   );
 }
 
-export default Comment;
+export default CustomComment;
