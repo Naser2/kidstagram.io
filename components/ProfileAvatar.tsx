@@ -63,12 +63,12 @@ function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: Re
       >
         <UserAvatar
           user={user}
-          className="w-20 h-20  profile-avatar"
+          className="w-32 h-32"
         />
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="dialogContent">
+        <DialogContent className="dialogContent profile_setting_modal mx-6 max-w-[85vw] rounded-lg sm:max-w-[60vw] lg:max-w-[31vw] xl:max-w-[25vw]">
           <DialogHeader>
             <DialogTitle className="mx-auto font-medium text-xl py-5">
               Change Profile Photo
@@ -109,7 +109,7 @@ function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: Re
 
               {user.image && (
                 <SubmitButton
-                  className="text-red-500 border-b border-zinc-300 dark:border-neutral-700 font-bold disabled:cursor-not-allowed w-full text-sm p-3"
+                  className="danger border-b border-zinc-300 dark:border-neutral-700 font-bold disabled:cursor-not-allowed w-full text-sm p-3"
                   onClick={() => {
                     form.setValue("image", "");
                     inputRef.current?.click();

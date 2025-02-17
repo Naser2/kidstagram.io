@@ -66,6 +66,7 @@ export default function UserProfileHeaderButtons({  profileId,followedBy,  usern
           </>
         ) : (
           <>
+          
             <Button
               size={"icon"}
               variant={"ghost"}
@@ -79,7 +80,7 @@ export default function UserProfileHeaderButtons({  profileId,followedBy,  usern
             />
             <Button
               variant={"secondary"}
-              className="font-bold"
+              className="font-bold btn  "
               size={"sm"}
             >
               Message

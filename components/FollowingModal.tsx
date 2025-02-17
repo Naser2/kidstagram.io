@@ -23,7 +23,8 @@ function FollowingModal({
   const mount = useMount();
   const pathname = usePathname();
   const router = useRouter();
-  const isFollowingPage = pathname === `/dashboard/${username}/following`;
+  // const isFollowingPage = pathname === `/${username}/following`;
+  const isFollowingPage = true
 
   if (!mount) return null;
 
@@ -32,17 +33,17 @@ function FollowingModal({
       open={isFollowingPage}
       onOpenChange={(isOpen) => !isOpen && router.back()}
     >
-      <DialogContent className="dialogContent">
+      <DialogContent className="dialogContent p-6 max-w-[26rem]">
       <DialogTitle className="hidden">Following Modal</DialogTitle>
-        <DialogHeader className="border-b border-zinc-300 dark:border-neutral-700 py-2 w-full">
-          <DialogTitle className="mx-auto font-bold text-base">
+        <DialogHeader className="border-b border-zinc-300 dark:border-neutral-700 py-2 w-full ">
+          <DialogTitle className="mx-auto font-bold text-base p-2">
             Following
           </DialogTitle>
         </DialogHeader>
 
         {following?.length === 0 && <p>This user has no following.</p>}
 
-        <ScrollArea className="min-h-fit max-h-[350px]">
+        <ScrollArea className="min-h-fit max-h-[350px] p-4">
           {following?.map((following) => (
             <Following key={following.followingId} following={following} />
           ))}

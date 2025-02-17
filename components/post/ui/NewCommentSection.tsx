@@ -59,6 +59,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
       (user) => user.followerId === userSession?.user.id
     );
 
+
    console.log("NewCommentSection_ModalOpen_INIT", commentsModalOpen);
    useEffect(() => {
     console.log(`NewCommentSection_ModalOpe_UseEFFECT: ${commentsModalOpen}`);
@@ -198,21 +199,21 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
                 />
        </div>
        <div className="space-y-0 w-full">
-      <div className="groull p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
-     { isPostPage && <Link href={href} className="max-[767px]:hidden">
-        <UserAvatar user={post?.user} className="comment_user_avatar"/> 
-      </Link>
-      }
+      <div className="group pl-4 lg:pl-6 lg:pr-8  p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
+          { isPostPage && <Link href={href} className="max-[767px]:hidden">
+              <UserAvatar user={post?.user} className="comment_user_avatar"/> 
+            </Link>
+            }
           {/* Text Container (username + comment) */}
           <div className="flex-1 ml-2 p-1 min-w-[18rem]">
           <span className="inline-flex items-center">
             {/* Username Link */}
             <Link
-              href={`/profile/${username}`}
+              href={`/profile/${postUsername}`}
               className="font-semibold text-[rgb(var(--ig-link))] comment_user_name inline-flex items-center space-x-1"
             >
               {/* Username */}
-              <span className="whitespace-nowrap -ml-1">{username}</span>
+              <span className="whitespace-nowrap -ml-1">{postUsername}</span>
               
               {/* Verified Checkmark */}
               <svg
@@ -244,12 +245,12 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
           </span>
             </span>
           </div>
-             <div className="comment_heart justify-center px-5 mt-[-0.3rem] py-auto hidden xl:group-hover:inline mt-2 px-3 py-2 bg-[rgb(var(--ig-primary-button))] rounded-lg"  >
+            {!isFollowing &&  <div className="comment_heart justify-center px-5 mt-[-0.3rem] py-auto hidden xl:group-hover:inline mt-2 px-3 py-2 bg-[rgb(var(--ig-primary-button))] rounded-lg"  >
               <div className=" font-[var(--font-weight-system-semibold)] rounded-lg "> Follow
                 </div>
-            </div>
+            </div>}
         </div>
-        <div className="relative flex h-5 items-center space-x-2.5 ml-4">
+        <div className="relative flex h-5 items-center space-x-2.5 ml-4 px-3 lg:px-14">
 
           <Timestamp createdAt={post.createdAt} />
           {/* <button
@@ -307,7 +308,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
       
       {/* Comment List */}
       {/* <button type="button" onClick={() => setCommentsModalOpen(true)}>{commentsModalOpen ? "Modal Open" : "Modal Closed"} Comment</button> */}
-      <div className="flex-grow overflow-y-auto max-h-[440px] border-b -mt-1 pb-5 px-4">
+      <div className="flex-grow overflow-y-auto max-h-[440px] border-b -mt-1 pb-5 px-1">
         <div className="min-[767px]:hidden">
            <CommentForm postId={postId} userSession={userSession} handleNewComment={handleNewComment} />
         </div>

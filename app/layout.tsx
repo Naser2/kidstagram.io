@@ -30,7 +30,8 @@ export default function Layout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
+          <AuthProvider > 
+           
             <NextSSRPlugin
               /**
                * The `extractRouterConfig` will extract **only** the route configs

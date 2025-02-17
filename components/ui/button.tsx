@@ -9,16 +9,18 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        primary:"bg-[rgb(var(--ig-primary-button))] text-white dark:text-[rgb(var(--ig-primary-text))] ",
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border border-input bg-background hover:bg-accent hover:text-accent-foreground hover:bg-secondary/80",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-[rgb(var(--ig-secondary-button))] dark:text-[rgb(var(--ig-primary-text))]",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        hover_highlight:"hover:!bg-secondary/80"
+        hover_highlight:"hover:!bg-secondary/80",
+        profile_header_btns:"profile_header_btns"
       },
       size: {
         default: "h-10 px-4 py-2",

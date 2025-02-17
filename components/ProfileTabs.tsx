@@ -115,7 +115,7 @@ function ProfileTabs({
                   // isActive
                   //   ? "border-t !border-t-2 border-white text-white after:content-[''] after:absolute after:top-0 after:left-0 after:right-0 after:h-[2px] after:bg-white"
                   "tab_icon", // Apply the custom class
-                  isActive ?  `data-[state=active]:text-white ${profilePage}/${tab.href}` // Ensure Tailwind handles the active state
+                  isActive ?  `data-[state=active]:text-[rgb(var(--ig-primary-button))] ${profilePage}/${tab.href}` // Ensure Tailwind handles the active state
               
                     : "text-neutral-400"
                 )}

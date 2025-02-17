@@ -12,7 +12,7 @@ const Avatar = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-7 w-7  sm:h-9 sm:w-9 shrink-0 overflow-hidden rounded-full",
+      "relative flex h-12 w-12  sm:h-[10rem] sm:w-[10rem] shrink-0 overflow-hidden rounded-full",
       className
     )}
     {...props}
@@ -27,7 +27,7 @@ const AvatarMedium = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-9 w-9  sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-full",
+      "relative flex h-12 w-12  sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-full",
       className
     )}
     {...props}
@@ -42,7 +42,7 @@ const AvatarLarge = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10  sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-full",
+      "relative flex h-44 w-44  sm:h-18 sm:w-18 shrink-0 overflow-hidden rounded-full",
       className
     )}
     {...props}

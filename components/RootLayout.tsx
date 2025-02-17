@@ -7,6 +7,7 @@ import { PostsSkeleton } from "./Skeletons";
 import AuthenticationModal from "./authentication/AuthenticationModal";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
+  console.log("RootLayout", session);
   if (status === "loading") return <PostsSkeleton />
   if (!session?.user) return <AuthenticationModal />
    return  (<div className="flex h-screen overflow-x-hidden relative flex-col md:flex-row md:overflow-hidden !max-w-screen bg-primary">

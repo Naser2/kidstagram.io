@@ -33,7 +33,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
   }, [session]);
 
   return (
-    <ProfileProvider>
+ 
     <div className="flex">
       <Tabs
         defaultValue="edit-profile"
@@ -41,7 +41,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         orientation="vertical"
       >
         <h4 className="font-extrabold text-xl text-white ml-1">Settings</h4>
-        <TabsList className="md:w-[250px] flex flex-col items-start justify-start h-full bg-transparent">
+        <TabsList className="md:max-w-[250px] flex flex-col items-start justify-start h-full bg-transparent">
           {tabs.map((tab) => (
             <TabsTrigger
               key={tab.value}
@@ -57,11 +57,11 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         </TabsList>
       </Tabs>
 
-      <div className="flex-1 ml-[200px] xl:ml-32 min-h-screen bg-white dark:bg-neutral-950">
+      <div className="flex-1 ml-[230px] xl:ml-54 min-h-screen bg-white dark:bg-neutral-950">
         {children}
       </div>
     </div>
-    </ProfileProvider>
+ 
   );
 }
 

@@ -16,7 +16,7 @@ function Following({ following }: { following: FollowingWithExtras }) {
   return (
     <div className="p-4 flex items-center justify-between gap-x-3">
       <Link
-        href={`/dashboard/${following.following.username}`}
+        href={`/profile/${following.following.username}`}
         className="flex items-center gap-x-3"
       >
         <UserAvatar user={following.following} className="h-10 w-10" />

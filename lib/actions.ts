@@ -330,50 +330,81 @@ export async function updatePost(values: z.infer<typeof UpdatePost>) {
   redirect("/dashboard");
 }
 
-export async function updateProfile(values: z.infer<typeof UpdateUser>) {
-  const userId = await getUserId();
-
-  const validatedFields = UpdateUser.safeParse(values);
-
-  if (!validatedFields.success) {
-    // console.log("validatedFields", validatedFields);
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Update Profile.",
-    };
+export async function updateProfile(userId: string, values: z.infer<typeof UpdateUser>) {
+  if (!userId) {
+    return { message: "Unauthorized: User ID missing." };
   }
 
-  const { bio, gender, image, name, username, website, passion,
-    additionalDetails } = validatedFields.data;
-  // console.log("updated fields", validatedFields.data);
+  console.log("updateProfile", values);
+  
+  const validatedFields = UpdateUser.safeParse(values);
+  console.log("updateProfile_validatedFields", validatedFields);
+  if (!validatedFields.success) {
+    return { message: "Validation failed: Missing or invalid fields." };
+  }
+
   try {
     await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        username,
-        name,
-        image,
-        bio,
-        gender,
-        website,
-        passion,
-        additionalDetails,
-      },
+      where: { id: userId },
+      data: { ...validatedFields.data },
     });
-    const userProfileRef  = username ? { username } : { id: userId };
-    revalidatePath(`/user/${username}`);
+
+    revalidatePath(`/profile/${validatedFields.data.username}`);
+
     return { message: "Updated Profile." };
   } catch (error) {
-    // console.log("updateProfile", error);
-    return { message: "Database Error: Failed to Update Profile." };
+    console.error("updateProfile error:", error);
+    return { message: "Database Error: Failed to update profile." };
   }
 }
 
 
+// export async function updateProfile(values: z.infer<typeof UpdateUser>) {
+//   const userId = await getUserId();
+
+//   const validatedFields = UpdateUser.safeParse(values);
+
+//   if (!validatedFields.success) {
+//     // console.log("validatedFields", validatedFields);
+//     return {
+//       errors: validatedFields.error.flatten().fieldErrors,
+//       message: "Missing Fields. Failed to Update Profile.",
+//     };
+//   }
+
+//   const { bio, gender, image, name, username, website, passion,
+//     additionalDetails } = validatedFields.data;
+//   // console.log("updated fields", validatedFields.data);
+//   try {
+//     await prisma.user.update({
+//       where: {
+//         id: userId,
+//       },
+//       data: {
+//         username,
+//         name,
+//         image,
+//         bio,
+//         gender,
+//         website,
+//         passion,
+//         additionalDetails,
+//       },
+//     });
+//     const userProfileRef  = username ? { username } : { id: userId };
+//     revalidatePath(`/user/${username}`);
+//     return { message: "Updated Profile." };
+//   } catch (error) {
+//     console.log("updateProfile", error);
+//     return { message: "Database Error: Failed to Update Profile." };
+//   }
+// }
+
+
 export async function followUser(formData: FormData): Promise<void> {
   const userId = await getUserId();
+
+  console.log("FOLLOW_USER_FORMDATA", formData);
 
   const { id } = FollowUser.parse({
     id: formData.get("id"),

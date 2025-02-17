@@ -13,17 +13,20 @@ import { Skeleton } from "@/components/ui/skeleton";
 // };
 
 function EditProfile() {
-  const { profile, loading } = useProfile();
 
+  const { profile, isProfileOwner, isOwner , loading} = useProfile();
+
+  console.log("EDIT_PROFILE_profile", profile, "EDIT_PROFILE_isProfileOwner->", isProfileOwner, "EDIT_PROFILE_isOwner-->", isOwner, "EDIT_PROFILE_LOADINGH->", loading);
   // const p = await fetchProfile(session?.user.username!);
   // const p = await profile
   if (loading) return <Skeleton />;
   if (!profile) return <div>User not found</div>;
+  if (!isOwner) return notFound();
+  if (!isProfileOwner) return notFound();
 
   return (
     <div className="px-12">
       <h1 className="text-2xl font-medium ml-4 md:ml-20  lg:ml-24 xl:ml-32">Edit profile</h1>
-
       <ProfileForm profile={profile} />
     </div>
   );

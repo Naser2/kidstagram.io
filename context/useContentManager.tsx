@@ -13,6 +13,7 @@ interface UseContentManagerProps {
 }
 
 export function useContentManager({ post, userId, userSession }: UseContentManagerProps) {
+  console.log(`useContentManager -> userSession`, userSession);
   const [sayHelloMessage, setSayHelloMessage] = useState("initial Message");  // ✅ Add message state
   const [commentsModalOpen, setCommentsModalOpen] = useState(false);
   const [likes, setLikes] = useState(post?.likes.length || 0);
@@ -167,7 +168,7 @@ export function useContentManager({ post, userId, userSession }: UseContentManag
     navigator.clipboard.writeText(`${window.location.origin}/content/${post.id}`);
     setShares((prev) => prev + 1);
   
-    const userId = session?.user.id;  // ✅ Fetch user ID properly
+    // const userSession = session?.user.id;  // ✅ Fetch user ID properly
   
     await fetch("/api/post/shares", {
       method: "POST",

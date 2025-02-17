@@ -31,7 +31,7 @@ function FollowersModal({
       open={isFollowersPage}
       onOpenChange={(isOpen) => !isOpen && router.back()}
     >
-      <DialogContent className="dialogContent">
+      <DialogContent className="dialogContent max-w-[26rem] profile_setting_modal">
       <DialogTitle className="hidden">Followers Modal</DialogTitle>
         <DialogHeader className="border-b border-zinc-300 dark:border-neutral-700 py-2 w-full">
           <DialogTitle className="mx-auto font-bold text-base">

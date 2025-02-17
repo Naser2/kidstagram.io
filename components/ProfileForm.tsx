@@ -28,7 +28,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import ProfileAvatar from "./ProfileAvatar";
+import ProfileAvatarLarge from "@/components/user/profile/ui/ProfileAvatarLarge";
 import UserAvatar from "./UserAvatar";
 
 function ProfileForm({ profile }: { profile: UserWithExtras }) {
@@ -55,7 +55,7 @@ function ProfileForm({ profile }: { profile: UserWithExtras }) {
   // console.log("ProfileFormisDirty", isDirty, "isSubmitting",isSubmitting, "isValid", isValid, "formState", form.formState);
 
   return (
-    <div className="space-y-8 py-10 lg:p-10 max-w-xl">
+    <div className="space-y-8 py-10 lg:p-10 max-w-xl " >
       <div className="flex items-center gap-x-2 md:gap-x-5">
         {/* <ProfileAvatar user={profile}>
           <div className="md:w-20 flex md:justify-end">
@@ -64,17 +64,17 @@ function ProfileForm({ profile }: { profile: UserWithExtras }) {
         </ProfileAvatar> */}
         <div className=" flex justify-center ml-4 md:ml-20">
           {/* <p className="font-medium">{profile.username}</p> */}
-          <ProfileAvatar user={profile}>
+          <ProfileAvatarLarge user={profile}>
             <p className="text-blue-500 text-sm font-bold cursor-pointer hover:text-white">
               Change profile photo
             </p>
-          </ProfileAvatar>
+          </ProfileAvatarLarge>
         </div>
       </div>
  <Form {...form}>
   <form
     onSubmit={form.handleSubmit(async (values) => {
-      const { message } = await updateProfile(values);
+      const { message } = await updateProfile(profile.id, values);
       toast(message);
     })}
     className="space-y-8"
