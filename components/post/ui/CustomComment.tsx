@@ -6,6 +6,7 @@ import UserAvatar from "@/components/UserAvatar";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Timestamp from "@/components/Timestamp";
+import CommentUserAvatar from "@/components/CommentUserAvatar";
 
 type Props = {
   comment: CommentWithExtras;
@@ -20,12 +21,12 @@ function CustomComment({ comment, inputRef, userSession }: Props) {
   const href = `/profile/${username}`;
   
   return (
-    <div className="group py-2 p-x0 sm:p-1 px-3.5  flex items-start space-x-2.5 sm:pl-4">
+    <div className="group py-2 p-x0 sm:p-0 px-3.5  flex items-start space-x-2.5 sm:mt-3 sm:ml-1">
       
      <div className="space-y-0 w-full">
-      <div className="p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
+      <div className="rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
       <Link href={href}>
-        <UserAvatar user={comment.user} className="comment_user_avatar"/>
+        <CommentUserAvatar user={comment.user} className="comment_user_avatar"/>
       </Link>
           {/* Text Container (username + comment) */}
           <div className="flex-1 ml-2 mt-3 min-w-[18rem]">

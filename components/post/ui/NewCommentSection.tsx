@@ -18,6 +18,7 @@ import PostOptions from "@/components/PostOptions";
 import UserAvatar from "@/components/UserAvatar";
 import { Session } from "node:inspector";
 import Timestamp from "@/components/Timestamp";
+import CommentUserAvatar from "@/components/CommentUserAvatar";
 interface NewCommentSectionProps {
   postId: string;
   post: PostWithExtras;
@@ -72,7 +73,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
   // const isPostPage = pathname.startsWith(`/content/${postId}`);
   // const isPostPage = true
   const isPostPage = pathname.includes(`/content/${postId}`);
-  const INITIAL_COUNT = isPostPage ? 4 : 3; // Show 4 comments on post page, 10 elsewhere
+  const INITIAL_COUNT = isPostPage ? 4 : 1; // Show 4 comments on post page, 10 elsewhere
   const LOAD_MORE_COUNT = 10;
 
   // ✅ Sync initial state with comments
@@ -175,7 +176,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
   const href = `/profile/${username}`;
 
   return (
-    <div className="space-y-1 px-0 sm:px-0 overflow-y-auto">
+    <div className="space-y-1 px-0 sm:px-0 overflow-y-auto min-[770px]:pl-6">
        <div className={clsx("flex", isPostPage && "min-[767px]:hidden")}>
               <PostHeaderButtons
                      sayHelloMessage={sayHelloMessage}
@@ -199,9 +200,9 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
                 />
        </div>
        <div className="space-y-0 w-full">
-      <div className="group pl-4 lg:pl-6 lg:pr-8  p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
+      <div className="group  lg:pr-8  p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
           { isPostPage && <Link href={href} className="max-[767px]:hidden">
-              <UserAvatar user={post?.user} className="comment_user_avatar"/> 
+              <CommentUserAvatar user={post?.user} className="comment_user_avatar"/> 
             </Link>
             }
           {/* Text Container (username + comment) */}
@@ -241,7 +242,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
               >
                 see more
               </button>
-            )}
+            )}  <Timestamp createdAt={post.createdAt} /> <span className="font-medium text-neutral-500 dark:text-neutral-400 text-xs">ago</span>
           </span>
             </span>
           </div>
@@ -250,9 +251,8 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
                 </div>
             </div>}
         </div>
-        <div className="relative flex h-5 items-center space-x-2.5 ml-4 px-3 lg:px-14">
-
-          <Timestamp createdAt={post.createdAt} />
+         {/* <div className="relative flex h-5 items-center space-x-2.5 ml-4 px-3 lg:px-14">
+         <Timestamp createdAt={post.createdAt} /> */}
           {/* <button
             className="text-xs font-semibold text-neutral-500"
             onClick={() => inputRef?.current?.focus()}
@@ -261,8 +261,8 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
           </button> */}
           {/* {comment.userId === userSession?.user.id && (
             <CommentOptions comment={comment} />
-          )} */}
-        </div>
+          )} 
+        </div>*/}
       </div>
        {!isPostPage &&  <div className="!hidden flex items-center justify-between border-b px-5 py-3 max-[640px]:bg-[#2196F3] max-[768px]:hidden">
             <HoverCard>
@@ -271,7 +271,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
                 <Link
                   className="max-[640px]:hidden font-semibold text-sm inline-flex  space-x-3 gap-x-1 text-center post_header_lg_avatar_container"
                   href={`/profile/${postUsername}`}>
-                  <UserAvatar user={post?.user} className="h-14 w-14" />  
+                  <CommentUserAvatar user={post?.user} className="h-14 w-14" />  
                    <div className="justify-center inline-flex ">
                     {postUsername}  
                     <span className="pl-2 justify-center mt-1">
@@ -291,7 +291,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
 
               <HoverCardContent>
                 <div className="flex items-center space-x-2">
-                  <UserAvatar user={post?.user} className="h-14 w-14" />
+                  <CommentUserAvatar user={post?.user} className="h-14 w-14" />
                   <div>
                     <p className="font-bold">{post?.user.username}</p>
                     <p className="text-sm font-medium dark:text-neutral-400">
@@ -323,7 +323,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
           <Link
             scroll={false}
             href={`/content/${postId}`}
-            className="text-neutral-500 text-sm text_stats_time text_secondary "
+            className="text-neutral-500 text-sm text_stats_time text_secondary pl-6"
           >
             View {comments.length} comments
           </Link>

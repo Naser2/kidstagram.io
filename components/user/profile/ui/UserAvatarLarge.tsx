@@ -1,13 +1,16 @@
 import { Avatar } from "./avatar";
 import type { AvatarProps } from "@radix-ui/react-avatar";
+import { PlusIcon } from "lucide-react";
 import type { User } from "next-auth";
 import Image from "next/image";
 
 type Props = Partial<AvatarProps> & {
   user: User | undefined;
+  isProfileOwner?: boolean;
 };
 
-function UserAvatarLarge({ user, ...avatarProps }: Props) {
+function UserAvatarLarge({ user, isProfileOwner, ...avatarProps }: Props) {
+  console.log("USER_AVATAR_isProfileOwner", isProfileOwner)
 // console.log("USER_AVATAR", user)
   const avatarUrl = user?.image
     ? user.image
@@ -22,8 +25,12 @@ function UserAvatarLarge({ user, ...avatarProps }: Props) {
                       alt={`${user?.name}'s profile picture`}
                       className="rounded-full object-cover"
                     />
-                </Avatar>
-             </div>
+                  </Avatar> 
+                  {isProfileOwner &&
+                   <PlusIcon className="absolute border-4  border-background bottom-[0rem] z-50 right-[-0.4rem] w-9 h-9 bg-[rgb(var(--ig-primary-button))] text-white rounded-full text-black" />
+                   }
+            </div>
+          
   );
 }
 

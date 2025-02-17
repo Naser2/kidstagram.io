@@ -14,6 +14,7 @@ import CommentSection from "./CommentSection";
 import ContentManager from "./post/ContentManager";
 import PostHeader from "./post/ui/PostHeader";
 import { useContentManager } from "@/context/useContentManager";
+import CommentUserAvatar from "./CommentUserAvatar";
 
 function Post({ 
   post, 
@@ -55,11 +56,14 @@ function Post({
   //   } = useContentManager({ post, userId: userSession.user.id, userSession});
   return (
     <div className="relativve flex flex-col space-y-2.5 mb-12">
-      <div className="flex items-center justify-between px-3 sm:px-0">
-        <div className="flex space-x-3 items-center">
-          <UserAvatar user={post.user} />
-          <div className="text-sm">
-            <p className="space-x-1">
+      <div className=" flex items-center justify-between px-3 sm:px-0">
+        <div className="flex space-x-3 items-center  p-2">
+            <Link
+                  className="max-[640px]:hidden font-semibold text-sm inline-flex  space-x-3 gap-x-1 text-center post_header_lg_avatar_container"
+                  href={`/profile/${postUsername}`}>
+                  <CommentUserAvatar user={post?.user} className="h-14 w-14" />  
+                  <div className="text-sm">
+            <p className="text-left space-x-1">
               <span className="font-semibold">{postUsername}</span>
               <span
                 className="font-medium text-neutral-500 dark:text-neutral-400
@@ -73,7 +77,15 @@ function Post({
             <p className="text-xs text-black dark:text-white font-medium">
               Get real location, United States
             </p>
-          </div>
+            </div>
+            <span className="dot">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-more-horizontal h-5 w-5 cursor-pointer icon_svg" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r3b:" data-state="closed"><circle cx="12" cy="12" r="1"></circle></svg>
+            </span>
+            <div className="follow-text ">
+            {isFollowing? "Unfollow" : "Follow"}
+            </div>
+            </Link>
+         
         </div>
 
         <PostOptions post={post} userId={userId} isCurrentUserPost={isCurrentUserPost} />

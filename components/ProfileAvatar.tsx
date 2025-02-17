@@ -63,6 +63,7 @@ function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: Re
       >
         <UserAvatar
           user={user}
+          isProfileOwner={isCurrentUser}
           className="w-32 h-32"
         />
       </button>
@@ -79,7 +80,7 @@ function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: Re
             <form
               onSubmit={form.handleSubmit(async (values) => {
                 console.log("UPDATING PROFILE WITH:", values);
-                const { message } = await updateProfile(values);
+                const { message } = await updateProfile(user.id, values);
                 toast(message);
                 setOpen(false);
               })}

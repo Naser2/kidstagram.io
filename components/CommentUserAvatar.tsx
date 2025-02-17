@@ -7,10 +7,9 @@ import Image from "next/image";
 
 type Props = Partial<AvatarProps> & {
   user: User | undefined;
-  isProfileOwner: boolean;
 };
 
-function UserAvatar({ user,isProfileOwner, ...avatarProps }: Props) {
+function CommentUserAvatar({ user, ...avatarProps }: Props) {
 // console.log("USER_AVATAR", user)
   const avatarUrl = user?.image
     ? user.image
@@ -20,10 +19,10 @@ function UserAvatar({ user,isProfileOwner, ...avatarProps }: Props) {
     <div className="h-full w-full rounded-full bg-black "></div>
   </div>
    */}
-  <div className="absolute  h-[8.58rem] w-[8.58rem] rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-[2px] ">
+  <div className="absolute  h-[3rem] w-[3rem] rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-[2px] ">
                 <div className="h-full w-full rounded-full bg-black "></div>
                </div>
-  <Avatar className="relative h-9 w-9 p-[1.1rem]" {...avatarProps}>
+  <Avatar className="relative h-5 w-5 p-[1.1rem]" {...avatarProps}>
       <img
         src={avatarUrl}
        
@@ -32,8 +31,9 @@ function UserAvatar({ user,isProfileOwner, ...avatarProps }: Props) {
         className="rounded-full object-cover"
       />
    
-    </Avatar>  {isProfileOwner && <PlusIcon className="absolute border-4  border-background bottom-[1rem] z-50 right-[-0.4rem] w-9 h-9 bg-[rgb(var(--ig-primary-button))] text-white rounded-full text-black" />}</div>
+    </Avatar>  
+    </div>
   );
 }
 
-export default UserAvatar;
+export default CommentUserAvatar;

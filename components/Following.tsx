@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import FollowButton from "./FollowButton";
 import UserAvatar from "./UserAvatar";
+import CommentUserAvatar from "./CommentUserAvatar";
 
 function Following({ following }: { following: FollowingWithExtras }) {
   const { data: session } = useSession();
@@ -19,7 +20,7 @@ function Following({ following }: { following: FollowingWithExtras }) {
         href={`/profile/${following.following.username}`}
         className="flex items-center gap-x-3"
       >
-        <UserAvatar user={following.following} className="h-10 w-10" />
+        <CommentUserAvatar user={following.following} className="h-10 w-10" />
         <p className="font-bold text-sm">{following.following.username}</p>
       </Link>
       {!isCurrentUser && (

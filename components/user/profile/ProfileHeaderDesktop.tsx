@@ -1,28 +1,44 @@
+
+
 import VerifiedIcon from "@/components/VerifiedIcon";
 import ProfileStatsLinks from "./ProfileStatsLinks";
 import ProfileAvatar from "./ui/ProfileAvatarLarge";
 import UserAvatar from "./ui/UserAvatarLarge";
 import { UserWithExtras } from "@/lib/definitions";
 import UserProfileHeaderButtonsDesktop from "../UserProfileHeaderButtonsDesktop";
+import { useProfile } from "@/context/ProfileContext";
+import { Skeleton } from "@/components/ui/skeleton";
+import { auth } from "@/auth";
 
-export default function ProfileHeaderDesktop({profile}:{profile:UserWithExtras}) {
+export default async function ProfileHeaderDesktop({profile}:{profile:UserWithExtras}) {
+if (!profile) {
+  return  <Skeleton />
+}
+    const session = await auth()
+
+    // const isProfileOwner = session?.user?.id === profile.id;
+// const { isProfileOwner, loading} = useProfile();
+
+// if (loading) {
+// return <Skeleton />;
+// }
+// if (!profile) {
+// return  <Skeleton />
+// }
+
     return (
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6 p-4">
+      <div className="max-[614px]:!hidden max-w-6xl mx-auto flex flex-col lg:flex-row gap-6 p-4">
         {/* Left Section - Profile Image */}
         <div className="lg:w-1/4 w-full flex justify-center">
         {/* <div className=" flex-shrink-0 w-1/3  flex justify-center"> */}
-          <ProfileAvatar user={profile}>
-            <UserAvatar
+          <ProfileAvatar user={profile} >
+            <UserAvatar   
+              //  isProfileOwner={isProfileOwner}
               user={profile}
-              className="w-32 h-32 rounded-full lg:w-48 lg:h-48 cursor-pointer"
+              className="w-36 h-36 rounded-full lg:w-48 lg:h-48 cursor-pointer"
             />
           </ProfileAvatar>
-        {/* </div> */}
-          {/* <img 
-            src={profile?.image} 
-            alt="Profile" 
-            className="w-32 h-32 rounded-full lg:w-48 lg:h-48" 
-          /> */}
+    
         </div>
   
         {/* Right Section - Bio and Content */}

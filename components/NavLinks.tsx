@@ -13,6 +13,7 @@ import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { User } from "next-auth";
 
 const links = [
   { name: "Home", href: "/", icon: (<svg aria-label="Home" className="nav-item-icon" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Home</title><path d="M9.005 16.545a2.997 2.997 0 0 1 2.997-2.997A2.997 2.997 0 0 1 15 16.545V22h7V11.543L12 2 2 11.543V22h7.005Z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path></svg>) },
@@ -51,7 +52,7 @@ const links = [
   }
 ];
 
-function NavLinks({ userName }: { userName: string }) {
+function NavLinks({ user }: { user?: User }){
   const pathname = usePathname();
 
   return (

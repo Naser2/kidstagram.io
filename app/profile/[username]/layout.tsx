@@ -1,16 +1,17 @@
 
 
+// "use client"
+// import { auth } from "@/auth";
 
-import { auth } from "@/auth";
-
-import ProfileAvatar from "@/components/ProfileAvatar";
-import ProfileDetails from "@/components/ProfileDetails";
-import ProfileHeader from "@/components/ProfileHeader";
+// import ProfileAvatar from "@/components/ProfileAvatar";
+// import ProfileDetails from "@/components/ProfileDetails";
+// import ProfileHeader from "@/components/ProfileHeader";
 import ProfileTabs from "@/components/ProfileTabs";
 import ProfileHeaderDesktop from "@/components/user/profile/ProfileHeaderDesktop";
 import ProfileHeaderMobile from "@/components/user/profile/ProfileHeaderMobile";
-import UserProfileHeaderButtons from "@/components/user/UserProfileHeaderButtonsDesktop";
-import UserAvatar from "@/components/UserAvatar";
+
+// import UserProfileHeaderButtons from "@/components/user/UserProfileHeaderButtonsDesktop";
+// import UserAvatar from "@/components/UserAvatar";
 
 import { fetchProfile } from "@/lib/data";
 import clsx from "clsx";
@@ -35,6 +36,7 @@ type Props = {
 async function ProfileLayout({children, params}:{children: React.ReactNode, params: Promise<{username: string}>, isSettingsRoute: boolean}){
   const {username} = await params
   const profile = await fetchProfile(username); 
+
   if (!profile) {
     notFound();
   }
@@ -44,7 +46,7 @@ async function ProfileLayout({children, params}:{children: React.ReactNode, para
            
           
             <ProfileHeaderMobile profile={profile} />
-            <ProfileHeaderDesktop profile={profile} />
+            <ProfileHeaderDesktop profile={profile}  />
             <ProfileTabs profile={profile}/>
             {children}
        </div>

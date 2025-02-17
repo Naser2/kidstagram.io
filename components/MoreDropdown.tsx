@@ -23,8 +23,9 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
+import Link from "next/link";
 
-function MoreDropdown() {
+function MoreDropdown({user}) {
   const [showModeToggle, setShowModeToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -79,7 +80,7 @@ function MoreDropdown() {
           <>
             <DropdownMenuItem className="menuItem">
               <Settings size={20} />
-              <p>Settings</p>
+              <Link href="/profile/edit-profile">Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
               <Activity size={20} />
@@ -87,7 +88,7 @@ function MoreDropdown() {
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
               <Bookmark size={20} />
-              <p>Saved</p>
+              <Link href={`/profile/${user.username}/saved`}>Saved</Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem

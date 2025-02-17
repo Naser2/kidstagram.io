@@ -25,7 +25,7 @@ import { Profile, UserWithExtras } from "@/lib/definitions";
 import { useProfile } from "@/context/ProfileContext";
 import { redirect } from "next/navigation";
 
-function ProfileAvatarLarge({ user, children }: { user: UserWithExtras, children?: React.ReactNode }) {
+function ProfileAvatarLarge({ user,children }: { user: UserWithExtras, children?: React.ReactNode }) {
 
   // // console.log("PROFILE AVATAR MOUNTED", user);
   // const { data: session } = useSession();
@@ -62,9 +62,9 @@ function ProfileAvatarLarge({ user, children }: { user: UserWithExtras, children
           }
         }}
       >
-        <UserAvatarLarge
+        <UserAvatarLarge isProfileOwner={isProfileOwner}
           user={user}
-          className="w-32 h-32"
+          className="w-[10rem] h-[10rem]"
         />
       </button>
 

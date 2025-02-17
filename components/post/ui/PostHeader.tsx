@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import PostHeaderButtons from "../PostHeaderButtons";
 import { useContentManager } from "@/context/useContentManager";
 import { Session } from "next-auth";
+import CommentUserAvatar from "@/components/CommentUserAvatar";
 type Props = {
   comment: CommentWithExtras;
   inputRef?: React.RefObject<HTMLInputElement>;
@@ -116,7 +117,7 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
                 <Link
                   className="max-[640px]:hidden font-semibold text-sm inline-flex  space-x-3 gap-x-1 text-center post_header_lg_avatar_container"
                   href={`/profile/${username}`}>
-                  <UserAvatar user={post?.user} className="h-14 w-14" />  
+                  <CommentUserAvatar user={post?.user} className="h-14 w-14" />  
                    <div className="justify-center inline-flex ">
                     {username}  
                     <span className="pl-2 justify-center mt-1">
@@ -136,7 +137,7 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
 
               <HoverCardContent>
                 <div className="flex items-center space-x-2">
-                  <UserAvatar user={post?.user} className="h-14 w-14" />
+                  <CommentUserAvatar user={post?.user} className="h-14 w-14" />
                   <div>
                     <p className="font-bold">{post?.user.username}</p>
                     <p className="text-sm font-medium dark:text-neutral-400">

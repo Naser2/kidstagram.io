@@ -1,7 +1,5 @@
 
-
-
-import { auth } from "@/auth";
+// "use client"
 
 import ProfileAvatar from "@/components/ProfileAvatar";
 import ProfileDetails from "@/components/ProfileDetails";
@@ -19,6 +17,8 @@ import clsx from "clsx";
 import Link from "next/link";
 import {notFound } from "next/navigation";
 import ProfileStatsLinks from "./ProfileStatsLinks";
+import { useProfile } from "@/context/ProfileContext";
+import { auth } from "@/auth";
 // import {  useSelectedLayoutSegment } from "next/navigation";
 // import { headers } from "next/headers";
 // import { useRouter } from "next/navigation";
@@ -33,11 +33,19 @@ type Props = {
 
 
 
-async function ProfileHeaderMobile({ profile }: { profile: UserWithExtras }){
+async function ProfileHeaderMobile({ profile}: { profile: UserWithExtras }){
+    // const { isProfileOwner, loading} = useProfile();
+    const session = await auth()
 
+    const isProfileOwner = session?.user?.id === profile.id;
+
+  //   if (loading) {
+  //   return <Skeleton />;
+  // }
   if (!profile) {
     return  <Skeleton />
   }
+
   return ( 
     <div className="min-[614px]:!hidden flex-col   sm:mt-4  gap-x-5 md:gap-x-10 px-4">
     <div className="max-[765px]:w-full max-[765px]:!inline-flex max-[765px]:pt-6 max-[765px]::flex-row  smax-[765px]::items-start max-[765px]:gap-5 px-4">
@@ -45,6 +53,7 @@ async function ProfileHeaderMobile({ profile }: { profile: UserWithExtras }){
         <div className=" flex-shrink-0 w-1/3  flex justify-center">
           <ProfileAvatar user={profile}>
             <UserAvatar
+             isProfileOwner={isProfileOwner}
               user={profile}
               className="w-20 h-20 md:w-36 md:h-36 cursor-pointer"
             />

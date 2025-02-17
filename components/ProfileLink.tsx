@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { buttonVariants } from "./ui/button";
 import UserAvatar from "./UserAvatar";
+import CommentUserAvatar from "./CommentUserAvatar";
 
 function ProfileLink({ user }: { user: User }) {
   const pathname = usePathname();
@@ -18,18 +19,18 @@ function ProfileLink({ user }: { user: User }) {
       href={href}
       className={buttonVariants({
         variant: isActive ? "secondary" : "ghost",
-        className: "navLink",
+        className: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:!bg-secondary/80 h-10 px-4 py-2 navLink space-x-4 primary-text-color",
         size: "lg",
       })}
     >
-      <UserAvatar
+      <CommentUserAvatar
         user={user}
         className={`h-6 w-6 ${isActive && "border-2 border-white"}`}
       />
 
       <p
         className={`${cn("hidden lg:block", {
-          "font-extrabold primary-text-color": isActive,
+          "navLink space-x-0 primary-text-color font-bold": isActive,
         })}`}
       >
         Profile

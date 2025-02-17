@@ -6,7 +6,7 @@ import { calSans } from "@/app/fonts";
 function Logo() {
   return (
     <Link
-      href={"/dashboard"}
+      href={"/"}
       className={buttonVariants({
         className:
           "hidden md:flex navLink !mb-12 lg:hover:bg-transparent lg:!p-2",

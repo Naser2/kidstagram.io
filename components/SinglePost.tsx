@@ -57,7 +57,7 @@ console.log("post", post);
   return (
     <div className="">
       <Card className="max-w-[48rem] lg:max-w-[79rem] hidden md:flex mx-auto z-50">
-        <div className="relative h-full min-h-[340px] sm:min-h-[550px] lg:max-h-[650px] xl:lg:max-h-[750px] w-full sm:overflow-hidden rounded-none sm:rounded-md flex justify-center items-center">
+        <div className="relative h-full min-h-[340px] sm:min-h-[390px] lg:max-h-[650px] xl:lg:max-h-[750px] w-full sm:overflow-hidden rounded-none sm:rounded-md flex justify-center items-center">
           <Image
             src={post.fileUrl}
             alt="Post preview"

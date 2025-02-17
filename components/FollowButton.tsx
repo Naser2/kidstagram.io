@@ -3,7 +3,7 @@ import { followUser } from "@/lib/actions";
 import SubmitButton from "./SubmitButton";
 import { buttonVariants } from "./ui/button";
 
-function FollowButton({ profileId, isFollowing }: { profileId: string; isFollowing?: boolean }) {
+function FollowButton({ profileId, isFollowing , buttonClassName}: { profileId: string; isFollowing?: boolean , buttonClassName:string}) {
   const [isPending, startTransition] = useTransition();
   const [localFollowState, setLocalFollowState] = useState(isFollowing);
 

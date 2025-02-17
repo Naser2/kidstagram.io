@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { auth } from "@/auth";
 
-const protectedRoutes = ["/profile", "/content"];
+const protectedRoutes = ["/profile"];
 
 export default async function middleware(request: NextRequest) {
   const session = await auth(); // ❌ Fix: auth() may not work inside middleware

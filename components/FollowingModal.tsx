@@ -20,13 +20,13 @@ function FollowingModal({
   following: FollowingWithExtras[] | undefined;
   username: string;
 }) {
-  const mount = useMount();
+
   const pathname = usePathname();
   const router = useRouter();
   // const isFollowingPage = pathname === `/${username}/following`;
   const isFollowingPage = true
 
-  if (!mount) return null;
+
 
   return (
     <Dialog
