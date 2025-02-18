@@ -36,7 +36,7 @@ export const {
         if (!credentials || !credentials.email || !credentials.password) {
           return null;
         }
-
+        // const id = credentials.id as string;
         const email = credentials.email as string;
         const hash = saltAndHashPassword(credentials.password);
 
@@ -50,10 +50,11 @@ export const {
             data: {
               id: user.id,
               email,
-              // username: email.split("@")[0],
               username: user.username,
               image: `https://api.dicebear.com/v2/identicon/svg?seed=${email}`,
               hashedPassword: hash,
+
+              // username: email.split("@")[0],
             },
           });
         } else {
@@ -72,11 +73,21 @@ export const {
   ],
 
 callbacks: {
+  async jwt({ token, user }) {
+    if (user) {
+      token.id = user.id;
+      token.username = user.username || (user?.email ? user.email.split("@")[0] : ""); // Ensure username exists
+      token.picture = user?.image; // If available, set the profile image
+    }
+    return token;
+  },
   async session({ session, token }) {
-    session.user.id = token.id as string;
-    session.user.username = token.username as string;
+    session.user.id = token.id as string ||  token.sub as string;
+    session.user.username = token.username as string || (token?.email ? token.email.split("@")[0] : "");
+    console.log("SESSION_TOKEN_CALLBACK: " , token)
     return session;
   },
+
 }
 
   

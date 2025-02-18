@@ -88,7 +88,7 @@ function MoreDropdown({user}) {
             </DropdownMenuItem>
             <DropdownMenuItem className="menuItem">
               <Bookmark size={20} />
-              <Link href={`/profile/${user.username}/saved`}>Saved</Link>
+              <Link href={`/profile/${user.id}/saved`}>Saved</Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem

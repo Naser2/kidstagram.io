@@ -133,6 +133,51 @@ export async function fetchPostsByUsername(username: string, postId?: string) {
     return [];
   }
 }
+export async function fetchPostsByUserID(id: string, postId?: string) {
+  noStore();
+
+  try {
+    const data = await prisma.post.findMany({
+      where: {
+        user: {
+          id,
+        },
+        NOT: postId ? { id: postId } : undefined,
+      },
+      include: {
+        comments: {
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+        likes: {
+          include: {
+            user: true,
+          },
+        },
+        savedBy: true,
+        user: true,
+        shares: {  // ✅ Added shares
+          include: {
+            user: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    // console.log("fetchPostsByUsername -> data", data);
+    return data;
+  } catch (error) {
+    console.error("fetchPostsByUsername -> Prisma error:", error);
+    return [];
+  }
+}
 // export async function fetchPosts() {
 //   // equivalent to doing fetch, cache: no-store
 //   noStore();
@@ -251,6 +296,54 @@ export async function fetchPostsByUsername(username: string, postId?: string) {
 //   }
 // }
 
+export async function fetchProfileByID(id: string) {
+  noStore();
+    console.log("fetchProfileByID profile for", id);
+  try {
+    const data = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        posts: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+        saved: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+        followedBy: {
+          include: {
+            follower: {
+              include: {
+                following: true,
+                followedBy: true,
+              },
+            },
+          },
+        },
+        following: {
+          include: {
+            following: {
+              include: {
+                following: true,
+                followedBy: true,
+              },
+            },
+          },
+        },
+      }
+    });
+  // console.log("fetchProfile-->", data);
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch profile");
+  }
+}
 export async function fetchProfile(username: string) {
   noStore();
     console.log("Fetching profile for", username);
@@ -299,7 +392,6 @@ export async function fetchProfile(username: string) {
     throw new Error("Failed to fetch profile");
   }
 }
-
 export async function fetchSavedPostsByUsername(username: string) {
   noStore();
 
@@ -308,6 +400,50 @@ export async function fetchSavedPostsByUsername(username: string) {
       where: {
         user: {
           username,
+        },
+      },
+      include: {
+        post: {
+          include: {
+            comments: {
+              include: {
+                user: true,
+              },
+              orderBy: {
+                createdAt: "desc",
+              },
+            },
+            likes: {
+              include: {
+                user: true,
+              },
+            },
+            savedBy: true,
+            user: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    // console.log("fetchSavedPostsByUsername -> data", data);
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch saved posts");
+  }
+}
+
+export async function fetchSavedPostsByUserId(id: string) {
+  noStore();
+
+  try {
+    const data = await prisma.savedPost.findMany({
+      where: {
+        user: {
+          id,
         },
       },
       include: {

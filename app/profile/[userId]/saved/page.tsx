@@ -14,7 +14,7 @@ type SavedPost = {
 };
 
 export default function SavedPost() {
-  const params = useParams<{ username: string }>();
+  const params = useParams<{ userId: string }>();
   const [posts, setPosts] = useState<any[] | null>(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function SavedPost() {
     async function loadSavedPosts() {
       setLoading(true); // Show loading indicator while fetching data
       try {
-        const response = await fetch(`/api/saved-posts/${params.username}`);
+        const response = await fetch(`/api/saved-posts/${params.userId}`);
         const data = await response.json();
         const fetchedPosts: Post[] = data.savedPosts?.map((savedPost: SavedPost) => savedPost.post) || [];
         setPosts(fetchedPosts);

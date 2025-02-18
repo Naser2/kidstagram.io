@@ -1,4 +1,4 @@
-"use client"; // Convert to client component
+
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState, Suspense } from "react";
@@ -19,11 +19,11 @@ interface FollowedBy {
 interface UserProfileHeaderButtonsProps {
     profileId: string;
     followedBy: FollowedBy[];
-    username: string | null;
+    userid: string | null;
 }
 
 
-export default function UserProfileHeaderButtons({  profileId,followedBy,  username }: UserProfileHeaderButtonsProps) {
+export default function UserProfileHeaderButtons({  profileId,followedBy,  userid }: UserProfileHeaderButtonsProps) {
     const { data: session } = useSession(); // Instant session access
  
     const isCurrentUser = session?.user.id === profileId;
@@ -32,7 +32,7 @@ export default function UserProfileHeaderButtons({  profileId,followedBy,  usern
     );
 
        return  (<div className="grid grid-cols-2 md:grid-cols-4 items-center gap-x-[1.75rem] gap-3">
-        <p className="font-semibold text-xl">{username}</p>
+        <p className="font-semibold text-xl">{userid}</p>
         {isCurrentUser ? (
           <>
             <Link href="/profile/edit-profile"
@@ -53,7 +53,7 @@ export default function UserProfileHeaderButtons({  profileId,followedBy,  usern
               Edit profile
             </Link>
             <Link
-              href={`/profile/${username}/saved`}
+              href={`/profile/${userid}/saved`}
               className={buttonVariants({
                 className: "!font-bold primary-text-color x1gjpkn9",
                 variant: "secondary",

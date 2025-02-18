@@ -25,7 +25,7 @@ import { auth } from "@/auth";
 // ... other imports
 
 type Props = {
-  params: Promise<{username: string}>,
+  params: Promise<{userid: string}>,
   children: React.ReactNode;
   isSettingsRoute: boolean
 };
@@ -38,6 +38,7 @@ async function ProfileHeaderMobile({ profile}: { profile: UserWithExtras }){
     const session = await auth()
 
     const isProfileOwner = session?.user?.id === profile.id;
+    // console.log(ProfileHeaderMobile
 
   //   if (loading) {
   //   return <Skeleton />;
@@ -68,7 +69,7 @@ async function ProfileHeaderMobile({ profile}: { profile: UserWithExtras }){
          <UserProfileHeaderButtons
             profileId={profile.id}
             followedBy={profile.followedBy}
-            username={profile.username || ""} 
+            userId={profile.id || ""} 
         />
       {/* <ProfileHeader username={profile.username} /> */}
         <div className="max-[765px]:hidden">

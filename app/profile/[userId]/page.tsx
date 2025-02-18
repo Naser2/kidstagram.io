@@ -1,18 +1,18 @@
 import { Metadata, ResolvingMetadata } from "next"; // Import necessary types
 import PostsGrid from "@/components/PostsGrid";
-import { fetchPostsByUsername, fetchProfile } from "@/lib/data";
+import { fetchPostsByUserID, fetchPostsByUsername, fetchProfile, fetchProfileByID } from "@/lib/data";
 import { Suspense } from "react";
 import { PostsSkeleton } from "@/components/Skeletons";
 
 // ✅ Ensure `params` is treated as a `Promise`
 export async function generateMetadata(
-  { params }: { params: Promise<{ username: string }> },
+  { params }: { params: Promise<{ userId: string }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const { username } = await params; // ✅ Await params
+  const { userId } = await params; // ✅ Await params
 
   try {
-    const profile = await fetchProfile(username);
+    const profile = await fetchProfileByID(userId);
 
     if (!profile) {
       return { title: "User not found" };
@@ -28,10 +28,10 @@ export async function generateMetadata(
 
 export default async function ProfilePage({
   params,
-}: { params: Promise<{ username: string }> }) {
-  const { username } = await params;
-  console.log("USERNAME_" + username);
-  const posts = await fetchPostsByUsername(username);
+}: { params: Promise<{ userId: string }> }) {
+  const { userId } = await params;
+  console.log("USERNAME_userId" + userId);
+  const posts = await fetchPostsByUserID(userId);
 
   return   <Suspense fallback={<PostsSkeleton/>}>
              <PostsGrid posts={posts} />

@@ -1,14 +1,14 @@
 import FollowersModal from "@/components/FollowersModal";
-import { fetchProfile } from "@/lib/data";
+import {  fetchProfileByID } from "@/lib/data";
 
-export default async function fetchPostById({params} :{ params:Promise <{username: string }>}){
-  const { username } = await params;
-  console.log("FOLLOWERS: " + username)
+export default async function fetchPostById({params} :{ params:Promise <{userId: string }>}){
+  const { userId } = await params;
+  console.log("FOLLOWERS: " + userId)
 
-  const profile = await fetchProfile(username);
+  const profile = await fetchProfileByID(userId);
   const followers = profile?.followedBy;
 
-  return <FollowersModal followers={followers} username={username} />;
+  return <FollowersModal followers={followers} userId={userId} />;
 }
 
 

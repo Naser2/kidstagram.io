@@ -1,25 +1,29 @@
 
 
-import { User } from "next-auth";
+import { Session, User } from "next-auth";
 import Logo from "./Logo";
 import MoreDropdown from "./MoreDropdown";
 import NavLinks from "./NavLinks";
 import ProfileLink from "./ProfileLink";
 
+
+
 interface SideNavProps {
-  user?: User & { username?: string | null };
+  session: any
+
 }
 // dark:bg-neutral-950bg-white 
-export default function SideNav({ user }: SideNavProps) {
-  console.log("USER", user);
+export default function SideNav({ session }: SideNavProps) {
+  console.log("USER_session", session);
+
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <div className="border-t  bg-[rgb(var(--ig-primary-background))] -ml-3 md:ml-0  h-16 justify-evenly fixed z-50 flex-1 w-full md:relative md:h-full bottom-0 md:border-none flex flex-row md:justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-1 p-2">
         <Logo />
-        <NavLinks  />
-        {user && <ProfileLink user={user} />}
+        <NavLinks session={session}  />
+        {session && <ProfileLink user={session.user} />}
         <div className="flex relative md:mt-auto flex-1 items-end w-full">
-          <MoreDropdown  user={user}/>
+          <MoreDropdown  user={session.user}/>
         </div>
       </div>
     </div>

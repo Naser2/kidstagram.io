@@ -100,7 +100,7 @@ function ProfileTabs({
         {profileTabs
           .filter((tab) => isCurrentUser || tab.href !== "saved")
           .map((tab) => {
-            const profilePage = `/${profile.username}`;
+            const profilePage = `/${profile.id}`;
             const isActive =
               tab.href === `${profilePage}/${tab.href}`
                 ? pathname === profilePage
@@ -121,7 +121,7 @@ function ProfileTabs({
                 )}
                 asChild
               >
-                <Link href={`/profile/${profile.username}/${tab.href}`}>
+                <Link href={`/profile/${profile.id}/${tab.href}`}>
                   <div className="flex items-center gap-x-2">
                   {tab.Icon(isActive)}
 

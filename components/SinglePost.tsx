@@ -44,6 +44,7 @@ function SinglePost({ post , userSession}: { post: any, userSession: any }) {
       // initialLikes, initialShares, commentsCount
     } = useContentManager({ post, userId: userSession.user.id, userSession });
     const postUsername = post?.user?.username;
+    const postUserId= post?.user?.id
     const isCurrentUserPost = userSession?.user?.id === post.user.id;
     const isCurrentUser = userSession?.user.id === post.user.id;
     const isFollowing = post.user?.followedBy?.some(
@@ -71,11 +72,13 @@ console.log("post", post);
           <PostHeader 
               isFollowing={isFollowing}
               isCurrentUserPost={isCurrentUserPost} 
-              post={post} username={postUsername} userSession={userSession} 
-              caption={post.caption} 
-              comment={post.comments[0]} 
-              userSession={userSession}
-              postId={post.id}
+               post={post}
+               username={postUsername}
+               postUserId={postUserId}
+               userSession={userSession} 
+               caption={post.caption} 
+               comment={post.comments[0]}
+               postId={post.id}
                createdAt={post.createdAt}
                commentsModalOpen={commentsModalOpen}
                setCommentsModalOpen={setCommentsModalOpen}

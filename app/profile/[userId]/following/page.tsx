@@ -1,16 +1,16 @@
 import FollowingModal from "@/components/FollowingModal";
-import { fetchProfile } from "@/lib/data";
+import { fetchProfile, fetchProfileByID } from "@/lib/data";
 import { console } from "inspector";
 
 
 
-export default async function FollowingPage({params} :{ params:Promise <{username: string }>}){
-  const { username } = await params;
-  console.log("FollowingPage_username", username)
-  const profile = await fetchProfile(username);
+export default async function FollowingPage({params} :{ params:Promise <{userId: string }>}){
+  const { userId } = await params;
+  console.log("FollowingPage_username", userId)
+  const profile = await fetchProfileByID(userId);
   const following = profile?.following
 
-  return <FollowingModal following={following} username={username} />
+  return <FollowingModal following={following} userid={userId} />
 }
 
 // import FollowingPage from "@/components/FollowersModal";

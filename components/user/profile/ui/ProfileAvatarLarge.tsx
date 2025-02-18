@@ -25,11 +25,12 @@ import { Profile, UserWithExtras } from "@/lib/definitions";
 import { useProfile } from "@/context/ProfileContext";
 import { redirect } from "next/navigation";
 
-function ProfileAvatarLarge({ user,children }: { user: UserWithExtras, children?: React.ReactNode }) {
+function ProfileAvatarLarge({ user, isProfileOwner, children }: { user: UserWithExtras, isProfileOwner:boolean,children?: React.ReactNode }) {
 
   // // console.log("PROFILE AVATAR MOUNTED", user);
   // const { data: session } = useSession();
-    const { profile, isProfileOwner, isOwner , loading} = useProfile();
+    // const { profile, isProfileOwner, isOwner , loading} = useProfile();
+    console.log("PROFILE AVATAR LARGE", isProfileOwner);
 
   const form = useForm<z.infer<typeof UpdateUser>>({
     resolver: zodResolver(UpdateUser),

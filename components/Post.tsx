@@ -39,7 +39,7 @@ function Post({
     (user) => user.followerId === userSession?.user.id
   );
 
-
+console.log("Post_postUsernameD", postUsername);
   // const {
   //     likes,
   //     shares,
@@ -57,11 +57,10 @@ function Post({
   return (
     <div className="relativve flex flex-col space-y-2.5 mb-12">
       <div className=" flex items-center justify-between px-3 sm:px-0">
-        <div className="flex space-x-3 items-center  p-2">
-            <Link
-                  className="max-[640px]:hidden font-semibold text-sm inline-flex  space-x-3 gap-x-1 text-center post_header_lg_avatar_container"
-                  href={`/profile/${postUsername}`}>
-                  <CommentUserAvatar user={post?.user} className="h-14 w-14" />  
+        <div className="flex space-x-3 items-center  sm:p-2">
+            <Link className="font-semibold text-sm inline-flex  space-x-3 gap-x-1 text-center post_header_lg_avatar_container"
+                  href={`/profile/${postUserId}`}>
+                  <CommentUserAvatar user={post.user} className="h-14 w-14" />  
                   <div className="text-sm">
             <p className="text-left space-x-1">
               <span className="font-semibold">{postUsername}</span>
@@ -74,7 +73,7 @@ function Post({
               </span>
               <Timestamp createdAt={post.createdAt} />
             </p>
-            <p className="text-xs text-black dark:text-white font-medium">
+            <p className="text-xs text-black dark:text-white font-medium pt-1">
               Get real location, United States
             </p>
             </div>

@@ -42,7 +42,7 @@ const links = [
   },
   {
     name: "Create",
-    href: "/content/create",
+    href: "/create",
     icon: (<svg aria-label="New post" className="nav-item-icon" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>New post</title><path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line></svg>),
   },
   {
@@ -50,9 +50,10 @@ const links = [
     href:'/dashboard',
     icon:(<svg aria-label="Professional dashboard" className="nav-item-icon" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Professional dashboard</title><path d="M8 12a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0v-3a1 1 0 0 0-1-1Zm8-3a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0v-6a1 1 0 0 0-1-1Zm-4-2a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0V8a1 1 0 0 0-1-1Z"></path><path d="M18.44 1H5.567a4.565 4.565 0 0 0-4.56 4.56v12.873a4.565 4.565 0 0 0 4.56 4.56H18.44a4.565 4.565 0 0 0 4.56-4.56V5.56A4.565 4.565 0 0 0 18.44 1ZM21 18.433a2.563 2.563 0 0 1-2.56 2.56H5.567a2.563 2.563 0 0 1-2.56-2.56V5.56A2.563 2.563 0 0 1 5.568 3H18.44A2.563 2.563 0 0 1 21 5.56v12.873Z"></path></svg>)
   }
+
 ];
 
-function NavLinks({ user }: { user?: User }){
+function NavLinks({ session }: { session?: any }){
   const pathname = usePathname();
 
   return (
@@ -64,8 +65,8 @@ function NavLinks({ user }: { user?: User }){
         return (
           <Link
             key={link.name}
-            href={link.href}
-            // href={`/profile/${userName}/${link.href}`}
+            // href={link.href}
+            href={link.href == "/" ? link.href :`/profile/${session.user?.id}/${link.href}`}
             className={buttonVariants({
               variant: isActive ? "secondary" : "hover_highlight",
               className: cn("navLink space-x-4 primary-text-color", { "hover:bg-secondary/80 hidden md:flex": link.hideOnMobile }),

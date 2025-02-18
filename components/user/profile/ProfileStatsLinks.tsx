@@ -22,7 +22,7 @@ import {notFound } from "next/navigation";
 // ... other imports
 
 type Props = {
-  params: Promise<{username: string}>,
+  params: Promise<{userId: string}>,
   children: React.ReactNode;
   isSettingsRoute: boolean
 };
@@ -30,15 +30,15 @@ type Props = {
 export default function ProfileStatsLinks({ profile }: { profile: any }) {
   return (
     <div className="flex items-center gap-x-2 py-2">
-      <Link href={`/profile/${profile.username}/posts`} className="font-medium primary-text-color">
+      <Link href={`/profile/${profile.id}/posts`} className="font-medium primary-text-color">
         <strong>{profile.posts.length}</strong> posts
       </Link>
 
-      <Link href={`/profile/${profile.username}/followers`} className="font-medium primary-text-color">
+      <Link href={`/profile/${profile.id}/followers`} className="font-medium primary-text-color">
         <strong>{profile.followedBy.length}</strong> followers
       </Link>
 
-      <Link href={`/profile/${profile.username}/following`} className="font-medium primary-text-color">
+      <Link href={`/profile/${profile.id}/following`} className="font-medium primary-text-color">
         <strong>{profile.following.length}</strong> following
       </Link>
     </div>

@@ -26,10 +26,11 @@ type Props = {
   isCurrentUserPost:boolean;
   username:string;
   isFollowing:boolean;
+  postUserId:string;
 
 };
 
-function PostHeader({ isFollowing, username, inputRef, userSession, caption , createdAt, post, isCurrentUserPost, }: Props) {
+function PostHeader({ isFollowing, username, inputRef, userSession, caption , createdAt, post, isCurrentUserPost,postUserId }: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const captionLimit = 100;
@@ -116,7 +117,7 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
               <HoverCardTrigger asChild>
                 <Link
                   className="max-[640px]:hidden font-semibold text-sm inline-flex  space-x-3 gap-x-1 text-center post_header_lg_avatar_container"
-                  href={`/profile/${username}`}>
+                  href={`/profile/${postUserId}`}>
                   <CommentUserAvatar user={post?.user} className="h-14 w-14" />  
                    <div className="justify-center inline-flex ">
                     {username}  

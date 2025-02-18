@@ -14,15 +14,16 @@ import { ScrollArea } from "./ui/scroll-area";
 
 function FollowersModal({
   followers,
-  username,
+  userId,
 }: {
   followers: FollowerWithExtras[] | undefined;
-  username: string;
+  userId: string;
 }) {
   const mount = useMount();
   const pathname = usePathname();
   const router = useRouter();
-  const isFollowersPage = pathname === `/user/${username}/followers`;
+  // const isFollowersPage = pathname === `/user/${userId}/followers`;
+  const isFollowersPage = true
 
   if (!mount) return null;
 
@@ -40,7 +41,7 @@ function FollowersModal({
         </DialogHeader>
 
         {followers?.length === 0 && (
-          <p className="p-4 text-sm font-medium">This user has no followers.</p>
+          <p className="p-4 text-sm font-medium text-center">No followers yet.</p>
         )}
 
         <ScrollArea className="min-h-fit max-h-[350px]">

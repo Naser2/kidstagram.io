@@ -11,7 +11,9 @@ import CommentUserAvatar from "./CommentUserAvatar";
 function ProfileLink({ user }: { user: User }) {
   const pathname = usePathname();
 
-  const href = `/profile/${user.username}`;
+  const href = `/profile/${user.id}`;
+  // console.log("ProfileLink", user);
+  // console.log("ProfileLink", user.id);
   const isActive = pathname === href;
 
   return (
