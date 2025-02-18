@@ -9,7 +9,7 @@ import { auth } from "@/auth";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
   // const session = await  auth();
-  console.log("RootLayout", session);
+  // console.log("RootLayout", session);
   // if ("loading") return <PostsSkeleton />
   if (!session?.user) return <AuthenticationModal />
 

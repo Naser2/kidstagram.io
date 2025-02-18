@@ -10,7 +10,7 @@ type Props = Partial<AvatarProps> & {
 };
 
 function UserAvatarLarge({ user, isProfileOwner, ...avatarProps }: Props) {
-  console.log("USER_AVATAR_isProfileOwner", isProfileOwner)
+  // console.log("USER_AVATAR_isProfileOwner", isProfileOwner)
 // console.log("USER_AVATAR", user)
   const avatarUrl = user?.image
     ? user.image

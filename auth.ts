@@ -84,7 +84,7 @@ callbacks: {
   async session({ session, token }) {
     session.user.id = token.id as string ||  token.sub as string;
     session.user.username = token.username as string || (token?.email ? token.email.split("@")[0] : "");
-    console.log("SESSION_TOKEN_CALLBACK: " , token)
+    // console.log("SESSION_TOKEN_CALLBACK: " , token)
     return session;
   },
 

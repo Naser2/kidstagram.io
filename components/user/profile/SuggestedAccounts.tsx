@@ -7,7 +7,7 @@ export const  SuggestedAccounts = ({userId}:{userId:string}) => {
     // const session  = await auth();
     const session = useSession();
 
-    console.log("isProfileOwner", session)
+    // console.log("isProfileOwner", session)
     const isProfileOwner = session?.data?.user?.id === userId;
     return (
       <div className={isProfileOwner ? " hidden" : "mt-6"}>

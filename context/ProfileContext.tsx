@@ -33,9 +33,9 @@ export function ProfileProvider({children }: { children: React.ReactNode }) {
         // }
      
         const data = await res.json();
-        console.log("Fetched Profile_data:", data),
-        console.log("Fetched Profile ID:", data?.id, );
-        console.log("Profile_Session User ID:", session?.user?.id)
+        // console.log("Fetched Profile_data:", data),
+        // console.log("Fetched Profile ID:", data?.id, );
+        // console.log("Profile_Session User ID:", session?.user?.id)
   
         setProfile(data);
         setIsProfileOwner(data?.id === session?.user?.id); // ✅ Ensure IDs match
@@ -52,7 +52,7 @@ export function ProfileProvider({children }: { children: React.ReactNode }) {
   function isOwner(ownerId?: string) {
     return profile?.id === ownerId;
   }
-  console.log("ProfileProvider_RESULTS", isProfileOwner);
+  // console.log("ProfileProvider_RESULTS", isProfileOwner);
   return (
     <ProfileContext.Provider value={{ profile, loading, isProfileOwner, isOwner }}>
       {children}

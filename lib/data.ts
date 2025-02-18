@@ -298,7 +298,7 @@ export async function fetchPostsByUserID(id: string, postId?: string) {
 
 export async function fetchProfileByID(id: string) {
   noStore();
-    console.log("fetchProfileByID profile for", id);
+    // console.log("fetchProfileByID profile for", id);
   try {
     const data = await prisma.user.findUnique({
       where: {

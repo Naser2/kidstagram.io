@@ -14,7 +14,7 @@ interface SideNavProps {
 }
 // dark:bg-neutral-950bg-white 
 export default function SideNav({ session }: SideNavProps) {
-  console.log("USER_session", session);
+  // console.log("USER_session", session);
 
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">

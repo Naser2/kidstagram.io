@@ -30,7 +30,7 @@ export default async function ProfilePage({
   params,
 }: { params: Promise<{ userId: string }> }) {
   const { userId } = await params;
-  console.log("USERNAME_userId" + userId);
+  // console.log("USERNAME_userId" + userId);
   const posts = await fetchPostsByUserID(userId);
 
   return   <Suspense fallback={<PostsSkeleton/>}>

@@ -1923,6 +1923,9 @@ div {
 .x1gjpkn9 {
   background-color: rgb(var(--ig-secondary-button-background));
 }
+.bg-background_2 {
+  background-color: rgb(var(--ig-secondary-button-background));
+}
 /* For WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   height: 0.5px; /* Make the scrollbar very thin */
@@ -2205,10 +2208,14 @@ body button, body input, body textarea {
   line-height: var(--system-14-line-height);
   margin: 0;
 }
-.xqeqjp1 {
-  background-color: var(--ig-primary-background);
+.label_tag {
+  /* background-color: var(--ig-primary-background); */
   border-bottom-color: var(--always-dark-overlay);
   height: 26px;
+  max-width: fit-content; /* Ensures it doesn't stretch */
+  display: inline-flex; /* Ensures it only takes as much space as needed */
+  align-items: center; /* Centers the icon and text vertically */
+  padding: 0.25rem 0.5rem; /* Adjust padding as needed */
 }
 
 .dark .invert-color-mode, .light, :root {

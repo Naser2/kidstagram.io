@@ -30,7 +30,7 @@ function ProfileAvatarLarge({ user, isProfileOwner, children }: { user: UserWith
   // // console.log("PROFILE AVATAR MOUNTED", user);
   // const { data: session } = useSession();
     // const { profile, isProfileOwner, isOwner , loading} = useProfile();
-    console.log("PROFILE AVATAR LARGE", isProfileOwner);
+    // console.log("PROFILE AVATAR LARGE", isProfileOwner);
 
   const form = useForm<z.infer<typeof UpdateUser>>({
     resolver: zodResolver(UpdateUser),

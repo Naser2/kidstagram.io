@@ -16,7 +16,7 @@ function EditProfile() {
 
   const { profile, isProfileOwner, isOwner , loading} = useProfile();
 
-  console.log("EDIT_PROFILE_profile", profile, "EDIT_PROFILE_isProfileOwner->", isProfileOwner, "EDIT_PROFILE_isOwner-->", isOwner, "EDIT_PROFILE_LOADINGH->", loading);
+  // console.log("EDIT_PROFILE_profile", profile, "EDIT_PROFILE_isProfileOwner->", isProfileOwner, "EDIT_PROFILE_isOwner-->", isOwner, "EDIT_PROFILE_LOADINGH->", loading);
   // const p = await fetchProfile(session?.user.username!);
   // const p = await profile
   if (loading) return <Skeleton />;
