@@ -19,7 +19,7 @@ export default async function LandingPage() {
   return (
     <>
     <Head>
-      <title>{String(metadata.title) ?? "Kidstagram"}</title>
+      <title>{String(metadata.title) || "Kidstagram"}</title>
       <meta name="description" content={metadata.description ?? "A platform for kids to be productive and creative "} />
     </Head>
     <div>

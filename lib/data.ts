@@ -72,20 +72,41 @@ export async function fetchPostById(id: string) {
         },
         savedBy: true,
         user: true,
-        shares: {  // ✅ Added shares
+        shares: {
           include: {
             user: true,
+            post: { //  <-- Crucial addition: Include the 'post' within 'shares'
+              include: { // If your Post model has relations, include them here as well
+                user: true,
+                comments: {
+                  include: {
+                    user: true,
+                  },
+                },
+                likes: {
+                  include: {
+                    user: true,
+                  },
+                },
+                shares: {
+                  include: {
+                    user: true,
+                    post: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
     });
-
-    // console.log("fetchPostById -> data", data);
-    return data;
+  
+    return data; // Make sure to return the fetched data
   } catch (error) {
-    console.error("fetchPostById -> Prisma error:", error);
-    return null;
+    console.error("Error fetching post data:", error);
+    return null; // Handle errors appropriately
   }
+  
 }
 
 export async function fetchPostsByUsername(username: string, postId?: string) {

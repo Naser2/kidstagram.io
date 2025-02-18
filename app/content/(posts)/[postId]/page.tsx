@@ -9,9 +9,9 @@ import { Suspense, useEffect, useState } from "react";
 import { PostWithExtras } from "@/lib/definitions";
 import {PostByIDLoading} from "@/components/post/ui/laodings/PostByIDLoading";
 
-type Props = { params: Promise<{ postId: string }> , post:PostWithExtras};
+;
 
-export default function PostPage({ params }: Props) {
+export default function PostPage({ params }: {params: Promise<{ postId: string }>} ) {
   const { data: session, status } = useSession();
   const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(true);

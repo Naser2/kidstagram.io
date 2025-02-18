@@ -7,7 +7,7 @@ import ViewPost from "@/components/ViewPost";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useMount from "@/hooks/useMount";
-import { PostWithExtras } from "@/lib/definitions";
+import { CommentWithExtras, PostWithExtras } from "@/lib/definitions";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +15,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useRef } from "react";
 import MiniPost from "./MiniPost";
 import Comment from "./NewComment";
+import { isProfileOwner } from "@/context/isAuthorized";
 // import MiniPost from "./MiniPost";
 
 type PostViewProps = {
@@ -23,13 +24,13 @@ type PostViewProps = {
   userSession: any;
   
 };
-function PostView({ id, post , userSession}: { id: string; post: PostWithExtras }) {
+function PostView({ id, post}: { id: string; post: PostWithExtras }) {
   const pathname = usePathname();
   const isPostModal = true
   // const isPostModal = pathname === `/posts/${id}`;
   const router = useRouter();
-
-  const user = userSession?.user as User & { id: string };
+  const { data: userSession, status } = useSession();
+  const user = userSession?.user 
   const inputRef = useRef<HTMLInputElement>(null);
   const username = post.user.username;
   // console.log("POST_USER_" + user);
@@ -37,7 +38,7 @@ function PostView({ id, post , userSession}: { id: string; post: PostWithExtras 
   const href = `/profile/${username}`;
   const mount = useMount();
 
-
+const {isAuthorized }= isProfileOwner(user?.id);
 
   return (
     <Dialog open={isPostModal} onOpenChange={(open) => !open && router.back()}>
@@ -48,7 +49,7 @@ function PostView({ id, post , userSession}: { id: string; post: PostWithExtras 
           <DialogHeader className="flex border-b space-y-0 space-x-2.5 flex-row items-center py-4 pl-3.5 pr-6">
            { post.user && <>
            <Link href={href}>
-              <UserAvatar user={post.user} />
+              <UserAvatar user={post.user}  isProfileOwner={isAuthorized}/>
             </Link>
             <Link href={href} className="font-semibold text-sm">
               {username}
@@ -62,7 +63,7 @@ function PostView({ id, post , userSession}: { id: string; post: PostWithExtras 
             <MiniPost post={post} />
             {post.comments.length > 0 && (
               <>
-                {post.comments.map((comment) => {
+                {post.comments.map((comment:CommentWithExtras) => {
                   return (
                     <Comment
                       key={comment.id}
@@ -78,7 +79,7 @@ function PostView({ id, post , userSession}: { id: string; post: PostWithExtras 
           <ViewPost className="hidden md:flex border-b" />
 
         {  <div className="px-2 hidden md:block mt-auto border-b p-2.5">
-            <PostActions post={post} userId={user?.id} />
+            {/* <PostActions post={post} userId={user?.id} /> */}
             <time className="text-[11px]  uppercase text-zinc-500 font-medium">
               {new Date(post.createdAt).toLocaleDateString("en-US", {
                 month: "long",
@@ -87,11 +88,11 @@ function PostView({ id, post , userSession}: { id: string; post: PostWithExtras 
             </time>
           </div>}
        
-          <CommentForm
+          {/* <CommentForm
             postId={id}
             className="hidden md:inline-flex"
             inputRef={inputRef}
-          />
+          /> */}
         </div>
 
         <div className="relative overflow-hidden  aspect-[6/4] h-[60vh] md:h-[500px] lg:h-[700px] xl:h-[800px] max-w-3xl w-full">
@@ -104,11 +105,11 @@ function PostView({ id, post , userSession}: { id: string; post: PostWithExtras 
           />
         </div>
 
-        <PostActions
+        {/* <PostActions
           post={post}
           userId={user?.id}
           className="md:hidden border-b p-2.5"
-        />  
+        />   */}
       {/* {post.comments && (
         <ScrollArea className="flex-1 px-4 border-b">
           <MiniPost post={post} />
@@ -118,7 +119,7 @@ function PostView({ id, post , userSession}: { id: string; post: PostWithExtras 
         </ScrollArea>
       )} */}
          
-        <CommentForm postId={id} className="md:hidden" inputRef={inputRef} />
+        {/* <CommentForm postId={id} className="md:hidden" inputRef={inputRef} /> */}
         <ViewPost className="md:hidden" />
       </DialogContent>
     </Dialog>

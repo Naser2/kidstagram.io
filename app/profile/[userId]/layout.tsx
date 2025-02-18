@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: "Profile Not Found - Kidstagram",
         description: "This profile does not exist.",
-        url: `${siteUrl}/user/${params.userId}`,
+        url: `${siteUrl}/user/${userId}`,
         type: "profile",
         images: [
           {
@@ -64,8 +64,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${profile.name} (@${profile.username}) - Kidstagram`,
     description: profile.bio || "Check out this profile on Kidstagram!",
     icons: {
-      icon: profile.avatar || "/kidstagram_ico.png",
-      apple: profile.avatar || "/kidstagram_ico.png",
+      icon: profile.image || "/kidstagram_ico.png",
+      apple: profile.image || "/kidstagram_ico.png",
     },
     openGraph: {
       title: `${profile.name} (@${profile.username}) - Kidstagram`,
@@ -85,7 +85,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${profile.name} (@${profile.username}) - Kidstagram`,
       description: profile.bio || "Discover this Kidstagram profile.",
-      images: [profile.avatar || `${siteUrl}/kidstagram_ico.png`],
+      images: [profile.image || `${siteUrl}/kidstagram_ico.png`],
     },
   };
 }
@@ -100,12 +100,9 @@ async function ProfileLayout({children, params}:{children: React.ReactNode, para
     // console.log("ProfileLayout_profile", profile);
     notFound();
   }
-  return (<div className={clsx("!max-w-[99.9vw] mx-auto  w-full overflow-x-hidden porfile_content_wrap")}>
-     
+  return (<div className={clsx("!max-w-[99.9vw] mx-auto  w-full overflow-x-hidden porfile_content_wrap")}> 
           {/* <ProfileHeader username={profile.username} /> */}
           <div className="max-w-4xl mx-auto">
-           
-          
             <ProfileHeaderMobile profile={profile} />
             <ProfileHeaderDesktop profile={profile}  />
             <ProfileTabs profile={profile}/>

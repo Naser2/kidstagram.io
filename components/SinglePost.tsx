@@ -28,6 +28,8 @@ import { useContentManager } from "@/context/useContentManager";
 import PostHeaderButtons from "./post/PostHeaderButtons";
 
 function SinglePost({ post , userSession}: { post: any, userSession: any }) {
+
+  
     const {
       likes,
       shares,

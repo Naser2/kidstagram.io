@@ -2,15 +2,11 @@
 "use client"
 
 import CommentSection from "@/components/post/ui/NewCommentSection";
-
 import { PostWithExtras } from "@/lib/definitions";
 import { Session } from "next-auth";
-import { useContentManager } from "@/context/useContentManager";
-import { useState } from "react";
+import { useContentManager } from "@/context/useContentManager"
 
 const ContentManager = ({ post, userSession }: { post: PostWithExtras; userSession: Session }) => {
-
-  if (!post) return null; // Ensures data is available before rendering
 
   const {
     likes,
@@ -21,39 +17,16 @@ const ContentManager = ({ post, userSession }: { post: PostWithExtras; userSessi
     latestComment,
     handleShare,
     handleBookmark,
-    commentsModalOpen,
+     commentsModalOpen,
      setCommentsModalOpen,
      sayHelloMessage,
      setSayHelloMessage
-
-    // initialLikes, initialShares, commentsCount
   } = useContentManager({ post, userId: userSession.user.id, userSession});
-  console.log("COMMENTS_commentsModalOpen", commentsModalOpen);
-  // console.log("COMMENTS_commentsModalOpen", comments.length);
-  // console.log("COMMENTS_commentsModalOpen", comments);
+  if (!post) return null; 
+    console.log("COMMENTS_commentsModalOpen", commentsModalOpen);
 
   return (
     <div>
-      {/* <div className="sm:hidden">
-      <PostHeaderButtons 
-        post={post}
-        userSession={userSession}
-        likes={likes}
-        shares={shares}
-        postId={post.id}
-        userId={post.user?.id}
-        handleLike={handleLikeToggle}
-        handleShare={handleShare}
-        handleBookmark={handleBookmark}
-        comments={comments}
-        handleNewComment={handleNewComment} 
-        // initialLikes={initialLikes}
-        // initialShares={initialShares}
-        //  commentsCount={commentsCount}
-      />
-
-      </div> */}
-     
       <CommentSection 
         sayHelloMessage={sayHelloMessage}
         setSayHelloMessage={setSayHelloMessage}
@@ -68,25 +41,6 @@ const ContentManager = ({ post, userSession }: { post: PostWithExtras; userSessi
         // setCommentsModalOpen={setCommentsModalOpen}
 
       />
-      {/* <div className="hidden sm:inline  sm:mt-42  w-full">
-      <PostHeaderButtons 
-        post={post}
-        userSession={userSession}
-        likes={likes}
-        shares={shares}
-        postId={post.id}
-        userId={post.user?.id}
-        handleLike={handleLikeToggle}
-        handleShare={handleShare}
-        handleBookmark={handleBookmark}
-        comments={comments}
-        handleNewComment={handleNewComment} 
-        // initialLikes={initialLikes}
-        // initialShares={initialShares}
-        //  commentsCount={commentsCount}
-      />
-
-      </div> */}
     </div>
   );
 };

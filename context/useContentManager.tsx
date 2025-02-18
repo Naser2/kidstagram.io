@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 interface UseContentManagerProps {
   post: PostWithExtras;
-  userId: string;
+  userId: string | undefined;
   userSession: any;
 }
 

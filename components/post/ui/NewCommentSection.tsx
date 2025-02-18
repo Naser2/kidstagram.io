@@ -1,4 +1,4 @@
-import { CommentWithExtras, PostWithExtras } from "@/lib/definitions";
+import { CommentWithExtras, PostWithExtras, UserWithExtras } from "@/lib/definitions";
 
 import { useEffect, useState } from "react";
 import CustomComment from "@/components/post/ui/CustomComment";
@@ -9,14 +9,13 @@ import { Session } from "next-auth";
 import CommentForm from "@/components/CommentForm";
 import AddCommentModal from "./modal/AddCommentModal";
 import { useContentManager } from "@/context/useContentManager";
-import PostHeader from "./PostHeader";
+// import PostHeader from "./PostHeader";
 import PostHeaderButtons from "../PostHeaderButtons";
 import clsx from "clsx";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import PostOptions from "@/components/PostOptions";
-import UserAvatar from "@/components/UserAvatar";
-import { Session } from "node:inspector";
+// import UserAvatar from "@/components/UserAvatar";
 import Timestamp from "@/components/Timestamp";
 import CommentUserAvatar from "@/components/CommentUserAvatar";
 interface NewCommentSectionProps {
@@ -34,8 +33,12 @@ interface NewCommentSectionProps {
 }
 
 function NewCommentSection({ postId, userSession, post, latestComment,   }: NewCommentSectionProps) {
+  // console.log(`latestComment_NewCommentSection: ${latestComment}`);
+  const pathname = usePathname();
+  const isPostPage = pathname.includes(`/content/${postId}`);
+  const INITIAL_COUNT = isPostPage ? 4 : 1; // Show 4 comments on post page, 10 elsewhere
+  const LOAD_MORE_COUNT = 10;
 
-   const [helloMessage, setHelooMessage] = useState("");
 
    const {
     likes,
@@ -52,41 +55,28 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
 
     // initialLikes, initialShares, commentsCount
   } = useContentManager({ post, userId: userSession.user.id, userSession });
-   
-  const postUsername = post?.user?.username;
-    const isCurrentUserPost = userSession?.user?.id === post.user.id;
-    const isCurrentUser = userSession?.user.id === post.user.id;
-    const isFollowing = post.user?.followedBy?.some(
-      (user) => user.followerId === userSession?.user.id
-    );
-
-
-   console.log("NewCommentSection_ModalOpen_INIT", commentsModalOpen);
-   useEffect(() => {
-    console.log(`NewCommentSection_ModalOpe_UseEFFECT: ${commentsModalOpen}`);
-  }, [commentsModalOpen]);
-  
-  if (!post) return null; // Ensures data is available before rendering
-
-  // console.log(`latestComment_NewCommentSection: ${latestComment}`);
-  const pathname = usePathname();
-  // const isPostPage = pathname.startsWith(`/content/${postId}`);
-  // const isPostPage = true
-  const isPostPage = pathname.includes(`/content/${postId}`);
-  const INITIAL_COUNT = isPostPage ? 4 : 1; // Show 4 comments on post page, 10 elsewhere
-  const LOAD_MORE_COUNT = 10;
-
-  // ✅ Sync initial state with comments
   const [localComments, setLocalComments] = useState<CommentWithExtras[]>(comments);
   const [visibleComments, setVisibleComments] = useState<CommentWithExtras[]>(comments.slice(0, INITIAL_COUNT));
   const [hasMore, setHasMore] = useState(comments.length > INITIAL_COUNT);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  const postUsername = post?.user?.username;
+  const isCurrentUserPost = userSession?.user?.id === post.user.id;
+  const isCurrentUser = userSession?.user.id === post.user.id;
+  const isFollowing = post.user?.followedBy?.some(
+    (user:UserWithExtras) => user.followerId === userSession?.user.id
+  );
+
+  useEffect(() => {
+    console.log(`NewCommentSection_ModalOpe_UseEFFECT: ${commentsModalOpen}`);
+  }, [commentsModalOpen]);
 
   useEffect(() => {
     setLocalComments(comments);
     setVisibleComments(comments.slice(0, INITIAL_COUNT));
     setHasMore(comments.length > INITIAL_COUNT);
-  }, [comments]);
+  }, [comments, INITIAL_COUNT]);
 
   // ✅ Ensure latestComment is added to `visibleComments`
   useEffect(() => {
@@ -95,28 +85,6 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
       setVisibleComments((prev) => [latestComment, ...prev]);  // Add to visible comments
     }
   }, [latestComment]);
-
-
-  const loadMoreComments = () => {
-    const nextComments = localComments.slice(0, visibleComments.length + LOAD_MORE_COUNT);
-    setVisibleComments(nextComments);
-    setHasMore(nextComments.length < localComments.length);
-  };
-
-  const showLessComments = () => {
-    const newCount = Math.max(INITIAL_COUNT, visibleComments.length - LOAD_MORE_COUNT);
-    setVisibleComments(localComments.slice(0, newCount));
-    setHasMore(true);
-  };
-
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const captionLimit = 100;
-
-
-  console.log("PostHeader_post", post);
-
-  
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -128,12 +96,14 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
+  const captionLimit = 100;
   const caption = post?.caption || "";
   const username = userSession?.user?.username;
   const shouldTruncate = caption.length > captionLimit && !isSmallScreen;
   const [displayedCaption, setDisplayedCaption] = useState(
     shouldTruncate ? caption.slice(0, captionLimit) + "..." : caption
   );
+
 
   useEffect(() => {
     if (isExpanded || isSmallScreen) {
@@ -144,6 +114,21 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
       );
     }
   }, [isExpanded, caption, shouldTruncate, isSmallScreen]);
+
+
+  if (!post) return null; // Ensures data is available before rendering
+  const loadMoreComments = () => {
+    const nextComments = localComments.slice(0, visibleComments.length + LOAD_MORE_COUNT);
+    setVisibleComments(nextComments);
+    setHasMore(nextComments.length < localComments.length);
+  };
+
+  const showLessComments = () => {
+    const newCount = Math.max(INITIAL_COUNT, visibleComments.length - LOAD_MORE_COUNT);
+    setVisibleComments(localComments.slice(0, newCount));
+    setHasMore(true);
+  };
+  console.log("PostHeader_post", post);
 
   // Function to parse hashtags and wrap them in <a>
   const renderCaptionWithLinks = (text: string) => {
@@ -179,8 +164,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
     <div className="space-y-1 px-0 sm:px-0 overflow-y-auto min-[770px]:pl-6">
        <div className={clsx("flex", isPostPage && "min-[767px]:hidden")}>
               <PostHeaderButtons
-                     sayHelloMessage={sayHelloMessage}
-                     setSayHelloMessage={setSayHelloMessage}
+                    //  sayHelloMessage={sayHelloMessage}
                      setCommentsModalOpen={setCommentsModalOpen} 
                       post={post}
                       userSession={userSession}
@@ -251,18 +235,6 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
                 </div>
             </div>}
         </div>
-         {/* <div className="relative flex h-5 items-center space-x-2.5 ml-4 px-3 lg:px-14">
-         <Timestamp createdAt={post.createdAt} /> */}
-          {/* <button
-            className="text-xs font-semibold text-neutral-500"
-            onClick={() => inputRef?.current?.focus()}
-          >
-            Reply
-          </button> */}
-          {/* {comment.userId === userSession?.user.id && (
-            <CommentOptions comment={comment} />
-          )} 
-        </div>*/}
       </div>
        {!isPostPage &&  <div className="!hidden flex items-center justify-between border-b px-5 py-3 max-[640px]:bg-[#2196F3] max-[768px]:hidden">
             <HoverCard>
@@ -305,9 +277,6 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
 
             <PostOptions post={post} userId={userSession.user.id} isCurrentUserPost={isCurrentUserPost}/>
           </div>}
-      
-      {/* Comment List */}
-      {/* <button type="button" onClick={() => setCommentsModalOpen(true)}>{commentsModalOpen ? "Modal Open" : "Modal Closed"} Comment</button> */}
       <div className="flex-grow overflow-y-auto max-h-[440px] border-b -mt-1 pb-5 px-1">
         <div className="min-[767px]:hidden">
            <CommentForm postId={postId} userSession={userSession} handleNewComment={handleNewComment} />
@@ -335,7 +304,6 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
             </div>
           ))
         )}
-
         {/* Load More / Show Less Buttons */}
         {isPostPage && (
           <div className="mt-2 text-center">

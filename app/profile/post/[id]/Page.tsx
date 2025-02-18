@@ -30,7 +30,7 @@ export default  function PostPage({ params }: PostPageProps) {
         setPostId(postId);
         console.log("POST_PARAMS_EFFECT_ID_" + postId);
         const post = await fetchPostById(postId);
-        if(!post === null) {
+        if (post !== null) { 
           setPost(post);
        
         }

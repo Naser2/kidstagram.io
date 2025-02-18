@@ -17,34 +17,62 @@ interface PostPageProps {
 // import { getConvexClient } from "@/lib/convex";
 import { redirect } from "next/navigation";
 // import { auth } from "@clerk/nextjs/server";
-import { Post } from "@prisma/client";
+// import { Post } from "@prisma/client";
 
 export default  function PostPage({ params }: PostPageProps) {
   console.log("USERNAME_POST_ID_PostPage");
   const [post, setPost] = useState<any | null>(null);
-  const [postId, setPostId] = useState<any | null>(null);
-  console.log("POST_PARAMS_ID_" + postId);
-      useEffect(() => {
-      
-      const getPost = async () => {
-        const { postId } =  await params;
-        setPostId(postId);
-        console.log("POST_PARAMS_EFFECT_ID_" + postId);
-        const post = await fetchPostById(postId);
-        if(!post === null) {
-          setPost(post);
-       
+  const [postId, setPostId] = useState<string | null>(null);
+   console.log("POST_PARAMS_ID_" + postId);
+
+
+   useEffect(() => {
+    const getPost = async () => {
+      const { postId } = params; // Extract post ID correctly
+      setPostId(postId);
+      console.log("POST_PARAMS_EFFECT_ID_" + postId);
+
+      try {
+        const fetchedPost = await fetchPostById(postId);
+        if (fetchedPost) {
+          setPost(fetchedPost);
+        } else {
+          console.log("USERNAME_POST_ID_POST_PARAMS_EFFECT_ID_NOT_FOUND " + postId);
         }
-       else console.log("USERNAME_POST_ID_POST_PARAMS_EFFECT_ID_NOT_FOUND" + postId);
-        console.log("POST_ID_" + postId);
-      };
-      getPost();
-      console.log("POST_ID_" + post.id);
-    }, [params]);
+      } catch (error) {
+        console.error("Error fetching post:", error);
+      }
+    };
+
+    getPost();
+  }, [params, params.postId]); // Track correct dependencies
+
+    //   useEffect(() => {
+    //   const getPost = async () => {
+    //     const { postId } =  await params;
+    //     setPostId(postId);
+    //     console.log("POST_PARAMS_EFFECT_ID_" + postId);
+    //     const post = await fetchPostById(postId);
+    //     if(post !== null) {
+    //       setPost(post)
+    //     }
+    //    else console.log("USERNAME_POST_ID_POST_PARAMS_EFFECT_ID_NOT_FOUND" + postId);
+    //     console.log("POST_ID_" + postId);
+    //   };
+    //   getPost();
+    //   console.log("POST_ID_" + post.id);
+    // }, [params, params.postId]);
 
 
   // Get user authentication
   // const { postId } = await auth();
+
+  useEffect(() => {
+    if (post) {
+      console.log("POST_ID_" + post.id);
+    }
+  }, [post]); // Separate effect to safely log post.id
+
 
   if (!post) {
     return <LoadingComments/>

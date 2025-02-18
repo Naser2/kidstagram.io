@@ -26,6 +26,7 @@ type Props = {
   handleShare: Function;
   // sayHelloMessage: string;
   // setSayHelloMessage: Function;
+  setCommentsModalOpen: Function;
 };
 
 function PostHeaderButtons({ postId, userSession, className, post, comments, likes, shares, handleNewComment,
@@ -34,14 +35,12 @@ function PostHeaderButtons({ postId, userSession, className, post, comments, lik
       const {
         commentsModalOpen,
         setCommentsModalOpen,
-        sayHelloMessage,
-        setSayHelloMessage
-    
+        // sayHelloMessage,
+        // setSayHelloMessage
         // initialLikes, initialShares, commentsCount
       } = useContentManager({ post, userId: userSession.user.id, userSession });
   
 console.log("setCommentsModalOpen", setCommentsModalOpen);
-console.log("sayHelloMessage:", sayHelloMessage);  // ✅ Debugging
 
   return (
     <div className={cn("pl-4 max-[500px]:pt-2 flex items-center w-full gap-x-2 max-[500px]:mb-1 lg:mb-2 sm:pl-4 sm:pt-2 sm:mb-2 lg:h-[56px]", className)}>
@@ -50,11 +49,11 @@ console.log("sayHelloMessage:", sayHelloMessage);  // ✅ Debugging
             <div className="flex relative space-x-3 items-center">
               <LikeButton postId={post.id} post={post} userId={userSession?.user?.id} likes={likes} handleLike={() => handleLike(post.id)} />
               <CommentButton 
-              commentsCount={comments.length} 
-              commentIconOnClick={() => {
-                setSayHelloMessage("setSayHelloMessage--> JUST FIRED");
-                setCommentsModalOpen(true); // ✅ Opens modal on click
-              }} 
+                  commentsCount={comments.length} 
+                  commentIconOnClick={() => {
+                // setSayHelloMessage("setSayHelloMessage--> JUST FIRED");
+                    setCommentsModalOpen(true); // ✅ Opens modal on click
+                }} 
               />
               <ShareButton postId={post.id} shares={shares} onShare={() => handleShare()} />
             </div> 

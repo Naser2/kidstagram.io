@@ -24,12 +24,12 @@ type Props = {
 
 function PostActions({ 
   post, 
-  comments,
+  // comments,
   userId,
   className,
   handleNewComment, 
-  commentsModalOpen,
-  userSession,
+  // commentsModalOpen,
+  // userSession,
   toggleCommentsModal,
   handleBookmark
 }: Props) {
