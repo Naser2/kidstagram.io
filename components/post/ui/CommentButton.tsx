@@ -15,7 +15,7 @@ function CommentButton({ commentsCount, commentIconOnClick }: CommentButtonProps
       <ActionIcon onClick={commentIconOnClick}>
         <MessageCircle className="h-6 w-6 transition" />
       </ActionIcon>
-      <span className="text-[1rem] font-bold text-white/90">{commentsCount}</span>
+      <span className="text-sm font-bold dark:text-white">{commentsCount}</span>
     </div>
   );
 }

@@ -15,6 +15,7 @@ import ContentManager from "./post/ContentManager";
 import PostHeader from "./post/ui/PostHeader";
 import { useContentManager } from "@/context/useContentManager";
 import CommentUserAvatar from "./CommentUserAvatar";
+import clsx from "clsx";
 
 function Post({ 
   post, 
@@ -34,12 +35,16 @@ function Post({
   // console.log("Post_userSession__id", userSession.user.id);
   const isCurrentUserPost = userSession?.user?.id === postUserId;
 
+
   const isCurrentUser = userSession?.user.id === post.user.id;
-  const isFollowing = post?.user?.followedBy?.some(
+
+  // ✅ Ensure users cannot follow themselves
+  // const isFollowing = !isCurrentUser && post?.user?.followedBy?.some(
+  //   (user) => user.followerId === userSession?.user.id
+  // );
+  const isFollowing = !isCurrentUser && post?.user?.followedBy?.some(
     (user) => user.followerId === userSession?.user.id
   );
-  
-
 console.log("Post_postUsernameD", postUsername);
   // const {
   //     likes,
@@ -63,8 +68,8 @@ console.log("Post_postUsernameD", postUsername);
                   href={`/profile/${postUserId}`}>
                   <CommentUserAvatar user={post.user} className="h-14 w-14" />  
                   <div className="text-sm">
-            <p className="text-left space-x-1">
-              <span className="font-semibold">{postUsername}</span>
+            <p className="text-left space-x-1 ">
+              <span className="font-semibold text-[rgb(var(--ig-primary-text))]">{postUsername}</span>
               <span
                 className="font-medium text-neutral-500 dark:text-neutral-400
                       text-xs
@@ -75,14 +80,14 @@ console.log("Post_postUsernameD", postUsername);
               <Timestamp createdAt={post.createdAt} />
             </p>
             <p className="text-xs text-black dark:text-white font-medium pt-1">
-              Get real location, United States
+            {post?.location ||  "Get real location, United States"}
             </p>
             </div>
-            <span className="dot">
+            <span className="dot"> 
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-more-horizontal h-5 w-5 cursor-pointer icon_svg" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r3b:" data-state="closed"><circle cx="12" cy="12" r="1"></circle></svg>
             </span>
-            <div className="follow-text ">
-            {isFollowing? "Unfollow" : "Follow"}
+            <div className={clsx(isCurrentUserPost ? "hidden" : "follow-text")}>
+                {isFollowing ? "Unfollow" : "Follow"}
             </div>
             </Link>
          

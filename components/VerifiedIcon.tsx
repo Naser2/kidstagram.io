@@ -1,7 +1,7 @@
 export default function VerifiedIcon() {
     return  <svg
                 aria-label="Verified"
-                className="h-[12px] w-[12px] fill-[#0095F6]" // Tailwind-compatible styling
+                className="h-[12px] w-[12px] lg:h-[14px] lg:w-[14px] xl:h-[16px] xl:w-[16px]  fill-[#0095F6]" // Tailwind-compatible styling
                 role="img"
                 viewBox="0 0 40 40">
                     <title>Verified</title>

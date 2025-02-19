@@ -26,6 +26,7 @@ import PostHeader from "./post/ui/PostHeader";
 import CommentForm from "./CommentForm";
 import { useContentManager } from "@/context/useContentManager";
 import PostHeaderButtons from "./post/PostHeaderButtons";
+import { User } from "next-auth";
 
 function SinglePost({ post , userSession}: { post: any, userSession: any }) {
 
@@ -50,10 +51,14 @@ function SinglePost({ post , userSession}: { post: any, userSession: any }) {
     const isCurrentUserPost = userSession?.user?.id === post.user.id;
     const isCurrentUser = userSession?.user.id === post.user.id;
   
-    const isFollowing = post.user?.followedBy?.some(
-      (follow:any) => follow.followerId === userSession?.user.id
+
+
+    // ✅ If post owner, do not show "Follow/Unfollow"
+    const isFollowing = !isCurrentUser && post?.user?.followedBy?.some(
+      (user:any) => user.followerId === userSession?.user.id
     );
     
+
     if (!post) {
       notFound();
     }

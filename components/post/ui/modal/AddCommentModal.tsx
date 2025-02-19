@@ -77,7 +77,7 @@ function AddCommentModal({
                 userSession={userSession} /> 
           ))}
         </div>
-        <div className="sticky bottom-0 p-3 border-t">
+        <div className="sticky bottom-0 p-3 xl:border-t">
           <form onSubmit={handleSubmit} className="flex items-center px-3">
             {formSubmitting && <Loader2 className="h-4 w-4 animate-spin absolute" />}
             <img
@@ -98,13 +98,14 @@ function AddCommentModal({
               <button
                 disabled={!comment.trim().length || formSubmitting}
                 type="submit"
-                className="bg-sky-500 px-6 py-2 rounded-lg font-semibold"
+                className="bg-[var(--primary-button-background)] text-white hover:bg-sky-700 px-6 py-2 rounded-lg font-semibold"
               >
-                Post
+                Post {formSubmitting && <Loader2 className="h-4 w-4 animate-spin absolute" /> }
               </button>
-            ) : <button
+            ) : <button 
                     disabled={!comment.trim().length || formSubmitting}
                     type="submit"
+                    
                     className="text-sky-500 px-6 py-2  font-semibold"
                   >
                     Post

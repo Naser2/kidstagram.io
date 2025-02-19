@@ -28,6 +28,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Post } from "@prisma/client";
+import clsx from "clsx";
 
 function EditPost({ id, post }: { id: string; post: Post }) {
   // const mount = useMount();
@@ -42,6 +43,7 @@ function EditPost({ id, post }: { id: string; post: Post }) {
       id: post.id,
       caption: post.caption || "",
       fileUrl: post.fileUrl,
+      location: post.location || "", // ✅ Added location field
     },
   });
   const fileUrl = form.watch("fileUrl");
@@ -95,10 +97,33 @@ function EditPost({ id, post }: { id: string; post: Post }) {
                 </FormItem>
               )}
             />
-
-            <Button type="submit" disabled={form.formState.isSubmitting}>
-              Done
+              {/* ✅ Location Field */}
+              <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="location">Location</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      id="location"
+                      placeholder="Add a location..."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <Button type="submit"
+                 className={clsx(!!fileUrl ? "bg-[var(--primary-button-background)] text-white hover:bg-sky-700 " : "!bg-white/80  theme-submit-button text-white hover:bg-sky-600 justify-center !max-w-[4rem]")} disabled={form.formState.isSubmitting}>
+             Save Post
             </Button>
+
+            {/* <Button type="submit" disabled={form.formState.isSubmitting}>
+              Done
+            </Button> */}
           </form>
         </Form>
       </DialogContent>

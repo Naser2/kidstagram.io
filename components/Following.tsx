@@ -21,7 +21,7 @@ function Following({ following }: { following: FollowingWithExtras }) {
         className="flex items-center gap-x-3"
       >
         <CommentUserAvatar user={following.following} className="h-10 w-10" />
-        <p className="font-bold text-sm">{following.following.username}</p>
+        <p className="font-bold text-sm text-[rgb(var(--ig-primary-text))]">{following.following.username}</p>
       </Link>
       {!isCurrentUser && (
         <FollowButton

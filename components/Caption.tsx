@@ -61,7 +61,7 @@ const Caption = ({ caption }: { caption: string }) => {
   return (
     <div className="flex items-center space-x-2">
       {/* <span className="font-bold text-white">a_k_da_don</span> */}
-      <span className={clsx(shouldTruncate && "truncate", "aacu lg:max-w-[15rem] text-white")}>
+      <span className={clsx(shouldTruncate && "truncate", "aacu lg:max-w-[15rem] ")}>
         {renderCaptionWithLinks(displayedCaption)}
         {shouldTruncate && !isExpanded && (
           <button

@@ -4,6 +4,8 @@ export const PostSchema = z.object({
   id: z.string(),
   fileUrl: z.string().url(),
   caption: z.string().optional(),
+  location: z.string().optional(),
+  tags: z.array(z.string()).optional(),
 });
 
 

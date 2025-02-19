@@ -118,8 +118,9 @@ interface SignInOptions {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 50, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}>
-           <div className="modal-dialog-container  flex-col  lg:max-w-[70rem] lg:grid lg:grid-cols-2 px-6 justify-center lg:pl-24 xl:pl-64">
-            <div id="LEFT_BLOCK">
+                  
+           <div className="modal-dialog-container  flex-col-reverse  lg:max-w-[70rem] lg:grid lg:grid-cols-2 px-6 justify-center lg:pl-24 xl:pl-64">
+            <div id="LEFT_BLOCK" >
               <h1>Kidstagram</h1>
               <img
                   src="/instagram_icon_white.png"
@@ -135,7 +136,9 @@ interface SignInOptions {
                 />
             </div>
            </div>
-           <div className="modal-dialog modal-size-medium" aria-modal="true" role="dialog">
+           
+           <div className="modal-dialog modal-size-medium !max-w-[391px]" aria-modal="true" role="dialog">
+            
           <div className="group">
             <div className="modal-header">
               {isSignUp ? 
@@ -212,7 +215,7 @@ interface SignInOptions {
                          </button>
                        </div>
                    )}
-                    <div className="cl-internal-1dauvpw ">
+                    <div className="cl-internal-1dauvpw  rounded-b-xl">
                       <div className="cl-internal-df7v37">
                        <div className="cl-internal-y44tp9 ">
                         <div className="cl-internal-16mc20d inline-flex space-x-4"><p className="cl-internal-wf8x4b">Secured by</p>

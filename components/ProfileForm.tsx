@@ -43,6 +43,7 @@ function ProfileForm({ profile }: { profile: UserWithExtras }) {
       image: profile.image ? profile.image : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${profile.name}`,
       name: profile.name || "",
       username: profile.username || "",
+      location: profile.location || "",
       bio: profile.bio || "",
       website: profile.website || "",
       passion: profile.passion || "",
@@ -98,8 +99,25 @@ const {isAuthorized} = isProfileOwner();
         </FormItem>
       )}
     />
+    {/* LOCATION */}
+    <FormField
+      control={form.control}
+      name="location"
+      render={({ field }) => (
+        <FormItem>
+          <div className="flex flex-col gap-y-1">
+            <FormLabel className="font-bold text-sm mb-1 ">Location</FormLabel>
+            <FormControl>
+              <Input className="resize-none w-full" {...field} />
+            </FormControl>
+            
+            <FormMessage />
+          </div>
+        </FormItem>
+      )}
+    />
     {/*Passion Field */}
-        <FormField
+     <FormField
       control={form.control}
       name="passion"
       render={({ field }) => (
@@ -217,8 +235,8 @@ const {isAuthorized} = isProfileOwner();
 
     <Button
       type="submit"
-      className="action-button"
-      disabled={isSubmitting}
+      className="action-button !text-white dark:text-[var(--primary-button-text-color)] hover:!bg-sky-600"
+       disabled={isSubmitting}
     >
       Submit
     </Button>

@@ -22,11 +22,11 @@ function CommentUserAvatar({ user, ...avatarProps }: Props) {
   <div className="absolute  h-[3rem] w-[3rem] rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-[2px] ">
                 <div className="h-full w-full rounded-full bg-black "></div>
                </div>
-  <Avatar className="relative h-5 w-5 p-[1.1rem]" {...avatarProps}>
+  <Avatar className="relative !h-4 !w-4 p-[1.1rem]" {...avatarProps}>
       <img
         src={avatarUrl}
        
-        sizes="30px"
+        sizes="26px"
         alt={`${user?.name}'s profile picture`}
         className="rounded-full object-cover"
       />

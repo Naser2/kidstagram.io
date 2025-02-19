@@ -44,7 +44,7 @@ const isProfileOwner = session?.user?.id === profile.id;
             <div className="text-center lg:text-left">
              <div className="inline-flex justify-center items-center gap-x-1">
              {/* profile?.verified ? "verified" : */}
-               <h1 className="text-xl lg:text-3xl xl:!font-bold large_text">{profile.username}</h1> { <VerifiedIcon/>}</div>
+               <h1 className="text-xl lg:text-3xl xl:!font-bold large_text pr-1">{profile.username}</h1> {profile?.verified ? "verified" : <VerifiedIcon/>}</div>
               <ProfileStatsLinks profile={profile} />
               {/* <p className="text-gray-400">{profile.posts.length} posts • {profile.followedBy.length} followers • {profile.following.length} following</p> */}
             </div>
@@ -60,8 +60,9 @@ const isProfileOwner = session?.user?.id === profile.id;
           <div className="mt-3 text-sm">
             <p className="text-white text-lg font-semibold setting_icon_tag_tab">{profile.name}</p>
             <p className="pb-4 passion mb-[1.5px] text-gray-400 text-sm font-medium text-[rgb(var(--ig-primary-button))]">{profile.passion}</p>
+            <div className="font-semibold text-[rgb(var(--ig-primary-button))] !text-xl">{profile?.location ?? "Somwhere undefined"}</div>
             <p className="text-sm primary-text-color !-mt-0">{profile.bio ?? "5 years of connecting a global audience to Africa."}  🌍</p>
-            <p className="text-[rgb(var(--ig-primary-button))]">🔗 <a href="#" className="">{profile.website ?? "linkin.bio/okayafrica"}</a></p>
+            <p className="text-[rgb(var(--ig-primary-button))] !text-lg">🔗 <a href="#" className="">{profile.website ?? "linkin.bio/okayafrica"}</a></p>
           </div>
   
           {/* Suggested Accounts */}

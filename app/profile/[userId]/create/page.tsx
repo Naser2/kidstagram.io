@@ -24,6 +24,7 @@ import { createPost } from "@/lib/actions";
 import { CreatePost } from "@/lib/schemas";
 import { UploadButton } from "@/lib/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
+import clsx from "clsx";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -54,9 +55,9 @@ function CreatePage() {
         open={isCreatePage}
         onOpenChange={(open) => !open && router.back()}
       >
-        <DialogContent>
+        <DialogContent  className="max-w-lg py-6">
           <DialogHeader>
-            <DialogTitle>Create new post</DialogTitle>
+            <DialogTitle className="text-center">Create new post</DialogTitle>
           </DialogHeader>
 
           <Form {...form}>
@@ -86,9 +87,9 @@ function CreatePage() {
                   name="fileUrl"
                   render={({ field, fieldState }) => (
                     <FormItem>
-                      <FormLabel htmlFor="picture">Picture</FormLabel>
-                      <FormControl>
-                        <UploadButton
+                      <FormLabel htmlFor="picture" className="sr-only">Picture</FormLabel>
+                      <FormControl> 
+                        <UploadButton 
                           endpoint="imageUploader"
                           onClientUploadComplete={(res) => {
                             form.setValue("fileUrl", res[0].url);
@@ -100,8 +101,8 @@ function CreatePage() {
                           }}
                         />
                       </FormControl>
-                      <FormDescription>
-                        Upload a picture to post.
+                      <FormDescription className="text-center">
+                        Upload a photo and continue
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -130,7 +131,8 @@ function CreatePage() {
                 />
               )}
 
-              <Button type="submit" disabled={form.formState.isSubmitting}>
+              <Button type="submit"
+               className={clsx(!!fileUrl ? "bg-[var(--primary-button-background)] text-white hover:bg-sky-700 " : "!bg-white/80  theme-submit-button text-white hover:bg-sky-600 justify-center !max-w-[4rem]")} disabled={form.formState.isSubmitting}>
                 Create Post
               </Button>
             </form>

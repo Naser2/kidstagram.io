@@ -299,12 +299,13 @@ export async function updatePost(values: z.infer<typeof UpdatePost>) {
     };
   }
 
-  const { id, fileUrl, caption } = validatedFields.data;
+  const { id, fileUrl, caption , location} = validatedFields.data;
 
   const post = await prisma.post.findUnique({
     where: {
       id,
-      userId,
+      userId
+      
     },
   });
 
@@ -320,14 +321,15 @@ export async function updatePost(values: z.infer<typeof UpdatePost>) {
       data: {
         fileUrl,
         caption,
+        location,
       },
     });
   } catch (error) {
     return { message: "Database Error: Failed to Update Post." };
   }
 
-  revalidatePath("/dashboard");
-  redirect("/dashboard");
+  revalidatePath(`/content/${id}`);
+  redirect(`/content/${id}`);
 }
 
 export async function updateProfile(userId: string, values: z.infer<typeof UpdateUser>) {

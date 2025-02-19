@@ -14,9 +14,9 @@ function Logo() {
         size: "lg",
       })}
     >
-      <SwitchCamera className="h-6 w-6 shrink-0 lg:hidden" />
+      <img src="/kidstagram_ico.png"  className="h-6 w-6 shrink-0 lg:hidden" />
       <p
-        className={`font-semibold text-xl hidden lg:block ${calSans.className}`}
+        className={`font-semibold text-xl hidden lg:block  text-pink-500 ${calSans.className}`}
       >
         Kidstagram
       </p>

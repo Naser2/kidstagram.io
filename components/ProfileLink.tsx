@@ -25,10 +25,13 @@ function ProfileLink({ user }: { user: User }) {
         size: "lg",
       })}
     >
-      <CommentUserAvatar
+     <img src={ user.image ? user.image
+    : `https://api.dicebear.com/9.x/pixel-art/svg?seed=${encodeURIComponent(user?.name || "User")}`} 
+      className="h-6 w-6 rounded-full shrink-0 " />
+      {/* <CommentUserAvatar
         user={user}
         className={`h-6 w-6 ${isActive && "border-2 border-white"}`}
-      />
+      /> */}
 
       <p
         className={`${cn("hidden lg:block", {

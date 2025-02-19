@@ -27,7 +27,7 @@ function ShareButton({ postId, shares, onShare }: ShareButtonProps) {
       <ActionIcon onClick={handleShare}>
         <Send className="h-6 w-6 transition" />
       </ActionIcon>
-      <span className="text-[1rem] font-bold text-white/90">{shares}</span>
+      <span className="text-sm font-bold dark:text-white">{shares}</span>
     </div>
   );
 }

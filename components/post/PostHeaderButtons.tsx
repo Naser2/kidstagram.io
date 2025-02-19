@@ -43,7 +43,7 @@ function PostHeaderButtons({ postId, userSession, className, post, comments, lik
 console.log("setCommentsModalOpen", setCommentsModalOpen);
 
   return (
-    <div className={cn("pl-4 max-[500px]:pt-2 flex items-center w-full gap-x-2 max-[500px]:mb-1 lg:mb-2 sm:pl-4 sm:pt-2 sm:mb-2 lg:h-[56px]", className)}>
+    <div className={cn("pl-4 max-[500px]:pt-2 flex items-center w-full gap-x-2 max-[500px]:mb-1 lg:mb-2 sm:pl-0 sm:pt-2 sm:mb-2 lg:h-[56px]", className)}>
    
         <div className="grid grid-cols-2 justify-between w-[90vw]">
             <div className="flex relative space-x-3 items-center">

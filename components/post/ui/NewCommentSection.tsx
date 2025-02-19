@@ -162,7 +162,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
   const href = `/profile/${username}`;
 
   return (
-    <div className="space-y-1 px-0 sm:px-0 overflow-y-auto min-[770px]:pl-6">
+    <div className="space-y-1 px-0 sm:px-0 overflow-y-auto min-[770px]:pl-1">
        <div className={clsx("flex", isPostPage && "min-[767px]:hidden")}>
               <PostHeaderButtons
                     //  sayHelloMessage={sayHelloMessage}
@@ -191,7 +191,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
             </Link>
             }
           {/* Text Container (username + comment) */}
-          <div className="flex-1 ml-2 p-1 min-w-[18rem]">
+          <div className="flex-1 ml-1 p-1 min-w-[18rem]">
           <span className="inline-flex items-center">
             {/* Username Link */}
             <Link
@@ -218,7 +218,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
           </span>
 
         <span className="text_secondary break-words">
-           <span className={clsx(shouldTruncate && "truncate", "aacu lg:max-w-[15rem] text-white")}>
+           <span className={clsx(shouldTruncate && "truncate", "aacu lg:max-w-[15rem]")}>
             {renderCaptionWithLinks(displayedCaption)}
             {shouldTruncate && !isExpanded && (
               <button
