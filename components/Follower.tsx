@@ -12,7 +12,7 @@ function Follower({ follower }: { follower: FollowerWithExtras }) {
     (user) => user.followerId === session?.user.id
   );
   const isCurrentUser = session?.user.id === follower.followerId;
-
+  // const isProfileOwner = session?.user.id === follower.followerId;
   if (!session) return null;
 
   return (
@@ -21,7 +21,13 @@ function Follower({ follower }: { follower: FollowerWithExtras }) {
         href={`/dashboard/${follower.follower.username}`}
         className="flex items-center gap-x-3"
       >
-        <UserAvatar user={follower.follower} className="h-10 w-10" />
+        <UserAvatar 
+            user={follower.follower} 
+            isProfileOwner={isCurrentUser} // Pass the isProfileOwner prop
+            className="h-10 w-10" 
+        />
+
+      
         <p className="font-bold text-sm">{follower.follower.username}</p>
       </Link>
       {!isCurrentUser && (

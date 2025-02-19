@@ -1,4 +1,4 @@
-import { fetchPostById, fetchPostsByUsername } from "@/lib/data";
+import { fetchPostById, fetchPostsByUserID, fetchPostsByUsername } from "@/lib/data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostsGrid from "./PostsGrid";
@@ -6,7 +6,13 @@ import PostsGrid from "./PostsGrid";
 async function MorePosts({ postId }: { postId: string }) {
   const post = await fetchPostById(postId);
   const postUsername = post?.user.username;
-  const posts = await fetchPostsByUsername(postUsername!, postId);
+  if (!post) {
+    notFound();
+  }
+   const userId = post?.user.id;
+  
+  const posts = await fetchPostsByUserID(userId);
+  // const posts = await fetchPostsByUsername(postUsername!, postId);
 
   return (
     <div className="flex flex-col space-y-3 max-w-3xl lg:max-w-4xl mx-auto pb-20">

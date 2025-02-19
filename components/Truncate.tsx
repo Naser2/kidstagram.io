@@ -1,13 +1,14 @@
+import { PostWithExtras } from "@/lib/definitions";
 import { useState } from "react";
 
-const Caption = ({ post }) => {
+const Caption = ({ post }:{post:PostWithExtras}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const captionLimit = 100; // Set character limit for truncation
-
-  const shouldTruncate = post.caption.length > captionLimit;
+   if (!post) return null;
+  const shouldTruncate = post?.caption && post.caption.length > captionLimit;
   const displayedCaption = isExpanded
     ? post.caption
-    : post.caption.slice(0, captionLimit) + (shouldTruncate ? "..." : "");
+    : (post.caption ? post.caption.slice(0, captionLimit) + (shouldTruncate ? "..." : "") : "");
 
   return (
     <span className="aacu truncate">

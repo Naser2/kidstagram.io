@@ -1,71 +1,110 @@
 
 
+// // // import { calSans } from "@/app/fonts";
+// // import { signIn } from "next-auth/react";
+// // import { useFormStatus } from "react-dom";
+// // import { Button } from "./ui/button";
 // // import { calSans } from "@/app/fonts";
+
+// // export default function LoginForm() {
+// //   return (
+// //     <div className="space-y-3">
+// //       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
+// //         <h1 className={`${calSans.className} mb-3 text-2xl dark:text-black`}>
+// //           Please log in to continue.
+// //         </h1>
+
+// //         <LoginButton />
+// //       </div>
+// //     </div>
+// //   );
+// // }
+
+// // function LoginButton() {
+// //   const { pending } = useFormStatus();
+
+// //   return (
+// //     <Button
+// //       className="mt-4 w-full"
+// //       variant={"secondary"}
+// //       aria-disabled={pending}
+// //       onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+// //     >
+// //       Log in with Google
+// //     </Button>
+// //   );
+// // }
+
+// "use client";
+
 // import { signIn } from "next-auth/react";
-// import { useFormStatus } from "react-dom";
-// import { Button } from "./ui/button";
-// import { calSans } from "@/app/fonts";
+// import { useState, useEffect } from "react";
+// import { useRouter } from "next/navigation";
 
-// export default function LoginForm() {
-//   return (
-//     <div className="space-y-3">
-//       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-//         <h1 className={`${calSans.className} mb-3 text-2xl dark:text-black`}>
-//           Please log in to continue.
-//         </h1>
+// export default function Login({ fieldsSatisfied }: { fieldsSatisfied: boolean }) {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState("");
+//   const router = useRouter();
 
-//         <LoginButton />
-//       </div>
-//     </div>
-//   );
-// }
+//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+//     e.preventDefault();
+//     const formData = new FormData(e.target as HTMLFormElement);
+//     // console.log("LOGIN Failed", formData.get("email"), formData.get("password"));
+//     const res = await signIn("credentials", {
+//       redirect: false,
+//       email,
+//       password,
+//     });
+   
+//     if (res?.error) {
+//       // console.log("LOGIN Failed", res.error);
+//       setError("Invalid email or password");
+//     } 
+//     else {
+//       router.push("/user"); // No need for `isMounted`
+//     }
+//   };
 
-// function LoginButton() {
-//   const { pending } = useFormStatus();
-
-//   return (
-//     <Button
-//       className="mt-4 w-full"
-//       variant={"secondary"}
-//       aria-disabled={pending}
-//       onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-//     >
-//       Log in with Google
-//     </Button>
-//   );
-// }
-
-"use client";
+"use client"; // Important: Add "use client" if you're using client-side hooks
 
 import { signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Login({ fieldsSatisfied }: { fieldsSatisfied: boolean }) {
+export default function Login({ fieldsSatisfied, setFieldsSatisfied }: { fieldsSatisfied: boolean; setFieldsSatisfied: (value: boolean) => void }) { // Receive the prop
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
+  useEffect(() => {
+    // Logic to determine if fields are satisfied (e.g., email and password are not empty)
+    const isSatisfied = email !== "" && password !== "";
+    setFieldsSatisfied(isSatisfied); // Update the state
+  }, [email, password]); // Run when email or password changes
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    // console.log("LOGIN Failed", formData.get("email"), formData.get("password"));
+    if (!fieldsSatisfied) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+
     const res = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
-   
+
     if (res?.error) {
-      // console.log("LOGIN Failed", res.error);
       setError("Invalid email or password");
-    } 
-    else {
-      router.push("/user"); // No need for `isMounted`
+    } else {
+      router.push("/user");
     }
   };
-
 
   return (
     <div className="container">

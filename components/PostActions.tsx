@@ -8,7 +8,7 @@ import Link from "next/link";
 import LikeButton from "./Like";
 import ShareButton from "./ShareButton";
 import BookmarkButton from "./BookmarkButton";
-import CommentModal from "./ui/Modal/NewCommentModal";
+// import CommentModal from "./ui/Modal/NewCommentModal";
 
 type Props = {
   post: PostWithExtras;

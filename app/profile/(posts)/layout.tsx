@@ -29,12 +29,12 @@ export default async function ProfilePostLayout({
   const post = await fetchPostById(postId)
 
   if (!post) {
-    return redirect("/my-courses");
+    return redirect("/");
   }
 
   return (
     <div className="h-full">
-     <PostView id={postId} post={post}   />
+     {/* <PostView id={postId} post={post}   /> */}
       <main className="h-full lg:pt-[64px] pl-20 lg:pl-96">{children}</main>
     </div>
   );

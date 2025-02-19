@@ -1,7 +1,16 @@
 import bcrypt from "bcryptjs";
-export function saltAndHashPassword(password: any) {
-  const saltRounds = 10; // Adjust the cost factor according to your security requirements
-  const salt = bcrypt.genSaltSync(saltRounds); // Synchronously generate a salt
-  const hash = bcrypt.hashSync(password, salt); // Synchronously hash the password
-  return hash; // Return the hash directly as a string
+
+export async function saltAndHashPassword(password: string): Promise<string> {
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds); // Async salt generation
+  const hash = await bcrypt.hash(password, salt); // Async hashing
+  return hash;
 }
+
+// import bcrypt from "bcryptjs";
+// export function saltAndHashPassword(password: any) {
+//   const saltRounds = 10; // Adjust the cost factor according to your security requirements
+//   const salt = bcrypt.genSaltSync(saltRounds); // Synchronously generate a salt
+//   const hash = bcrypt.hashSync(password, salt); // Synchronously hash the password
+//   return hash; // Return the hash directly as a string
+// }

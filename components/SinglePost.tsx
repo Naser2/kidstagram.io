@@ -49,10 +49,11 @@ function SinglePost({ post , userSession}: { post: any, userSession: any }) {
     const postUserId= post?.user?.id
     const isCurrentUserPost = userSession?.user?.id === post.user.id;
     const isCurrentUser = userSession?.user.id === post.user.id;
+  
     const isFollowing = post.user?.followedBy?.some(
-      (user) => user.followerId === userSession?.user.id
+      (follow:any) => follow.followerId === userSession?.user.id
     );
-
+    
     if (!post) {
       notFound();
     }
@@ -82,10 +83,10 @@ console.log("post", post);
                comment={post.comments[0]}
                postId={post.id}
                createdAt={post.createdAt}
-               commentsModalOpen={commentsModalOpen}
-               setCommentsModalOpen={setCommentsModalOpen}
-               sayHelloMessage={sayHelloMessage}
-              setSayHelloMessage={setSayHelloMessage}
+              //  commentsModalOpen={commentsModalOpen}
+              //  setCommentsModalOpen={setCommentsModalOpen}
+              //  sayHelloMessage={sayHelloMessage}
+              // setSayHelloMessage={setSayHelloMessage}
                 />
          
     {/* "Hidding the header like comment and share im Post header  toi place under comments when on post id or / comments routes " */}

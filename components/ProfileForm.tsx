@@ -30,6 +30,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 import ProfileAvatarLarge from "@/components/user/profile/ui/ProfileAvatarLarge";
 import UserAvatar from "./UserAvatar";
+import { useProfile } from "@/context/ProfileContext";
+import { isProfileOwner } from "@/context/isAuthorized";
 
 function ProfileForm({ profile }: { profile: UserWithExtras }) {
   console.log("PROFILE_FORM-->", profile);
@@ -53,7 +55,7 @@ function ProfileForm({ profile }: { profile: UserWithExtras }) {
   // console.log("ProfileF-->", profile);
   const { isDirty, isSubmitting, isValid } = form.formState;
   // console.log("ProfileFormisDirty", isDirty, "isSubmitting",isSubmitting, "isValid", isValid, "formState", form.formState);
-
+const {isAuthorized} = isProfileOwner();
   return (
     <div className="space-y-8 py-10 lg:p-10 max-w-xl " >
       <div className="flex items-center gap-x-2 md:gap-x-5">
@@ -64,7 +66,7 @@ function ProfileForm({ profile }: { profile: UserWithExtras }) {
         </ProfileAvatar> */}
         <div className=" flex justify-center ml-4 md:ml-20">
           {/* <p className="font-medium">{profile.username}</p> */}
-          <ProfileAvatarLarge user={profile}>
+          <ProfileAvatarLarge user={profile} isProfileOwner={isAuthorized}>
             <p className="text-blue-500 text-sm font-bold cursor-pointer hover:text-white">
               Change profile photo
             </p>

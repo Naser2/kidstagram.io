@@ -14,7 +14,7 @@ interface AddCommentModalProps {
   comments: CommentWithExtras[];
   handleNewComment: Function
   open: boolean;
-  toggleCommentsModal:Function
+  toggleCommentsModal: (open: boolean) => void
 }
 
 function AddCommentModal({

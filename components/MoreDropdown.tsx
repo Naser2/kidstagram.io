@@ -24,8 +24,9 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 import Link from "next/link";
+import { User } from "next-auth";
 
-function MoreDropdown({user}) {
+function MoreDropdown({user}: {user: User}) {
   const [showModeToggle, setShowModeToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

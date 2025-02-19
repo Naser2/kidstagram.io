@@ -74,7 +74,7 @@ export default function UserProfileHeaderButtons({  profileId,followedBy,  useri
             >
               <MoreHorizontal />
             </Button>
-            <FollowButton
+            <FollowButton buttonClassName=""
               isFollowing={isFollowing}
               profileId={profileId}
             />

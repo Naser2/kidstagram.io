@@ -65,8 +65,9 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
   const isCurrentUserPost = userSession?.user?.id === post.user.id;
   const isCurrentUser = userSession?.user.id === post.user.id;
   const isFollowing = post.user?.followedBy?.some(
-    (user:UserWithExtras) => user.followerId === userSession?.user.id
+    (follow) => follow.followerId === userSession?.user.id
   );
+  
 
   useEffect(() => {
     console.log(`NewCommentSection_ModalOpe_UseEFFECT: ${commentsModalOpen}`);
@@ -337,8 +338,6 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
         <div className={clsx( isPostPage ?"max-[767px]:hidden":"hidden")}>
           <div className="flex-col">
                     <PostHeaderButtons
-                      sayHelloMessage={sayHelloMessage}
-                      setSayHelloMessage={setSayHelloMessage}
                       setCommentsModalOpen={setCommentsModalOpen} 
                       post={post}
                       userSession={userSession}

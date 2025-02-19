@@ -43,7 +43,8 @@ const isProfileOwner = session?.user?.id === profile.id;
           <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start">
             <div className="text-center lg:text-left">
              <div className="inline-flex justify-center items-center gap-x-1">
-               <h1 className="text-xl lg:text-3xl xl:!font-bold large_text">{profile.username}</h1> {profile?.verified ? "verified" : <VerifiedIcon/>}</div>
+             {/* profile?.verified ? "verified" : */}
+               <h1 className="text-xl lg:text-3xl xl:!font-bold large_text">{profile.username}</h1> { <VerifiedIcon/>}</div>
               <ProfileStatsLinks profile={profile} />
               {/* <p className="text-gray-400">{profile.posts.length} posts • {profile.followedBy.length} followers • {profile.following.length} following</p> */}
             </div>

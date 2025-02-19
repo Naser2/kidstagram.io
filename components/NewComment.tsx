@@ -16,11 +16,14 @@ function NewComment({ comment, inputRef }: Props) {
   const { data: session } = useSession();
   const username = comment.user.username;
   const href = `/dashboard/${username}`;
+  // const isCurrentUser = session?.user.id === post.user.id; // should be isPostOWner 
 
   return (
     <div className="group p-3 px-3.5  flex items-start space-x-2.5">
       <Link href={href}>
-        <UserAvatar user={comment.user} />
+        <UserAvatar user={comment.user}
+        //  isProfileOwner={isCurrentUser}
+          />
       </Link>
       <div className="space-y-1.5">
         <div className="flex items-center space-x-1.5 leading-none text-sm">

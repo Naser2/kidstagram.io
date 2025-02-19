@@ -38,7 +38,9 @@ export const {
         }
         // const id = credentials.id as string;
         const email = credentials.email as string;
-        const hash = saltAndHashPassword(credentials.password);
+        const password = credentials.password as string; // Get the password
+        // const hash = saltAndHashPassword(credentials.password);
+        const hashedPassword = await saltAndHashPassword(password); // Hash password
 
         let user: any = await db.user.findUnique({
           where: { email },
@@ -52,9 +54,7 @@ export const {
               email,
               username: user.username,
               image: `https://api.dicebear.com/v2/identicon/svg?seed=${email}`,
-              hashedPassword: hash,
-
-              // username: email.split("@")[0],
+              password: hashedPassword,
             },
           });
         } else {

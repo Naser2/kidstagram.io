@@ -12,13 +12,14 @@ function MiniPost({ post }: { post: PostWithExtras }) {
   const href = `/profile/${username}`;
   const { data: session, status } = useSession();
   const user = session?.user;
-
+//  isProfileOwner={isCurrentUser}
   if (!user) return null;
+  const isCurrentUser = session?.user.id === post.user.id; // should be isPostOWner 
 
   return (
     <div className="group p-3 px-3.5  flex items-start space-x-2.5">
       <Link href={href}>
-        <UserAvatar user={post.user} />
+        <UserAvatar user={post.user} isProfileOwner={isCurrentUser} />
       </Link>
       <div className="space-y-1.5">
         <div className="flex items-center space-x-1.5 leading-none text-sm">
@@ -30,6 +31,7 @@ function MiniPost({ post }: { post: PostWithExtras }) {
         <div className="flex h-5 items-center space-x-2.5">
           <Timestamp createdAt={post.createdAt} />
           <PostOptions
+            isCurrentUserPost={isCurrentUser}
             post={post}
             userId={user.id}
             className="hidden group-hover:inline"

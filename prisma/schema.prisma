@@ -8,14 +8,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-model VerificationToken {
-  id         Int      @id @default(autoincrement())
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
 
 model Account {
   id                 String  @id @default(cuid())
@@ -57,6 +49,8 @@ model User {
   gender            String?
   email             String?     @unique
   emailVerified     DateTime?
+  verified          Boolean @default(false) 
+  location          String? 
   image             String?
   createdAt         DateTime    @default(now()) @map("created_at")
   updatedAt         DateTime    @updatedAt @map("updated_at")
@@ -94,6 +88,7 @@ model Post {
   caption   String?
   fileUrl   String      @unique
   userId    String      @map("user_id")
+  location  String? 
   likes     Like[]
   shares    Shares[] // ✅ Add relation field for Shares
   savedBy   SavedPost[]
@@ -155,26 +150,11 @@ model Shares {
 
 
 model VerificationToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@unique([identifier, token])
+    id         Int      @id @default(autoincrement())
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
 }
  
-// Optional for WebAuthn support
-model Authenticator {
-  credentialID         String  @id @map("_id")
-  userId               String  @db.ObjectId
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@unique([userId, credentialID])
-}

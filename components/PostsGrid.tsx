@@ -1,10 +1,9 @@
 import { PostWithExtras } from "@/lib/definitions";
-import { Post } from "@prisma/client";
 import { HeartIcon, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-function PostsGrid({ posts }: { posts: Post[] }) {
+function PostsGrid({ posts }: { posts: PostWithExtras[] }) {
   if (posts?.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center space-y-3 max-w-3xl lg:max-w-4xl mx-auto pb-20">

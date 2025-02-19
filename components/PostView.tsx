@@ -110,14 +110,14 @@ const {isAuthorized }= isProfileOwner(user?.id);
           userId={user?.id}
           className="md:hidden border-b p-2.5"
         />   */}
-      {/* {post.comments && (
+      {post.comments && (
         <ScrollArea className="flex-1 px-4 border-b">
           <MiniPost post={post} />
-          {post.comments.map((comment) => (
+          {post.comments.map((comment: CommentWithExtras) => (
             <Comment key={comment.id} comment={comment} inputRef={inputRef} />
           ))}
         </ScrollArea>
-      )} */}
+      )}
          
         {/* <CommentForm postId={id} className="md:hidden" inputRef={inputRef} /> */}
         <ViewPost className="md:hidden" />

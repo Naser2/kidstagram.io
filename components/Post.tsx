@@ -38,6 +38,7 @@ function Post({
   const isFollowing = post?.user?.followedBy?.some(
     (user) => user.followerId === userSession?.user.id
   );
+  
 
 console.log("Post_postUsernameD", postUsername);
   // const {

@@ -11,7 +11,8 @@ async function Posts({ userSession }: { userSession: any }) {
     return <div className="justify-center min-h-screen py-[40vh] text-center text-xl">No posts found.</div>;
   }
 
-  const { posts, error } = await fetchPosts();
+  const posts: PostWithExtras[] = await fetchPosts();
+  const error = null; // Handle error appropriately if fetchPosts can throw
 
   console.log("Posts: FETCHED_POSTS", posts);
 

@@ -20,7 +20,7 @@ import { z } from "zod";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
 import { usePathname } from "next/navigation"; 
-import NewCommentModal from "./ui/Modal/NewCommentModal";
+// import NewCommentModal from "@/components/ui/Modal/NewCommentModal";
 function CommentSection({
   postId,
   comments,
@@ -36,6 +36,9 @@ function CommentSection({
   const isPostPage = pathname.startsWith(`/content/${postId}`);
   const [visibleComments, setVisibleComments] = useState<CommentWithExtras[]>([]);
   const [hasMore, setHasMore] = useState(comments.length > 10);
+  
+  let [isPending, startTransition] = useTransition();
+  
 
   const handleNewComment = (newComment: CommentWithExtras) => {
     setVisibleComments((prev) => [newComment, ...prev]);
@@ -48,15 +51,23 @@ function CommentSection({
       postId,
     },
   });
-  let [isPending, startTransition] = useTransition();
-  const [optimisticComments, addOptimisticComment] = useOptimistic<CommentWithExtras[]>(
-    comments,
-    (state, newComment) => [
-      { body: newComment, userId: userSession?.user?.id, postId, userSession },
-      ...state,
-    ]
-  );
 
+  // const [optimisticComments, addOptimisticComment] = useOptimistic( // Correct usage
+  //   comments, // Initial state
+  //   (state, newComment) => [ // Update function
+  //     { 
+  //       ...(typeof newComment === 'object' ? newComment : {}), // Spread newComment to include all its properties, especially user
+  //       body: (newComment as CommentWithExtras).body, 
+  //       userId: userSession?.user?.id, 
+  //       postId, 
+  //       user: { // Ensure user is correctly structured
+  //         id: userSession?.user.id,
+  //         // ... other user properties if needed
+  //       }
+  //     },
+  //     ...state,
+  //   ]
+  // );
 
   // Show only the first 10 comments initially
   useEffect(() => {
@@ -73,7 +84,7 @@ function CommentSection({
   const body = form.watch("body");
 
 
-  const commentsCount = optimisticComments.length;
+  // const commentsCount = optimisticComments.length;
   return (
     <div className="space-y-0.5 px-3 sm:px-0 overflow-y-auto">
     {/* <div className="flex-col"> */}
@@ -83,7 +94,7 @@ function CommentSection({
           href={`/content/${postId}`}
           className="text-neutral-500 text-sm text_stats_time text_secondary ml-[1rem]"
         >
-          View  {commentsCount} comments
+          {/* View  {commentsCount} comments */}
         </Link>
       )}
      <div className="flex-grow overflow-y-auto min-h-[230px] max-h-[440px] border-b">
@@ -98,11 +109,11 @@ function CommentSection({
         );
       })}
       </div>
-      <NewCommentModal 
+      {/* <NewCommentModal 
         postId={postId} 
         userSession={userSession} 
         handleNewComment={handleNewComment} 
-      />
+      /> */}
     </div>
   );
 }

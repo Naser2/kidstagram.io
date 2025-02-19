@@ -13,18 +13,16 @@ import type {
 export type CommentWithExtras = Comment & { user: User };
 export type LikeWithExtras = Like & { user: User };
 export type ShareWithExtras = Shares & { user: User; post: Post }; // ✅ Add ShareWithExtras
+
 export type PostWithExtras = Post & {
   comments: CommentWithExtras[];
   likes: LikeWithExtras[];
   savedBy: SavedPost[];
   shares: ShareWithExtras[]; // ✅ Add shares array
-  user: User;
+  user: UserWithFollows; // ✅ Ensure `user` includes followers
 };
 
-export type UserWithFollows = User & {
-  following: Follows[];
-  followedBy: Follows[];
-};
+
 
 export type FollowerWithExtras = Follows & { follower: UserWithFollows };
 export type FollowingWithExtras = Follows & { following: UserWithFollows };
@@ -36,6 +34,12 @@ export type UserWithExtras = User & {
   following: FollowingWithExtras[];
 };
 
+export type UserWithFollows = User & {
+  location: string | null;  // ✅ Ensure this exists
+  verified: boolean;        // ✅ Ensure this exists
+  following: Follows[];
+  followedBy: Follows[];
+};
 
 
 export interface Profile extends UserWithExtras {
@@ -47,6 +51,8 @@ export interface Profile extends UserWithExtras {
   website: string | null;
   image: string | null;
   passion: string | null;
+  verified: boolean;
+  location: string | null;
   gender: string | null;
   additionalDetails: string | null;
   posts: {
@@ -56,6 +62,7 @@ export interface Profile extends UserWithExtras {
     caption: string;
     fileUrl: string;
     userId: string;
+    location: string | null;
   }[];
   saved: {
     id: string;
@@ -83,6 +90,8 @@ export interface Profile extends UserWithExtras {
       email: string;
       emailVerified: Date | null;
       bio: string | null;
+      verified: boolean;
+      location: string | null;
       following: {
         id: string;
         followerId: string;

@@ -77,7 +77,7 @@ async function ProfileHeaderMobile({ profile}: { profile: UserWithExtras }){
               passion={profile.passion} 
               additionalDetails={profile.additionalDetails} />
         <div className="text-sm primary-text-color pb-3">
-          <div className="font-semibold text-[rgb(var(--ig-primary-button))]">{profile.location ?? "New York, New York"}</div>
+          <div className="font-semibold text-[rgb(var(--ig-primary-button))]">{profile?.location ?? "New York, New York"}</div>
           <p className="truncate py-1 pb-2">{profile.bio}</p>
           <div className="flex items-center space-x-2 px-[7px] label label_tag rounded-full">
         <div className="py-1 flex ">

@@ -38,21 +38,21 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
   const isPostPage = pathname.startsWith(`/content/${post.id}`);
   console.log("PostHeader_post", post);
 
-    const {
-      likes,
-      shares,
-      comments,
-      handleLikeToggle,
-      handleNewComment,
-      handleShare,
-      handleBookmark,
-      commentsModalOpen,
-      setCommentsModalOpen,
-      sayHelloMessage,
-      setSayHelloMessage
+    // const {
+    //   likes,
+    //   shares,
+    //   comments,
+    //   handleLikeToggle,
+    //   handleNewComment,
+    //   handleShare,
+    //   handleBookmark,
+    //   commentsModalOpen,
+    //   setCommentsModalOpen,
+    //   // sayHelloMessage,
+    //   // setSayHelloMessage
   
-      // initialLikes, initialShares, commentsCount
-    } = useContentManager({ post, userId: userSession.user.id, userSession });
+    //   // initialLikes, initialShares, commentsCount
+    // } = useContentManager({ post, userId: userSession.user.id, userSession });
 
   useEffect(() => {
     const checkScreenSize = () => {
