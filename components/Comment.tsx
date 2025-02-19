@@ -32,7 +32,7 @@ function Comment({ comment, inputRef, userSession }: Props) {
              className="comment_user_avatar" /> {/* Pass the prop */}
           </Link>
           <div className="flex-1 ml-2 mt-3 min-w-[18rem]">
-            <Link href={`/profile/${username}`} className="font-semibold mr-1 whitespace-nowrap text-[rgb(var(--ig-link))] comment_user_name">
+            <Link href={`/profile/${comment.user.id}`} className="font-semibold mr-1 whitespace-nowrap text-[rgb(var(--ig-link))] comment_user_name">
               {username}
             </Link>
             <span className="text_secondary break-words">{comment.body}</span>

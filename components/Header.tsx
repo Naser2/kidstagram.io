@@ -14,7 +14,7 @@ function Header({ session }: HeaderProps) {
   return (
     <header className="fixed md:hidden bg-white top-0 flex items-center justify-between dark:bg-neutral-950 w-full z-50 border-b border-zinc-300 dark:border-neutral-700 px-3 py-2 sm:-ml-6">
       <Link href={"/"}>
-        <p className={`font-semibold text-xl ${calSans.className}`}>
+        <p className={`font-semibold text-xl text-[var(--ig-primary-text)] ${calSans.className}`}>
           Kidstagram
         </p>
       </Link>

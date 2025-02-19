@@ -62,6 +62,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const postUsername = post?.user?.username;
+  const postUserId = post?.user?.id;
   const isCurrentUserPost = userSession?.user?.id === post.user.id;
   const isCurrentUser = userSession?.user.id === post.user.id;
   const isFollowing = post.user?.followedBy?.some(
@@ -195,7 +196,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
           <span className="inline-flex items-center">
             {/* Username Link */}
             <Link
-              href={`/profile/${postUsername}`}
+              href={`/profile/${postUserId}`}
               className="font-semibold text-[rgb(var(--ig-link))] comment_user_name inline-flex items-center space-x-1"
             >
               {/* Username */}
@@ -227,7 +228,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
               >
                 see more
               </button>
-            )}  <Timestamp createdAt={post.createdAt} /> <span className="font-medium text-neutral-500 dark:text-neutral-400 text-xs">ago</span>
+            )}  <span className="ml-2"/><Timestamp createdAt={post.createdAt} /> <span className="font-medium text-neutral-500 dark:text-neutral-400 text-xs">ago</span>
           </span>
             </span>
           </div>

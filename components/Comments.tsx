@@ -66,7 +66,7 @@ function Comments({
         
           {/* Text Container (username + comment) */}
           <div className="flex-1">
-            <Link href={`/profile/${username}`} className="font-semibold mr-1 whitespace-nowrap text-[rgb(var(--ig-link))] comment_user_name">
+            <Link href={`/profile/${comment.user.id}`} className="font-semibold mr-1 whitespace-nowrap text-[rgb(var(--ig-link))] comment_user_name">
               {username}
             </Link>
             <span className="text_secondary break-words">

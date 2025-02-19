@@ -96,7 +96,7 @@ function ProfileTabs({
 
   return (
     <Tabs defaultValue="posts" className="max-[765px]:mt-4 md:mt-14 pb-[0.1rem] md:pb-1 border-t ">
-      <TabsList className="relative flex justify-center w-full  gap-x-4 md:gap-x-10 !bg-transparent !rounded-[0]">
+      <TabsList className="relative flex justify-center w-full  gap-x-0 md:gap-x-10 !bg-transparent !rounded-[0]">
         {profileTabs
           .filter((tab) => isCurrentUser || tab.href !== "saved")
           .map((tab) => {

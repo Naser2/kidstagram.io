@@ -10,7 +10,7 @@ import {
   Search,
 } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { User } from "next-auth";
@@ -53,7 +53,7 @@ const links = [
 
 ];
 
-function NavLinks({ session }: { session?: any }){
+function NavLinks({ session, handleSignOut }: { session?: any, handleSignOut?: () => void }) {
   const pathname = usePathname();
 
   return (
@@ -85,6 +85,7 @@ function NavLinks({ session }: { session?: any }){
           </Link>
         );
       })}
+     
     </>
   );
 }

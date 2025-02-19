@@ -16,7 +16,7 @@ function Logo() {
     >
       <img src="/kidstagram_ico.png"  className="h-6 w-6 shrink-0 lg:hidden" />
       <p
-        className={`font-semibold text-xl hidden lg:block  text-pink-500 ${calSans.className}`}
+        className={`font-semibold text-xl hidden lg:block   text-[var(--ig-primary-text)] ${calSans.className}`}
       >
         Kidstagram
       </p>
