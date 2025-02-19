@@ -3177,11 +3177,7 @@ h3{font-size:20px;line-height:28px;}
   background: transparent !important;
 }
 
-@media screen and (min-width: 768px) {
-  .modal-backdrop {
-    background: url('/auth_bg_mobile.png') no-repeat center center/cover; /* Image 2 */
-  }
-} 
+
 .modal-backdrop {
   position: fixed;
   bottom: 0;
@@ -3197,7 +3193,13 @@ h3{font-size:20px;line-height:28px;}
   transition: opacity .4s ease-in-out;
   backdrop-filter: blur(8px);
   background-size: cover ;
+
 }
+@media screen and (max-width: 768px) {
+  .modal-backdrop {
+    background: url('/auth_bg_main_mobile.png') no-repeat center center/cover; /* Image 2 */
+  }
+} 
 .blurred-backdrop {
   background: rgba(0, 0, 0, 0.68);
   position: fixed;
