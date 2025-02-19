@@ -26,11 +26,6 @@ export const {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "your-email@example.com" },
-        // email: {
-        //   label: "Email",
-        //   type: "email",
-        //   placeholder: "email@example.com",
-        // },
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
@@ -38,10 +33,8 @@ export const {
           return null;
         }
         console.log("USER_authorize", credentials);
-        // const id = credentials.id as string;
         const email = credentials.email as string;
-        const password = credentials.password as string; // Get the password
-        // const hash = saltAndHashPassword(credentials.password);
+        const password = credentials.password as string; 
         const hashedPassword = await saltAndHashPassword(password); // Hash password
    
         let user: any = await db.user.findUnique({
@@ -113,6 +106,3 @@ callbacks: {
 }
   
 });
-
-
-// Working AUTH with callback

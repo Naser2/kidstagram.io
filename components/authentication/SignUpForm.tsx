@@ -117,7 +117,7 @@ export default function SignupForm({onSignupSuccess}:{onSignupSuccess:()=>void})
                 <span className="btn-label-wrap"><span className="btn-label-inner">Cancel</span></span>
                 </button>
                 <button type="submit"
-                className={`${fieldsSatisfied ? "btn btn-sm btn-filled btn-primary modal-button btn-filled rounded-full" : "btn-neutral btn-disabled !px-6 !ml-2"} ${!fieldsSatisfied && "group-hover:bg-[var(--button-primary-data-not-filled)]  "} !px-6 rounded-full`}>
+                className={`${fieldsSatisfied ? "auth_btn-filled btn btn-sm btn-filled btn-primary modal-button btn-filled rounded-full" : "btn-neutral btn-disabled !px-6 !ml-2"} ${!fieldsSatisfied && "group-hover:bg-[var(--button-primary-data-not-filled)]  "} !px-6 rounded-full`}>
 
                 <span className="btn-label-wrap"><span className="btn-label-inner">Continue</span></span>
                 </button>

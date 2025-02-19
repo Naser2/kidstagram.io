@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --apple_tiktok: rgb(255, 59, 92);
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
 
@@ -2854,7 +2855,7 @@ body button, body input, body textarea {
   font-family: inherit;
   letter-spacing: normal;
   line-height: 1.38462;
-  color: rgb(104, 66, 255);
+  color: var(--apple_tiktok);
 }
 /* ------AUTHENTICATION MODAL CSS  */
 /*! CSS Used from: https://platform.openai.com/static/CHc689M0fa.css */
@@ -3063,9 +3064,41 @@ h3{font-size:20px;line-height:28px;}
 .btn-md{font-size:16px;padding:6px 12px;line-height:24px;}
 .btn-filled,.btn-filled:hover,.btn-filled:visited{color:var(--gray-100);}
 .btn-minimal{background-color:transparent;}
+
+
 .btn-primary.btn-filled{background-color:var(--button-primary);color:var(--white);}
 .btn-primary.btn-filled:hover{background-color:var(--button-primary-hover);color:var(--white);}
 .btn-primary.btn-filled:active{background-color:var(--button-primary-hover);}
+.btn-primary.auth_btn-filled{background-color:var(--apple_tiktok);color:var(--white);}
+
+.btn_apple_tiktok{
+    font-family: TikTokFont;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 8px;
+    padding: 0px 12px;
+    display: flex
+;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 44px;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 12px;
+    word-break: keep-all;
+    white-space: nowrap;
+    background: rgb(255, 59, 92);
+    animation: auto ease 0s 1 normal none running none;
+    border: none;
+    color: rgb(255, 255, 255);
+
+}
+.bg-apple-tiktok{
+    background: var(--apple_tiktok);
+ 
+}
 .btn-neutral{
  padding: 5px 5px;
   color:var(--text-default);
@@ -3131,15 +3164,68 @@ h3{font-size:20px;line-height:28px;}
 .modal-root.modal-is-open{pointer-events:auto;}
 .modal-root.modal-is-open .modal-backdrop{opacity:1;}
 .modal-root.modal-is-open .modal-dialog{opacity:1;transform:translateY(0);pointer-events:all;}
-.modal-backdrop{
+/* .modal-backdrop{
   position:fixed;bottom:0;left:0;right:0;top:0;
-  /* background-color:#000000d6; */
   ;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;opacity:0;transition:opacity .4s;transition-timing-function:cubic-bezier(.2,.8,.4,1);}
   .light .modal-backdrop{
     background-color: #009688
     
-  }
+  } */
   
+
+.modal-dialog-container {
+  background: transparent !important;
+}
+
+@media screen and (min-width: 768px) {
+  .modal-backdrop {
+    background: url('/auth_bg_mobile.png') no-repeat center center/cover; /* Image 2 */
+  }
+} 
+.modal-backdrop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: url('/auth_main_desktop_bg.png') no-repeat center center/cover; /* Image 2 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 1;
+  transition: opacity .4s ease-in-out;
+  backdrop-filter: blur(8px);
+  background-size: cover ;
+}
+.blurred-backdrop {
+  background: rgba(0, 0, 0, 0.68);
+  position: fixed;
+  inset: 0
+}
+
+.auth_mode_title {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: TikTokDisplayFont;
+    font-size: 33px;
+    margin: 64px auto 16px;
+    font-weight: bold;
+    text-align: center;
+}
+.auth_card_bg {
+  flex: 1 1 0%;
+  overflow-y: scroll;
+  background: rgb(18, 18, 18);
+}
+ /* @media (min-width: 908px) {
+  .modal-backdrop {
+    top: 0;
+    background: url('/auth_bg_desktop.png') no-repeat center center/cover; 
+    bottom: 0px;
+  }
+}  */
+
+
 .text-input {
     color: var(--ig-primary-text) !important;;
 }
