@@ -128,13 +128,14 @@ function PostHeader({ isFollowing, username, inputRef, userSession, caption , cr
                         </svg>
                      </span>
                   </div>   
-                  <div className={clsx(isCurrentUserPost && "hidden")}> 
+                  <div className={clsx(isCurrentUserPost ? "hidden" : "flex  pl-4")}> 
                     <span className="dot">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-more-horizontal h-5 w-5 cursor-pointer icon_svg" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r3b:" data-state="closed"><circle cx="12" cy="12" r="1"></circle></svg>
                     </span>
                     <PostFollowButton isFollowing={isFollowing} 
                               sessionUserId={userSession?.user?.id} 
                               isCurrentUserPost={isCurrentUserPost}
+                              postUserId={post?.user?.id}
                                />
                    </div>
                 </Link>
