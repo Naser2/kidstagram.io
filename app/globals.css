@@ -2632,6 +2632,32 @@ body button, body input, body textarea {
 
   --base-line-clamp-line-height: var(----base-line-clamp-line-height);
 }
+
+.medium_text {
+  overflow-x: visible;
+  font-size: var(--system-16-font-size);
+  text-align: start;
+  margin-right: 0 !important;
+  min-width: 0;
+  -moz-columns: rgb(var(--ig-primary-text));
+  columns: rgb(var(--ig-primary-text));
+  max-width: 100%;
+  overflow-y: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  ----base-line-clamp-line-height: 20px;
+  ----base-line-clamp-line-height: 25px;
+  --lineHeight: 20px;
+  font-weight: 400;
+  color: rgb(var(--ig-primary-text));
+  word-wrap: break-word;
+  font-family: var(--font-family-system);
+  white-space: pre-line;
+  line-height: var(--lineHeight);
+  word-break: break-word;
+  --base-line-clamp-line-height: var(----base-line-clamp-line-height);
+}
 .danger{
     color: rgb(var(--ig-error-or-destructive));
 }

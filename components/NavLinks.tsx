@@ -66,7 +66,14 @@ function NavLinks({ session, handleSignOut }: { session?: any, handleSignOut?: (
           <Link
             key={link.name}
             // href={link.href}
-            href={link.href == "/" ? link.href :`/profile/${session.user?.id}/${link.href}`}
+            href={
+              link.href === "/"
+                ? link.href
+                : link.href === "/explore"
+                ? "/content/explore"
+                : `/profile/${session.user?.id}/${link.href}`
+            }
+            
             className={buttonVariants({
               variant: isActive ? "secondary" : "hover_highlight",
               className: cn("navLink space-x-4 primary-text-color", { "hover:bg-secondary/80 hidden md:flex": link.hideOnMobile }),
