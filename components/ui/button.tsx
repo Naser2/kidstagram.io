@@ -20,7 +20,8 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         hover_highlight:"hover:!bg-secondary/80",
-        profile_header_btns:"profile_header_btns"
+        profile_header_btns:"profile_header_btns",
+        post_follow_btn:"bg-transparent !min-w-[6rem] bg-background follow-text group-hover:bg-foreground group-hover:text-background !rounded-full  hover:!bg-[rgb(var(--ig-primary-button))] hover:!text-white",
       },
       size: {
         default: "h-10 px-4 py-2",
