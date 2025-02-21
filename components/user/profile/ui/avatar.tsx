@@ -6,9 +6,9 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar"
 import { cn } from "@/lib/utils"
 
 
-type AvatarLargeProps = React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & {
+interface AvatarLargeProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
   avatarSize?: string;
-};
+}
 
 const AvatarLarge = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
@@ -23,6 +23,37 @@ const AvatarLarge = React.forwardRef<
   />
 ))
 AvatarLarge.displayName = AvatarPrimitive.Root.displayName
+
+const AvatarMedium = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative flex h-9 w-9  sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-full",
+      className
+    )}
+    {...props}
+  />
+))
+AvatarMedium.displayName = AvatarPrimitive.Root.displayName
+
+
+const AvatarSM = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative flex h-[2.6rem] w-[2.6rem] rounded-full",
+      className
+    )}
+    {...props}
+  />
+))
+AvatarSM.displayName = AvatarPrimitive.Root.displayName
 
 
 const AvatarFallback = React.forwardRef<
@@ -40,4 +71,5 @@ const AvatarFallback = React.forwardRef<
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
-export {  AvatarLarge, AvatarFallback }
+export {  AvatarLarge, AvatarSM,AvatarMedium,  AvatarFallback }
+

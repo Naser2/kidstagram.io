@@ -4,7 +4,8 @@ import type { AvatarProps } from "@radix-ui/react-avatar";
 import { PlusIcon } from "lucide-react";
 import type { User } from "next-auth";
 import Image from "next/image";
-import { AvatarMedium, AvatarSM } from "../mobile/MobilePostHeaderAvatar";
+import { AvatarMedium, AvatarSM  } from "./avatar";
+// import { AvatarMedium, AvatarSM } from "../mobile/MobilePostHeaderAvatar";
 
 type Props = Partial<AvatarProps> & {
   user: User | undefined;
