@@ -3,6 +3,7 @@
 import { Avatar } from "@/components/ui/avatar";
 // import { isProfileOwner } from "@/context/isAuthorized"; // No longer needed here
 import type { AvatarProps } from "@radix-ui/react-avatar";
+import clsx from "clsx";
 import { PlusIcon } from "lucide-react";
 import type { User } from "next-auth";
 import Image from "next/image";
@@ -11,9 +12,10 @@ import { usePathname } from "next/navigation"; // Import usePathname
 type Props = Partial<AvatarProps> & {
   user: User | undefined;
   isProfileOwner?: boolean;
+  avatarSize?: string; // avatarSize is now optional as well. It defaults to "w-9 h-9" if not provided.
 }; // isProfileOwner is now optional
 
-function UserAvatar({ user, ...avatarProps }: Props) {
+function UserAvatar({ user,avatarSize, ...avatarProps }: Props) {
   const pathname = usePathname(); // Get the current path
   const isProfilePage = pathname?.startsWith("/profile"); // Check if on /profile path
 
@@ -23,10 +25,10 @@ function UserAvatar({ user, ...avatarProps }: Props) {
 
   return (
     <div className="relative flex items-center justify-center">
-       <div className="absolute  h-[8.58rem] w-[8.58rem] rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-[2px] ">
+       {/* <div className="absolute  h-[8.58rem] w-[8.58rem] rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-[2px] ">
                 <div className="h-full w-full rounded-full bg-black "></div>
-               </div>
-      <Avatar className="relative h-9 w-9 p-[1.1rem]" {...avatarProps}>
+               </div> */}
+      <Avatar className={clsx(avatarSize ? avatarSize : "h-9 w-9" , "relative  p-[1.1rem]")} {...avatarProps}>
         <img
           src={avatarUrl}
           sizes="30px"

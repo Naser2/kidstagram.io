@@ -18,6 +18,7 @@ import PostOptions from "@/components/PostOptions";
 // import UserAvatar from "@/components/UserAvatar";
 import Timestamp from "@/components/Timestamp";
 import CommentUserAvatar from "@/components/CommentUserAvatar";
+import UserAvatarSmall from "@/components/user/profile/ui/UserAvatarSmall";
 interface NewCommentSectionProps {
   postId: string;
   post: PostWithExtras;
@@ -188,7 +189,11 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
        <div className={clsx(isPostPage ? "md:pl-3 md:pt-3" : "space-y-0 w-full ")}>
       <div className="group  lg:pr-8  p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
           { isPostPage && <Link href={href} className="max-[767px]:hidden">
-              <CommentUserAvatar user={post?.user} className="comment_user_avatar"/> 
+          <UserAvatarSmall
+              user={post.user}
+              className="rounded-full cursor-pointer"
+            />
+    
             </Link>
             }
           {/* Text Container (username + comment) */}

@@ -22,9 +22,11 @@ import SubmitButton from "./SubmitButton";
 import UserAvatar from "./UserAvatar";
 import { Form } from "./ui/form";
 import { Profile, UserWithExtras } from "@/lib/definitions";
+import clsx from "clsx";
+// import { Avatar } from "./ui/avatar";
 
 
-function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: React.ReactNode }) {
+function ProfileAvatar({ user, avatarSize, children }: { user: UserWithExtras, children?: React.ReactNode, avatarSize?:string }) {
 
   // console.log("PROFILE AVATAR MOUNTED", user);
 
@@ -64,7 +66,7 @@ function ProfileAvatar({ user, children }: { user: UserWithExtras, children?: Re
         <UserAvatar
           user={user}
           isProfileOwner={isCurrentUser}
-          className="w-32 h-32"
+          className={clsx(avatarSize ? avatarSize : "w-32 h-32")}
         />
       </button>
 

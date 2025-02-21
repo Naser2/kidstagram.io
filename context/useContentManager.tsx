@@ -23,6 +23,7 @@ export function useContentManager({ post, userId, userSession }: UseContentManag
   const [hasLiked, setHasLiked] = useState(post?.likes?.some((like) => like?.userId === userSession.user.id));
   const [error, setError] = useState<string | null>(null);
   const [latestComment, setLatestComment] = useState<CommentWithExtras | null>(null);
+  const [suggestAccount, setSuggestAccount] = useState<false>(false);
 
   useEffect(() => {
     setLikes(post?.likes.length);
@@ -192,6 +193,8 @@ export function useContentManager({ post, userId, userSession }: UseContentManag
     setCommentsModalOpen,
     sayHelloMessage,       // ✅ Make available
     setSayHelloMessage,    // ✅ Make available
+    suggestAccount, 
+    setSuggestAccount
     // initialLikes,
     // initialShares, 
     // commentsCount

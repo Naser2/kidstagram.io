@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import FollowButton from "./FollowButton";
 import UserAvatar from "./UserAvatar";
+import CommentUserAvatar from "./CommentUserAvatar";
 
 function Follower({ follower }: { follower: FollowerWithExtras }) {
   const { data: session } = useSession();
@@ -21,11 +22,15 @@ function Follower({ follower }: { follower: FollowerWithExtras }) {
         href={`/dashboard/${follower.follower.username}`}
         className="flex items-center gap-x-3"
       >
-        <UserAvatar 
+          <CommentUserAvatar   user={follower.follower} 
+            // isProfileOwner={isCurrentUser}
+           className="h-10 w-10" />
+
+        {/* <UserAvatar 
             user={follower.follower} 
             isProfileOwner={isCurrentUser} // Pass the isProfileOwner prop
             className="h-10 w-10" 
-        />
+        /> */}
 
       
         <p className="font-bold text-sm">{follower.follower.username}</p>

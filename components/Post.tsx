@@ -17,6 +17,9 @@ import { useContentManager } from "@/context/useContentManager";
 import CommentUserAvatar from "./CommentUserAvatar";
 import clsx from "clsx";
 import PostFollowButton from "./post/FollowButton";
+import ProfileAvatarLarge from "./user/profile/ui/ProfileAvatarLarge";
+import UserAvatarLarge from "./user/profile/ui/UserAvatarLarge";
+import UserAvatarSmall from "./user/profile/ui/UserAvatarSmall";
 
 function Post({ 
   post, 
@@ -67,7 +70,13 @@ console.log("Post_postUsernameD", postUsername);
         <div className="flex space-x-3 items-center  sm:p-2">
             <div className="font-semibold text-sm inline-flex  space-x-3 gap-x-1 text-center post_header_lg_avatar_container">
             <Link className="inline-flex space-x-3 sm:space-x-5"  href={`/profile/${postUserId}`}>
-            <CommentUserAvatar user={post.user} className="h-14 w-14" />  
+            {/* <CommentUserAvatar user={post.user} className="h-14 w-14" />   */}
+           
+            <UserAvatarSmall 
+              user={post.user}
+              className="rounded-full cursor-pointer"
+            />
+    
               <div className="text-sm">
                   <p className="text-left space-x-1 ">
                     <span className="font-semibold text-[rgb(var(--ig-primary-text))]">{postUsername}</span>

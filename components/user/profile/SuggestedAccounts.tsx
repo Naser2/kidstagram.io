@@ -1,18 +1,37 @@
 "use client";
 // import { auth } from "@/auth";
+import React, { useEffect, useState } from "react";
 import { useProfile } from "@/context/ProfileContext";
 import { useSession } from "next-auth/react";
+import { useAccountManager } from "@/context/useAccountManager";
+import { Session } from "next-auth";
 
-export const  SuggestedAccounts = ({userId}:{userId:string}) => {
+export const  SuggestedAccounts = ({userId,
+   toggleSuggestAccountsVisible,
+    suggestAccountsVisible, 
+  session
+}:
+  {userId:string,
+     toggleSuggestAccountsVisible:Function,
+     suggestAccountsVisible:boolean,
+      session:any}) => {
     // const session  = await auth();
-    const session = useSession();
+    // const session = useSession();
+   
 
+// useEffect(() => {
+//   setShowSuggestAccounts(suggestAccounts);
+
+//  }, [suggestAccounts]);
     // console.log("isProfileOwner", session)
+
     const isProfileOwner = session?.data?.user?.id === userId;
+
+    console.log("EEE_suggestAccounts", suggestAccountsVisible)
     return (
-      <div className={isProfileOwner ? " hidden" : "mt-6"}>
-      <div className="my-4">            
-      <h2 className="text-lg font-semibold mb-3 name my-4">Suggested for you</h2></div>
+      <div className={suggestAccountsVisible ? "mt-6 my-4 max-[764px]:ml-7" : " hidden" }>
+      <div className="mt-4 py-2">            
+      <h2 className="text-lg font-semibold mb-3 name ">Suggested for you</h2></div>
       <div className="overflow-x-auto w-full">
         <div className="flex space-x-4">
           {["BBC News", "Ebony Magazine", "Tyla", "Amplify Africa", "Kelly Rowland"].map((name, index) => (
