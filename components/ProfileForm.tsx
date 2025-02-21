@@ -67,7 +67,7 @@ const {isAuthorized} = isProfileOwner();
         </ProfileAvatar> */}
         <div className=" flex justify-center ml-4 md:ml-20">
           {/* <p className="font-medium">{profile.username}</p> */}
-          <ProfileAvatarLarge user={profile} isProfileOwner={isAuthorized}>
+          <ProfileAvatarLarge user={profile} isProfileOwner={isAuthorized} avatarSize="">
             <p className="text-blue-500 text-sm font-bold cursor-pointer hover:text-white">
               Change profile photo
             </p>
