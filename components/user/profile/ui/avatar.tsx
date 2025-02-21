@@ -16,7 +16,7 @@ const AvatarLarge = React.forwardRef<
 >(({ className, avatarSize, ...props }, ref) => (
   <AvatarPrimitive.Root id="AVATAR_LARGE"
     ref={ref}
-    className={cn(avatarSize? avatarSize : "h-64 w-64", "relative flex   shrink-0 overflow-hidden rounded-full",
+    className={cn(avatarSize ? avatarSize : "h-[7rem] w-[7rem] sm:h-54 sm:w-54 4", "relative flex   shrink-0 overflow-hidden rounded-full",
       className
     )}
     {...props}

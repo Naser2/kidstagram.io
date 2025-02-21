@@ -20,7 +20,7 @@ function CustomComment({ comment, inputRef, userSession }: Props) {
   const username = comment.user.username;
   const userId = comment.user.id;
   const href = `/profile/${username}`;
-  
+  console.log("CustomComment_userSession.user", userSession.user) //Still did not realized state change here
   return (
     <div id="CustomComment" className="group py-2 p-x0 sm:p-0 px-3.5  flex items-start space-x-2.5 sm:mt-3 sm:ml-1">
       

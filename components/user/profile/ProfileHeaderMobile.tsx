@@ -85,10 +85,13 @@ type Props = {
          <ProfileStatsLinks profile={profile} />
         </div> */}
         <ProfileDetails
+             website={profile.website}
               name={profile.name}
               username={profile.username}
               passion={profile.passion} 
-              additionalDetails={profile.additionalDetails} />
+              additionalDetails={profile.additionalDetails} 
+              profile={profile}
+              />
         <div className="text-sm primary-text-color pb-3">
           <div className="font-semibold text-[rgb(var(--ig-primary-button))]">{profile?.location ?? "New York, New York"}</div>
           <p className="truncate py-1 pb-2">{profile.bio}</p>

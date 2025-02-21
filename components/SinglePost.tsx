@@ -31,21 +31,21 @@ import { User } from "next-auth";
 function SinglePost({ post , userSession}: { post: any, userSession: any }) {
 
   
-    const {
-      likes,
-      shares,
-      comments,
-      handleLikeToggle,
-      handleNewComment,
-      handleShare,
-      handleBookmark,
-      commentsModalOpen,  // ✅ Should be available
-      setCommentsModalOpen,  // ✅ Should be available
-      sayHelloMessage, 
-      setSayHelloMessage 
+    // const {
+    //   likes,
+    //   shares,
+    //   comments,
+    //   handleLikeToggle,
+    //   handleNewComment,
+    //   handleShare,
+    //   handleBookmark,
+    //   commentsModalOpen,  // ✅ Should be available
+    //   setCommentsModalOpen,  // ✅ Should be available
+    //   sayHelloMessage, 
+    //   setSayHelloMessage 
   
-      // initialLikes, initialShares, commentsCount
-    } = useContentManager({ post, userId: userSession.user.id, userSession });
+    //   // initialLikes, initialShares, commentsCount
+    // } = useContentManager({ post, userId: userSession.user.id, userSession });
     const postUsername = post?.user?.username;
     const postUserId= post?.user?.id
     const isCurrentUserPost = userSession?.user?.id === post.user.id;

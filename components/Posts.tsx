@@ -14,7 +14,7 @@ async function Posts({ userSession }: { userSession: any }) {
   const posts: PostWithExtras[] = await fetchPosts();
   const error = null; // Handle error appropriately if fetchPosts can throw
 
-  console.log("Posts: FETCHED_POSTS", posts);
+  // console.log("Posts: FETCHED_POSTS", posts);
 
   if (error) {
     return <h1>{error }</h1>

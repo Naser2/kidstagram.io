@@ -1,19 +1,19 @@
 "use client";
 import { CommentWithExtras, PostWithExtras } from "@/lib/definitions";
-import CommentOptions from "@/components/CommentOptions";
-import UserAvatar from "@/components/UserAvatar";
-import { useSession } from "next-auth/react";
+// import CommentOptions from "@/components/CommentOptions";
+// import UserAvatar from "@/components/UserAvatar";
+// import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Timestamp from "@/components/Timestamp";
+// import Timestamp from "@/components/Timestamp";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import PostOptions from "@/components/PostOptions";
-import CommentForm from "@/components/CommentForm";
+// import CommentForm from "@/components/CommentForm";
 import { usePathname } from "next/navigation"; 
-import PostHeaderButtons from "../PostHeaderButtons";
-import { useContentManager } from "@/context/useContentManager";
-import { Session } from "next-auth";
+// import PostHeaderButtons from "../PostHeaderButtons";
+// import { useContentManager } from "@/context/useContentManager";
+// import { Session } from "next-auth";
 import CommentUserAvatar from "@/components/CommentUserAvatar";
 import PostFollowButton from "../FollowButton";
 type Props = {

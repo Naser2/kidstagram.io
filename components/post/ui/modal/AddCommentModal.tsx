@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import CustomComment from "../CustomComment";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import CommentUserAvatar from "@/components/CommentUserAvatar";
 
 interface AddCommentModalProps {
   postId: string;
@@ -53,7 +54,8 @@ function AddCommentModal({
   setFormSubmitting(false);
 };
 
-  
+  const user = sessionStorage.user
+  console.log(`USER_SESSION_userSession`, userSession)
 
   return (
     <div className="!sm:right-0  margin-x-[30vw] sm:top-0">
@@ -78,21 +80,23 @@ function AddCommentModal({
           ))}
         </div>
         <div className="sticky bottom-0 p-3 xl:border-t">
-          <form onSubmit={handleSubmit} className="flex items-center px-3">
+          <form onSubmit={handleSubmit} className="flex items-center pr-3">
             {formSubmitting && <Loader2 className="h-4 w-4 animate-spin absolute" />}
-            <img
+            <CommentUserAvatar user={userSession.user} className="comment_user_avatar"/>
+         
+            {/* <img 
               alt={userSession.user.username ?? "User Avatar"}
               className="comment_user_avatar mr-2"
               draggable="false"
-              src={userSession.user?.image}
-            />
+              src={comment.}
+            /> */}
             <input
               onChange={(e) => setComment(e.target.value)}
               value={comment}
               disabled={formSubmitting}
               type="text"
               placeholder="Add a comment..."
-              className="text-input text-input-sm text-input-full flex-1 !border-0"
+              className="text-input text-input-sm text-input-full flex-1 !border-0 ml-4"
             />
             {comment.trim().length > 0 ? (
               <button

@@ -107,9 +107,10 @@ async function ProfileLayout({children, params}:{children: React.ReactNode, para
     notFound();
   }
 const session = await auth()
-
+  console.log("CustomComment_session", session);
 const isProfileOwner = session?.user?.id === profile.id;
   return (<div className={clsx("!max-w-[99.9vw] mx-auto  w-full overflow-x-hidden porfile_content_wrap")}> 
+
           {/* <ProfileHeader username={profile.username} /> */}
           <div className="max-w-4xl mx-auto">
             <ProfileHeader  profile={profile} isProfileOwner={isProfileOwner} session={session && session}/>

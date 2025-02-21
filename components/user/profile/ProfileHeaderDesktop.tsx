@@ -18,6 +18,7 @@ export default function ProfileHeaderDesktop({profile, session, isProfileOwner, 
 if (!profile) {
   return  <Skeleton />
 }
+
 // const session = await auth()
 // const isProfileOwner = session?.user?.id === profile.id;
 
@@ -71,7 +72,10 @@ if (!profile) {
             <p className="text-white text-lg font-semibold setting_icon_tag_tab">{profile.name}</p>
             <p className="pb-4 passion mb-[1.5px] text-gray-400 text-sm font-medium text-[rgb(var(--ig-primary-button))]">{profile.passion}</p>
             <div className="font-semibold text-[rgb(var(--ig-primary-button))] !text-xl">{profile?.location ?? "Somwhere undefined"}</div>
-            <p className="text-sm primary-text-color !-mt-0">{profile.bio ?? "5 years of connecting a global audience to Africa."}  🌍</p>
+          { profile.bio &&  <p className="text-sm primary-text-color !-mt-0">
+                   {profile.bio.trim()?.length > 0 ? profile.bio : "5 years of connecting a global audience to Africa. 🌍"}
+              </p>}
+            {/* <p className="text-sm primary-text-color !-mt-0">{profile.bio?.length  !>=1  ? "5 years of connecting a global audience to Africa."  :  profile.bio}  🌍</p> */}
             <p className="text-[rgb(var(--ig-primary-button))] !text-lg">🔗 <a href="#" className="">{profile.website ?? "linkin.bio/okayafrica"}</a></p>
           </div>
   

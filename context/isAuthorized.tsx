@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
 
-export function isProfileOwner(userId?: string) {
+export function isProfileOwner(id?: any) {
   const { data: session } = useSession();
-  return { isAuthorized: session?.user?.id === userId, userId: session?.user?.id || "" };
+  return { isAuthorized: session?.user?.id === id ||  false };
 }
 
 export function isPostOwner(postOwnerId?: string) {

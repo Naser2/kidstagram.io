@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { CommentWithExtras, PostWithExtras } from "@/lib/definitions";
 import { toast } from "sonner";
 // import { getUserId } from "@/lib/utils";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 interface UseContentManagerProps {
   post: PostWithExtras;
   userId: string | undefined;
@@ -32,9 +32,9 @@ export function useContentManager({ post, userId, userSession }: UseContentManag
   }, [post]);
 
 
-  console.log("USE_COINTENT_MANAGER_OPEN_MODAL" + commentsModalOpen);
+  // console.log("USE_COINTENT_MANAGER_OPEN_MODAL" + commentsModalOpen);
 
-  console.log("ContentManager_Comments_handleNewComment_API_response", comments);
+  // console.log("ContentManager_Comments_handleNewComment_API_response", comments);
   const handleNewComment = async (newComment: CommentWithExtras) => {
     setLatestComment(newComment); // ✅ Store it temporarily
   

@@ -25,8 +25,14 @@ import { Profile, UserWithExtras } from "@/lib/definitions";
 import { useProfile } from "@/context/ProfileContext";
 import { redirect } from "next/navigation";
 
-function ProfileAvatarLarge({ user, isProfileOwner, avatarSize, viewPort, children }: { user: UserWithExtras, isProfileOwner:boolean,children?: React.ReactNode, viewPort?:string, avatarSize:string }) {
-
+function ProfileAvatarLarge({ user,
+   isProfileOwner,
+   avatarSize, viewPort, children }: { user: UserWithExtras, 
+    isProfileOwner:boolean,
+    children?: React.ReactNode, 
+  viewPort?:string, 
+  avatarSize:string }) {
+ const [recentlyUploaded, setCurrentImage] = useState(user.image);
   // // console.log("PROFILE AVATAR MOUNTED", user);
   // const { data: session } = useSession();
     // const { profile, isProfileOwner, isOwner , loading} = useProfile();
@@ -51,7 +57,7 @@ function ProfileAvatarLarge({ user, isProfileOwner, avatarSize, viewPort, childr
   //   setMounted(true);
   // }, []);
 
-
+// const currentImage = recentlyUploaded !==null || recentlyUploaded !==undefined &&  recentlyUploaded
 
   return (
     <>
@@ -63,9 +69,8 @@ function ProfileAvatarLarge({ user, isProfileOwner, avatarSize, viewPort, childr
           }
         }}
       >
-        <UserAvatarLarge isProfileOwner={isProfileOwner} viewPort={viewPort}
-          avatarSize={avatarSize}
-          user={user}
+        <UserAvatarLarge isProfileOwner={isProfileOwner} viewPort={viewPort} 
+        avatarSize={avatarSize} user={user}
         />
       </button>
 
@@ -94,9 +99,10 @@ function ProfileAvatarLarge({ user, isProfileOwner, avatarSize, viewPort, childr
                     if (!res.ok) {
                       toast.error(data.error || "Profile update failed.");
                     } else {
-                      toast.success(data.success);
-                      redirect(`/profile${user.username}`);
+                      toast.success(data.success);  
                       setOpen(false);
+                      redirect(`/profile${user.username}`);
+                
                     }
                   } catch (error) {
                     console.error("Profile update failed:", error);
@@ -105,14 +111,7 @@ function ProfileAvatarLarge({ user, isProfileOwner, avatarSize, viewPort, childr
                 })}
               >
 
-            {/* <form
-              onSubmit={form.handleSubmit(async (values) => {
-                console.log("UPDATING PROFILE WITH:", values);
-                const { message } = await updateProfile(values);
-                toast(message);
-                setOpen(false);
-              })}
-            > */}
+        
               <FormField
                 control={form.control}
                 name="image"
@@ -125,6 +124,7 @@ function ProfileAvatarLarge({ user, isProfileOwner, avatarSize, viewPort, childr
                         onClientUploadComplete={(res) => {
                           form.setValue("image", res[0].url);
                           inputRef.current?.click();
+                          setCurrentImage(res[0].url);
                         }}
                         onUploadError={(error: Error) => {
                           console.error("Upload error:", error);

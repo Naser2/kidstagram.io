@@ -56,22 +56,28 @@ function ProfileForm({ profile }: { profile: UserWithExtras }) {
   // console.log("ProfileF-->", profile);
   const { isDirty, isSubmitting, isValid } = form.formState;
   // console.log("ProfileFormisDirty", isDirty, "isSubmitting",isSubmitting, "isValid", isValid, "formState", form.formState);
-const {isAuthorized} = isProfileOwner();
+const {isAuthorized} = isProfileOwner(profile.id);
+console.log("ProfileForm_isAuthorized", isAuthorized);
   return (
-    <div className="space-y-8 py-10 lg:p-10 max-w-xl " >
+    <div className="space-y-4 sm:space-y-8 py-10 lg:p-10 max-w-xl " >
       <div className="flex items-center gap-x-2 md:gap-x-5">
         {/* <ProfileAvatar user={profile}>
           <div className="md:w-20 flex md:justify-end">
             <UserAvatar user={profile} className="w-11 h-11 cursor-pointer" />
           </div>
         </ProfileAvatar> */}
-        <div className=" flex justify-center ml-4 md:ml-20">
-          {/* <p className="font-medium">{profile.username}</p> */}
-          <ProfileAvatarLarge user={profile} isProfileOwner={isAuthorized} avatarSize="">
-            <p className="text-blue-500 text-sm font-bold cursor-pointer hover:text-white">
-              Change profile photo
-            </p>
-          </ProfileAvatarLarge>
+      <div className="sm:flex justify-center  md:ml-20">
+      <div className="sm:flex justify-center ml-4 md:ml-20">
+          <div className="flex flex-col items-center"> {/* Center content vertically and horizontally */}
+            <ProfileAvatarLarge user={profile} isProfileOwner={isAuthorized} avatarSize="sm-md">
+              <p className="text-blue-500 text-sm font-bold cursor-pointer hover:text-white">
+                Change profile photo
+              </p>
+            </ProfileAvatarLarge>
+            {/* Optional: Add username below avatar */}
+            {/* <p className="font-medium mt-2">{profile.username}</p>  */}
+          </div>
+        </div>
         </div>
       </div>
  <Form {...form}>
@@ -83,6 +89,7 @@ const {isAuthorized} = isProfileOwner();
     className="space-y-8"
   >
     {/* Name Field */}
+    <div className="grid grid-cols-2 gap-x-2 sm:gap-x-6">
     <FormField
       control={form.control}
       name="username"
@@ -116,6 +123,8 @@ const {isAuthorized} = isProfileOwner();
         </FormItem>
       )}
     />
+    </div>
+   
     {/*Passion Field */}
      <FormField
       control={form.control}
@@ -139,7 +148,7 @@ const {isAuthorized} = isProfileOwner();
       name="website"
       render={({ field }) => (
         <FormItem>
-          <div className="flex flex-col gap-y-1">
+          <div className="flex flex-col gap-y-1 -mt-4">
             <FormLabel className="font-bold text-sm mb-1">Website</FormLabel>
             <FormControl>
               <Input className="resize-none w-full" {...field} />
@@ -160,7 +169,7 @@ const {isAuthorized} = isProfileOwner();
       name="additionalDetails"
       render={({ field }) => (
         <FormItem>
-          <div className="flex flex-col gap-y-1">
+          <div className="flex flex-col gap-y-1 -mt-4">
             <FormLabel className="font-bold text-sm mb-1">Site Links</FormLabel>
             <FormControl>
               <Input className="resize-none w-full" {...field} />
@@ -181,7 +190,7 @@ const {isAuthorized} = isProfileOwner();
       name="bio"
       render={({ field }) => (
         <FormItem>
-          <div className="flex flex-col gap-y-1">
+          <div className="flex flex-col gap-y-1 -mt-4">
             <FormLabel className="font-bold text-sm mb-1">Bio</FormLabel>
             <FormControl>
               <Textarea

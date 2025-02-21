@@ -39,7 +39,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
   const isPostPage = pathname.includes(`/content/${postId}`);
   const INITIAL_COUNT = isPostPage ? 4 : 1; // Show 4 comments on post page, 10 elsewhere
   const LOAD_MORE_COUNT = 10;
-
+  console.log("CustomComment_NewCommentSection", userSession)
 
    const {
     likes,
@@ -72,7 +72,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
   
 
   useEffect(() => {
-    console.log(`NewCommentSection_ModalOpe_UseEFFECT: ${commentsModalOpen}`);
+    // console.log(`NewCommentSection_ModalOpe_UseEFFECT: ${commentsModalOpen}`);
   }, [commentsModalOpen]);
 
   useEffect(() => {
@@ -284,33 +284,27 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
 
             <PostOptions post={post} userId={userSession.user.id} isCurrentUserPost={isCurrentUserPost}/>
           </div>}
-      <div className="flex-grow overflow-y-auto max-h-[440px] border-b -mt-1 pb-5 px-1 md:pl-3 md:py-2">
-        <div className="min-[767px]:hidden">
-           <CommentForm postId={postId} userSession={userSession} handleNewComment={handleNewComment} />
-        </div>
+        <div className="flex-grow overflow-y-auto max-h-[440px] border-b -mt-1 pb-5 px-1 md:pl-3 md:py-2">
+            <div className="min-[767px]:hidden">
+              <CommentForm postId={postId} userSession={userSession} handleNewComment={handleNewComment} />
+            </div>
        
-        {!isPostPage && comments.length > 1 ? (
+       
           <>
            { visibleComments.map((comment, index) => (
             <div key={index} className="">
               <CustomComment key={comment.id} postId={postId} comment={comment} userSession={userSession} />
             </div>
           ))}
-          <Link
+          {!isPostPage && comments.length > 1 && ( <Link
             scroll={false}
             href={`/content/${postId}`}
-            className="text-neutral-500 text-sm text_stats_time text_secondary pt-2  sm:pt-5 pl-0"
-          >
+            className="text-neutral-500 text-sm text_stats_time text_secondary pt-2  sm:pt-5 pl-0">
             View {comments.length} comments
-          </Link>
+          </Link> )
+          }
           </>
-        ) : (
-          visibleComments.map((comment, index) => (
-            <div key={index} className="">
-              <CustomComment key={comment.id} postId={postId} comment={comment} userSession={userSession} />
-            </div>
-          ))
-        )}
+       
         {/* Load More / Show Less Buttons */}
         {isPostPage && (
           <div className="mt-2 text-center">

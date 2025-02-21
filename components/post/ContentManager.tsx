@@ -10,20 +10,20 @@ const ContentManager = ({ post, userSession }: { post: PostWithExtras; userSessi
 
   const {
     likes,
-    shares,
+    // shares,
     comments,
-    handleLikeToggle,
+    // handleLikeToggle,
     handleNewComment,
     latestComment,
-    handleShare,
-    handleBookmark,
+    // handleShare,
+    // handleBookmark,
      commentsModalOpen,
-     setCommentsModalOpen,
+    //  setCommentsModalOpen,
      sayHelloMessage,
      setSayHelloMessage
   } = useContentManager({ post, userId: userSession.user.id, userSession});
   if (!post) return null; 
-    console.log("COMMENTS_commentsModalOpen", commentsModalOpen);
+    console.log("COMMENTS_commentsModalOpen", userSession);
 
   return (
     <div>

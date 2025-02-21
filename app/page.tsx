@@ -24,7 +24,7 @@ export default async function LandingPage() {
   return (
     <div>
       {/* <NextHead />  Remove this - metadata is handled automatically */}
-      <main className="flex w-full flex-grow relative h-[calc(100vh-80px)] overflow-y-auto">
+      <main className="flex w-full flex-grow relative min-h-screen h-full sm:h-[calc(100vh-80px)] overflow-y-auto">
         {session.user && ( // Use a fragment for cleaner conditional rendering
           <div className="relative flex flex-col flex-1 gap-y-8 max-w-lg mx-auto pb-20">
             <Suspense fallback={<PostsSkeleton />}>

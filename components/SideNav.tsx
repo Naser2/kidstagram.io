@@ -1,12 +1,13 @@
 
 
-import { Session, User } from "next-auth";
+// import { Session, User } from "next-auth";
 import Logo from "./Logo";
 import MoreDropdown from "./MoreDropdown";
 import NavLinks from "./NavLinks";
 import ProfileLink from "./ProfileLink";
 import { signOut } from "next-auth/react";
 import { Button } from "./ui/button";
+import { usePathname } from 'next/navigation'; // Import the hook
 
 
 
@@ -20,6 +21,8 @@ export default function SideNav({ session }: SideNavProps) {
   const handleSignOut = () => {
     signOut({ callbackUrl: '/login' });
   };
+  const pathname = usePathname(); // Get the current path
+
 
 
   return (
@@ -31,9 +34,11 @@ export default function SideNav({ session }: SideNavProps) {
         <Button variant="primary" size="default" className="max-[1028px]:hidden block btn_apple_tiktok !mt-14" onClick={handleSignOut}>
           Log out
         </Button>
-        <div className="flex relative md:mt-auto flex-1 items-end w-full">
-          <MoreDropdown  user={session.user}/>
-        </div>
+        {pathname !== '/' && ( // Conditionally render MoreDropdown
+          <div className="flex relative md:mt-auto flex-1 items-end w-full">
+            <MoreDropdown user={session.user} />
+          </div>
+        )}
       </div>
     </div>
   );

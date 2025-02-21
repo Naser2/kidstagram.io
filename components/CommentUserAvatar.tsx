@@ -7,7 +7,7 @@ import Image from "next/image";
 import UserAvatarSmall from "./user/profile/ui/UserAvatarSmall";
 
 type Props = Partial<AvatarProps> & {
-  user: User | undefined;
+  user?: User | undefined;
 };
 
 function CommentUserAvatar({ user, ...avatarProps }: Props) {
