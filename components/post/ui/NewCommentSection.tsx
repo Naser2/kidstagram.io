@@ -186,7 +186,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
                   //  commentsCount={commentsCount}
                 />
        </div>
-       <div className={clsx(isPostPage ? "md:pl-3 md:pt-3" : "space-y-0 w-full ")}>
+       <div className={clsx(isPostPage ? "md:pl-3 md:pt-3" : " pl-4 space-y-0 w-full ")}>
       <div className="group  lg:pr-8  p-1 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full">
           { isPostPage && <Link href={href} className="max-[767px]:hidden">
           <UserAvatarSmall
@@ -284,7 +284,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
 
             <PostOptions post={post} userId={userSession.user.id} isCurrentUserPost={isCurrentUserPost}/>
           </div>}
-        <div className="flex-grow overflow-y-auto max-h-[440px] border-b -mt-1 pb-5 px-1 md:pl-3 md:py-2">
+        <div className="pl-2 flex-grow overflow-y-auto max-h-[440px] border-b -mt-1 pb-5 px-1 md:pl-3 md:py-2">
             <div className="min-[767px]:hidden">
               <CommentForm postId={postId} userSession={userSession} handleNewComment={handleNewComment} />
             </div>
@@ -299,7 +299,7 @@ function NewCommentSection({ postId, userSession, post, latestComment,   }: NewC
           {!isPostPage && comments.length > 1 && ( <Link
             scroll={false}
             href={`/content/${postId}`}
-            className="text-neutral-500 text-sm text_stats_time text_secondary pt-2  sm:pt-5 pl-0">
+            className="ml-4 text-neutral-500 text-sm text_stats_time text_secondary pt-2  sm:pt-5 pl-0">
             View {comments.length} comments
           </Link> )
           }

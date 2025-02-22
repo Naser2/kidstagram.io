@@ -8,6 +8,7 @@ import ProfileLink from "./ProfileLink";
 import { signOut } from "next-auth/react";
 import { Button } from "./ui/button";
 import { usePathname } from 'next/navigation'; // Import the hook
+import clsx from "clsx";
 
 
 
@@ -23,11 +24,15 @@ export default function SideNav({ session }: SideNavProps) {
   };
   const pathname = usePathname(); // Get the current path
 
-
+  const isHomeRoute = pathname !== '/'
 
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
-      <div className="border-t  bg-[rgb(var(--ig-primary-background))] -ml-3 md:ml-0  h-16 justify-evenly fixed z-50 flex-1 w-full md:relative md:h-full bottom-0 md:border-none flex flex-row md:justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-1 p-2">
+<div className={clsx(
+  "border-t bg-[rgb(var(--ig-primary-background))] -ml-3 md:ml-0 h-16 fixed z-50 flex-1 w-full md:relative md:h-full bottom-0 md:border-none flex flex-row space-x-2 md:flex-col md:space-x-0 md:space-y-1 p-2",
+  !isHomeRoute && "", // Apply justify-between only when NOT on home route
+  isHomeRoute && "justify-evenly" // Apply justify-evenly ONLY when on home route
+)}>
         <Logo />
         <NavLinks session={session} />
         {session && <ProfileLink user={session.user} />}

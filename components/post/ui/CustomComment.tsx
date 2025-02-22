@@ -22,10 +22,10 @@ function CustomComment({ comment, inputRef, userSession }: Props) {
   const href = `/profile/${username}`;
   console.log("CustomComment_userSession.user", userSession.user) //Still did not realized state change here
   return (
-    <div id="CustomComment" className="group py-2 p-x0 sm:p-0 px-3.5  flex items-start space-x-2.5 sm:mt-3 sm:ml-1">
+    <div id="CustomComment" className="group py-2  sm:p-0 px-3.5  flex items-start space-x-2.5 sm:mt-3 sm:ml-1">
       
      <div className="space-y-0 w-full sm:mb-1">
-      <div className="rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full min-h-[2.7rem]">
+      <div className="py-2 rounded-lg text-sm flex items-start font-medium bg-[var(--comment-background-main)] min-w-[22rem] max-w-[90vw] w-full min-h-[2.7rem]">
       <Link href={href}>
         <CommentUserAvatar user={comment.user} className="comment_user_avatar"/>
       </Link>
